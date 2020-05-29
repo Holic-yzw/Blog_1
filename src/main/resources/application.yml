@@ -2,5 +2,5 @@ spring:
   thymeleaf:
     mode: HTML
   profiles:
-    active: dev #当前为开发环境
+    active: dev
 
