@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>关于我</title>
+    <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" rel="stylesheet">
+    <!--引用自定义的css-->
+    <link rel="stylesheet" href="../static/css/me.css">
+</head>
+<body>
+<!--导航)-->
+<nav class="ui inverted attached segment m-padded-td-mini m-shadow" >
+    <div class="ui container">
+        <!--stackable 可堆叠的，屏幕宽度不够时会自动上下叠起来-->
+        <div class="ui inverted secondary menu stackable">
+            <h2 class="ui green header item">Blog</h2>
+            <a href="index.html" class="m-item item m-mobile-hide"><i class=" home icon"></i>首页</a>
+            <a href="types.html" class="m-item item m-mobile-hide"><i class="  idea icon"></i>分类</a>
+            <a href="tags.html" class=" m-item item m-mobile-hide"><i class=" tags icon"></i>标签</a>
+            <a href="archive.html" class="m-item item m-mobile-hide"><i class=" clone icon"></i>归档</a>
+            <a href="#" class="active m-item item m-mobile-hide"><i class=" info icon"></i>关于我</a>
+            <div class="right m-item  item m-mobile-hide">
+                <div class="ui icon inverted transparent input">
+                    <input type="text" placeholder="Search....">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#"  class="ui black icon button m-top-right m-mobile-show menu toggle">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+<!--中间内容-->
+<div class=" m-container m-padded-td-large">
+    <div class="ui container ">
+        <div class="ui stackable grid">
+            <div class="eleven wide column">
+                <div class="ui segment">
+                    <img src="https://picsum.photos/id/1001/800/600" class="ui image rounded">
+                </div>
+            </div>
+            <div class="five wide column">
+                <div class="ui top attached segment">
+                    <div class="ui header">关于我</div>
+                </div>
+                <div class="ui  attached segment">
+                    <p>美国联邦储备委员会主席鲍威尔17日表示，受新冠疫情影响，美国经济在第二季度可能收缩20%至30%，但长期来看有望避免类似于上世纪30年代大萧条时期的经济萎缩</p>
+                </div>
+                <div class="ui  attached segment">
+                    <div class="ui basic orange label left pointing m-margin-tb-mini">编程</div>
+                    <div class="ui basic orange label left pointing m-margin-tb-mini" >写作</div>
+                    <div class="ui basic orange label left pointing m-margin-tb-mini">美食</div>
+                    <div class="ui basic orange label left pointing m-margin-tb-mini">运动</div>
+                </div>
+                <div class="ui  attached segment">
+                    <div class="ui basic teal label left pointing m-margin-tb-mini">java</div>
+                    <div class="ui basic teal label left pointing m-margin-tb-mini">mysql</div>
+                    <div class="ui basic teal label left pointing m-margin-tb-mini">springBoot</div>
+                </div>
+                <div class="ui  bottom attached segment">
+                    <a href="#" class="ui button icon circular"><i class="github icon"></i></a>
+                    <a href="#" class="ui button icon circular weixin" ><i class="weixin icon"></i></a>
+                    <a href="#" class="ui button icon circular qq" data-content="123123" data-position="bottom center"><i class="qq icon"></i></a>
+                </div>
+                <div class="ui flowing popup transition hidden weixin">
+                    <div class="ui label orange basic">
+                        <div class="ui images">
+                            <div class="image">
+                                <img src="../static/images/20200515232857.jpg" class="ui image rounded bordered" style="width: 120px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<!--底部-->
+<footer class="ui inverted vertical segment m-padded-td-max">
+    <div class="ui center aligned container">
+        <!--semantic UI 将一个块划分为16份,divided属性是每列间的分割线 grid布局组件-->
+        <div class="ui  inverted divided stackable grid">
+            <!--一个column是一列，共分为4列-->
+            <div class="three wide column ">
+                <div class="ui inverted   link item">
+                    <div class="item ">
+                        <img src="../static/images/20200515232857.jpg" class=" ui rounded image centered aligned" style="width: 100px ">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column ">
+                <h4 class="ui inverted header ">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href ="#" class="item">小米10 Pro</a>
+                    <a href ="#" class="item">MIUI 12</a>
+                    <a href ="#" class="item">超级壁纸</a>
+                </div>
+            </div>
+            <div class="three wide column ">
+                <h4 class="ui inverted header m-opacity-mini">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href ="#" class="item">小米10 Pro</a>
+                    <a href ="#" class="item">MIUI 12</a>
+                    <a href ="#" class="item">超级壁纸</a>
+                </div>
+            </div>
+            <div class="seven wide column ">
+                <h4 class="ui inverted header">最新博客</h4>
+                <p>中新网客户端北京5月13日电(记者 李金磊)2020年养老金上涨进入落地期</p>
+            </div>
+        </div>
+        <div class="ui inverted section divider">
+            <p class="m-text-thin m-text-spaced m-opacity-tiny">Designed, developed, and maintained by:</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+    $('.qq').popup({});
+    $('.weixin').popup({
+        /*要弹出的内容*/
+        popup : $('.weixin.popup'),
+        /*弹出位置*/
+        position : ('bottom center')
+    });
+</script>
+</body>
+</html>

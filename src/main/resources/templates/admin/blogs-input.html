@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>博客发布</title>
+    <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" rel="stylesheet">
+    <!--markdown插件的css-->
+    <link href="../../static/lib/editormd/css/editormd.min.css" rel="stylesheet">
+    <!--引用自定义的css-->
+    <link rel="stylesheet" href="../../static/css/me.css">
+</head>
+<body>
+<!--导航)-->
+<nav class="ui inverted attached segment m-padded-td-mini m-shadow" >
+    <div class="ui container">
+        <!--stackable 可堆叠的，屏幕宽度不够时会自动上下叠起来-->
+        <div class="ui inverted secondary menu stackable">
+            <h2 class="ui green header item">管理后台</h2>
+            <a href="#" class="active m-item item m-mobile-hide"><i class=" home icon"></i>博客</a>
+            <a href="#" class=" m-item item m-mobile-hide"><i class="  idea icon"></i>分类</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class=" tags icon"></i>标签</a>
+            <div class="right menu m-item m-mobile-hide">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <img src="https://picsum.photos/id/1001/100/100" class="ui image avatar">
+                        Tom
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu"><a href="#" class="item">注销</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#"  class="ui black icon button m-top-right m-mobile-show menu toggle">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+<!--二级导航-->
+<div class="ui menu attached pointing">
+    <div  class="ui container ">
+        <div class="right menu">
+            <a href="#" class="item">发布</a>
+            <a href="#" class="active item teal">列表</a>
+        </div>
+    </div>
+</div>
+
+<!--中间内容-->
+<div class=" m-container m-padded-td-large">
+    <div class="ui container ">
+        <form action="#" method="post" class="ui form">
+            <div class=" required field">
+                <div class="ui left labeled input">
+                    <div class="ui selection dropdown label teal basic compact">
+                        <input type="hidden" value="原创" >
+                        <i class="dropdown icon"></i>
+                        <div class=" text">原创</div>
+                        <div class="ui menu">
+                            <div class="item" data-value="原创">原创</div>
+                            <div class="item" data-value="转载">转载</div>
+                            <div class="item" data-value="翻译">翻译</div>
+                        </div>
+                    </div>
+                    <input  type="text" name="title" placeholder="标题">
+                </div>
+            </div>
+            <div class="field">
+                <div id="md-content" style="z-index: 1 !important;">
+
+                    <textarea placeholder="博客内容" name="content" style="display: none">
+                        [TOC]
+
+#### Disabled options
+
+- TeX (Based on KaTeX);
+- Emoji;
+- Task lists;
+- HTML tags decode;
+- Flowchart and Sequence Diagram;
+                    </textarea>
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <div class="ui left labeled input">
+                        <label class="ui compact teal basic label" >分类</label>
+                        <div class="ui selection fluid dropdown">
+                            <input type="hidden" name="type">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">分类</div>
+                            <div class="menu">
+                                <div class="item" data-value="1">错误日志</div>
+                                <div class="item" data-value="2">开发手册</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left labeled input">
+                        <label class="ui compact teal basic label" >标签</label>
+                        <div class="ui selection fluid dropdown multiple search">
+                            <input type="hidden" name="tag">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">标签</div>
+                            <div class="menu">
+                                <div class="item" data-value="1">Java</div>
+                                <div class="item" data-value="2">JavaJscript</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui left labeled input">
+                    <label class="ui teal basic label">首图</label>
+                    <input type="text" name="indexPic" placeholder="首图引用地址">
+                </div>
+
+            </div>
+            <div class="fields inline">
+                <div class="field">
+                    <div class="ui checkbox ">
+                        <input class="hidden" type="checkbox" name="recommend" id="recommend" checked>
+                        <label for="recommend">是否推荐到首页</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input class="hidden" type="checkbox" name="shareInfo" id="shareInfo">
+                        <label for="shareInfo">是否转载</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input class="hidden" type="checkbox" name="donation" id="donation">
+                        <label for="donation">是否显示赞赏</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input class="hidden" type="checkbox" name="comment" id="comment">
+                        <label for="comment">是否开放留言</label>
+                    </div>
+                </div>
+            </div>
+            <div class="ui right aligned container">
+                <button class="ui button" type="button" onclick="window.history.go(-1)">返回</button><!-- onclick="window.history.go(-1)" 意为点击时返回上一个页面-->
+                <button class="ui button secondary">保存</button>
+                <button class="ui button teal">发布</button>
+            </div>
+            <div class="ui error message"></div>
+        </form>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<!--底部-->
+<footer class="ui inverted vertical segment m-padded-td-max">
+    <div class="ui center aligned container">
+        <!--semantic UI 将一个块划分为16份,divided属性是每列间的分割线 grid布局组件-->
+        <div class="ui  inverted divided stackable grid">
+            <!--一个column是一列，共分为4列-->
+            <div class="three wide column ">
+                <div class="ui inverted   link item">
+                    <div class="item ">
+                        <img src="../../static/images/20200515232857.jpg" class=" ui rounded image centered aligned" style="width: 100px ">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column ">
+                <h4 class="ui inverted header ">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href ="#" class="item">小米10 Pro</a>
+                    <a href ="#" class="item">MIUI 12</a>
+                    <a href ="#" class="item">超级壁纸</a>
+                </div>
+            </div>
+            <div class="three wide column ">
+                <h4 class="ui inverted header m-opacity-mini">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href ="#" class="item">小米10 Pro</a>
+                    <a href ="#" class="item">MIUI 12</a>
+                    <a href ="#" class="item">超级壁纸</a>
+                </div>
+            </div>
+            <div class="seven wide column ">
+                <h4 class="ui inverted header">最新博客</h4>
+                <p>中新网客户端北京5月13日电(记者 李金磊)2020年养老金上涨进入落地期</p>
+            </div>
+        </div>
+        <div class="ui inverted section divider">
+            <p class="m-text-thin m-text-spaced m-opacity-tiny">Designed, developed, and maintained by:</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<!--markdown插件js-->
+<script src="../../static/lib/editormd/editormd.min.js"></script>
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+    $('.ui.dropdown').dropdown();
+    //表单校验
+    $('.ui.form').form({
+        fields :{
+            title : {
+                identifier : 'title',
+                rules :[{
+                    type :'empty',
+                    prompt :'标题：请输入博客标题'
+                }]
+            }
+        }
+    });
+    //markdown初始化
+    var contentditor;
+    $(function() {
+        contentditor = editormd("md-content", {
+            width   : "100%",
+            height  : 640,
+            syncScrolling : "single",
+            //lib的路径要正确，不然插件无法工作
+            path    : "../static/lib/editormd/lib/"
+        });});
+</script>
+</body>
+</html>
