@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>关于我</title>
@@ -10,7 +10,7 @@
 </head>
 <body>
 <!--导航)-->
-<nav class="ui inverted attached segment m-padded-td-mini m-shadow" >
+<nav th:replace="_fragments :: nav(5) " class="ui inverted attached segment m-padded-td-mini m-shadow" >
     <div class="ui container">
         <!--stackable 可堆叠的，屏幕宽度不够时会自动上下叠起来-->
         <div class="ui inverted secondary menu stackable">
@@ -69,7 +69,7 @@
                     <div class="ui label orange basic">
                         <div class="ui images">
                             <div class="image">
-                                <img src="../static/images/20200515232857.jpg" class="ui image rounded bordered" style="width: 120px">
+                                <img src="../static/images/20200515232857.jpg"  th:src="@{/images/20200515232857.jpg}"  class="ui image rounded bordered" style="width: 120px">
                             </div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
 <br>
 <br>
 <!--底部-->
-<footer class="ui inverted vertical segment m-padded-td-max">
+<footer th:replace="_fragments :: footer"  class="ui inverted vertical segment m-padded-td-max">
     <div class="ui center aligned container">
         <!--semantic UI 将一个块划分为16份,divided属性是每列间的分割线 grid布局组件-->
         <div class="ui  inverted divided stackable grid">

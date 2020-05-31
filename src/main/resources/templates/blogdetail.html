@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>博客详情</title>
@@ -18,7 +18,7 @@
 </head>
 <body>
 <!--导航)-->
-<nav class="ui inverted attached segment m-padded-td-mini m-shadow" >
+<nav th:replace="_fragments :: nav(0) "  class="ui inverted attached segment m-padded-td-mini m-shadow" >
     <div class="ui container">
         <!--stackable 可堆叠的，屏幕宽度不够时会自动上下叠起来-->
         <div class="ui inverted secondary menu stackable">
@@ -58,7 +58,7 @@
         </div>
         <div class="ui segment attached">
             <!--图片区 https://picsum.photos/id/1001/800/450  -->
-            <img src="../static/images/20200220205316.jpg" class="ui fluid image rounded" >
+            <img src="../static/images/20200220205316.jpg" th:src="@{/images/20200220205316.jpg}" class="ui fluid image rounded" >
         </div>
         <div class="ui segment padded attached " >
             <!--博客正文-->
@@ -456,10 +456,10 @@ h5,h6{font-size:1em;}
                 <div class="ui label orange basic">
                     <div class="ui images">
                         <div class="image">
-                            <img src="../static/images/20200515232857.jpg" class="ui image rounded bordered" style="width: 120px">
+                            <img src="../static/images/20200515232857.jpg" th:src="@{/images/20200515232857.jpg}" class="ui image rounded bordered" style="width: 120px">
                         </div>
                         <div class="image">
-                            <img src="../static/images/20200515232857.jpg" class="ui image rounded bordered" style="width: 120px">
+                            <img src="../static/images/20200515232857.jpg" th:src="@{/images/20200515232857.jpg}" class="ui image rounded bordered" style="width: 120px">
                         </div>
                     </div>
                 </div>
@@ -476,7 +476,7 @@ h5,h6{font-size:1em;}
                     </ui>
                 </div>
                 <div class="five wide column">
-                    <img class="ui rounded image bordered" src="../static/images/20200515232857.jpg" style="width: 110px">
+                    <img class="ui rounded image bordered" src="../static/images/20200515232857.jpg" th:src="@{/images/20200515232857.jpg}" style="width: 110px">
                 </div>
             </div>
         </div>
@@ -587,20 +587,28 @@ h5,h6{font-size:1em;}
     <div class="ui vertical icon buttons  ">
         <button type="button" class="ui teal button toc-catalogue" >目录</button>
         <a href="#comment" class="ui teal button">留言</a>
-        <button class="ui icon button"><i class="weixin icon"></i></button>
+        <button id="wechat" class="ui icon button"><i class="weixin icon"></i></button>
         <div id="toTop" class="ui icon button"><i class="chevron up icon"></i></div>
     </div>
 </div>
+<!--承载生成的目录-->
 <div class="ui flowing popup transition hidden catalogue " style="width: 250px!important;">
     <ol class="js-toc">
-
     </ol>
+</div>
+<!--鼠标悬停出现二维码-->
+<div class="ui flowing popup transition hidden wechat">
+        <div class="ui image" style="width: 120px"><!--控制大小的属性放在外层，img标签里边不管用-->
+            <img src="../static/images/20200515232857.jpg" th:src="@{/images/20200515232857.jpg}" class="ui image rounded bordered" >
+        </div>
+    </div>
+
 </div>
 <br>
 <br>
 <br>
 <!--底部-->
-<footer class="ui inverted vertical segment m-padded-td-max">
+<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-td-max">
     <div class="ui center aligned container">
         <!--semantic UI 将一个块划分为16份,divided属性是每列间的分割线 grid布局组件-->
         <div class="ui  inverted divided stackable grid">
@@ -641,13 +649,13 @@ h5,h6{font-size:1em;}
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-<script src="../static/lib/prism/prism.js"></script>
+<script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.min.js"></script>
 
 
 
 <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script><!--平滑滚动插件-->
-<script src="../static/lib/waypoints/jquery.waypoints.min.js"></script><!--滚动侦测，当滑动到某个位置时显示小工具条-->
+<script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script><!--滚动侦测，当滑动到某个位置时显示小工具条-->
 <script>
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
@@ -660,6 +668,12 @@ h5,h6{font-size:1em;}
         on : ('click'),
         /*弹出位置*/
         position : ('bottom center')
+    });
+
+    $('#wechat').popup({
+        popup : $('.wechat.popup'),
+        /*弹出位置*/
+        position : ('left center')
     });
 
     // 目录初始化
@@ -680,17 +694,7 @@ h5,h6{font-size:1em;}
         /*弹出位置*/
         position : ('left center')
     });
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     //平滑滚动
     $('#toTop').click(function () {
         $(window).scrollTo(0,500); // 0表示滑倒顶端，500表示用时500MS完成滑动
