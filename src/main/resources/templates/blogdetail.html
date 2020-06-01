@@ -597,11 +597,9 @@ h5,h6{font-size:1em;}
     </ol>
 </div>
 <!--鼠标悬停出现二维码-->
-<div class="ui flowing popup transition hidden wechat">
-        <div class="ui image" style="width: 120px"><!--控制大小的属性放在外层，img标签里边不管用-->
-            <img src="../static/images/20200515232857.jpg" th:src="@{/images/20200515232857.jpg}" class="ui image rounded bordered" >
-        </div>
-    </div>
+<div id="qrcode" class="ui flowing popup transition hidden wechat">
+
+</div>
 
 </div>
 <br>
@@ -651,9 +649,7 @@ h5,h6{font-size:1em;}
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.min.js"></script>
-
-
-
+<script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script><!--生成二维码-->
 <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script><!--平滑滚动插件-->
 <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script><!--滚动侦测，当滑动到某个位置时显示小工具条-->
 <script>
@@ -710,6 +706,16 @@ h5,h6{font-size:1em;}
             }
             console.log('Scrolled to waypoint!');
         }
+    });
+
+    // 生成二维码
+    var qrcode = new QRCode("qrcode", { // 第一个参数是承载生成的二维码的元素的ID
+        text: "http://jindo.dev.naver.com/collie",
+        width: 128,
+        height: 128,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
     });
 </script>
 </body>
