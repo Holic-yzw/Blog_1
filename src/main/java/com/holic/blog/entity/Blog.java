@@ -13,11 +13,11 @@ public class Blog {
     private String picUrl;
     private String source;
     private Integer viewTimes;
-    private boolean appreciation;
-    private boolean copyright;
-    private boolean recommend;
-    private boolean published;
-    private boolean comment;
+    private Integer appreciation;
+    private Integer copyright;
+    private Integer recommend;
+    private Integer published;
+    private Integer comment;
     private Date createDate;
     private Date updateDate;
 
@@ -80,6 +80,10 @@ public class Blog {
                 ", comment=" + comment +
                 ", createDate=" + createDate +
                 ", updateDate=" + updateDate +
+                ", type=" + type +
+                ", tags=" + tags +
+                ", admin=" + admin +
+                ", comments=" + comments +
                 '}';
     }
 
@@ -107,23 +111,23 @@ public class Blog {
         this.viewTimes = viewTimes;
     }
 
-    public void setAppreciation(boolean appreciation) {
+    public void setAppreciation(Integer appreciation) {
         this.appreciation = appreciation;
     }
 
-    public void setCopyright(boolean copyright) {
+    public void setCopyright(Integer copyright) {
         this.copyright = copyright;
     }
 
-    public void setRecommend(boolean recommend) {
+    public void setRecommend(Integer recommend) {
         this.recommend = recommend;
     }
 
-    public void setPublished(boolean published) {
+    public void setPublished(Integer published) {
         this.published = published;
     }
 
-    public void setComment(boolean comment) {
+    public void setComment(Integer comment) {
         this.comment = comment;
     }
 
@@ -159,23 +163,23 @@ public class Blog {
         return viewTimes;
     }
 
-    public boolean isAppreciation() {
+    public Integer isAppreciation() {
         return appreciation;
     }
 
-    public boolean isCopyright() {
+    public Integer isCopyright() {
         return copyright;
     }
 
-    public boolean isRecommend() {
+    public Integer isRecommend() {
         return recommend;
     }
 
-    public boolean isPublished() {
+    public Integer isPublished() {
         return published;
     }
 
-    public boolean isComment() {
+    public Integer isComment() {
         return comment;
     }
 

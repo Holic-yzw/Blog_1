@@ -1,6 +1,8 @@
 package com.holic.blog.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Comment {
 
@@ -12,6 +14,26 @@ public class Comment {
     private Date createDate;
 
     private Blog blog;
+
+    private Comment parentComment;
+
+    private List<Comment> replyComments = new ArrayList<>();
+
+    public void setParentComment(Comment parentComment) {
+        this.parentComment = parentComment;
+    }
+
+    public void setReplyComments(List<Comment> replyComments) {
+        this.replyComments = replyComments;
+    }
+
+    public Comment getParentComment() {
+        return parentComment;
+    }
+
+    public List<Comment> getReplyComments() {
+        return replyComments;
+    }
 
     public void setBlog(Blog blog) {
         this.blog = blog;
