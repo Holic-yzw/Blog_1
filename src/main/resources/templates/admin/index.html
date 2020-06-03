@@ -10,7 +10,7 @@
 </head>
 <body>
 <!--导航)-->
-<nav th:replace="_fragments :: adminnav(1)" class="ui inverted attached segment m-padded-td-mini m-shadow" >
+<nav th:replace="admin/_fragments :: adminnav(1)" class="ui inverted attached segment m-padded-td-mini m-shadow" >
     <div class="ui container">
         <!--stackable 可堆叠的，屏幕宽度不够时会自动上下叠起来-->
         <div class="ui inverted secondary menu stackable">
@@ -34,22 +34,17 @@
         <i class="sidebar icon"></i>
     </a>
 </nav>
-<div class="ui menu attached pointing">
-    <div  class="ui container ">
-        <div class="right menu">
-            <a href="#" class="item">发布</a>
-            <a href="#" class="active item teal">列表</a>
-        </div>
-    </div>
-</div>
+
 <br>
 <br>
 <!--中间内容-->
-<div class=" m-container m-padded-td-large">
-    <div class="ui container ">
-        <div class="ui success message large">
-            <h3>Hi,</h3>
-            <p>欢迎登录！</p>
+<div class=" m-container-admin m-padded-td-large">
+    <div class="ui container  center aligned">
+        <div class="ui teal top attached segment  large">
+            <h3  th:text="'Hi,   '+${session.admin.getUserName()}"></h3>
+        </div>
+        <div class="ui teal bottom attached segment  large">
+            <h3>欢迎登录！</h3>
         </div>
 </div>
 </div>
@@ -57,7 +52,7 @@
 <br>
 <br>
 <!--底部-->
-<footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-td-max">
+<footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-td-max">
     <div class="ui center aligned container">
         <!--semantic UI 将一个块划分为16份,divided属性是每列间的分割线 grid布局组件-->
         <div class="ui  inverted divided stackable grid">

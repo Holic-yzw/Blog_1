@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="_fragments :: head(~{::title})">
+<head th:replace="error/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <title>404</title>
 </head>
 <body>
-    <nav th:replace="_fragments :: nav(0) "></nav>
+    <nav th:replace="error/_fragments :: errornav(0) "></nav>
     <br>
     <br>
     <br>
@@ -20,6 +20,6 @@
     <br>
     <br>
     <br>
-    <footer th:replace="_fragments :: footer"></footer>
+    <footer th:replace="error/_fragments :: footer"></footer>
 </body>
 </html>

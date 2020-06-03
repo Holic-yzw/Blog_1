@@ -12,7 +12,7 @@
 </head>
 <body>
 <!--导航)-->
-<nav class="ui inverted attached segment m-padded-td-mini m-shadow" >
+<nav th:replace="admin/_fragments :: adminnav(0)" class="ui inverted attached segment m-padded-td-mini m-shadow" >
     <div class="ui container">
         <!--stackable 可堆叠的，屏幕宽度不够时会自动上下叠起来-->
         <div class="ui inverted secondary menu stackable">
@@ -158,7 +158,7 @@
 <br>
 <br>
 <!--底部-->
-<footer  th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-td-max">
+<footer  th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-td-max">
     <div class="ui center aligned container">
         <!--semantic UI 将一个块划分为16份,divided属性是每列间的分割线 grid布局组件-->
         <div class="ui  inverted divided stackable grid">
