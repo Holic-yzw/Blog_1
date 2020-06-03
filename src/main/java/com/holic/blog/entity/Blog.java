@@ -13,11 +13,11 @@ public class Blog {
     private String picUrl;
     private String source;
     private Integer viewTimes;
-    private Integer appreciation;
-    private Integer copyright;
-    private Integer recommend;
-    private Integer published;
-    private Integer comment;
+    private Byte appreciation;
+    private Byte copyright;
+    private Byte recommend;
+    private Byte published;
+    private Byte comment;
     private Date createDate;
     private Date updateDate;
 
@@ -111,23 +111,23 @@ public class Blog {
         this.viewTimes = viewTimes;
     }
 
-    public void setAppreciation(Integer appreciation) {
+    public void setAppreciation(Byte appreciation) {
         this.appreciation = appreciation;
     }
 
-    public void setCopyright(Integer copyright) {
+    public void setCopyright(Byte copyright) {
         this.copyright = copyright;
     }
 
-    public void setRecommend(Integer recommend) {
+    public void setRecommend(Byte recommend) {
         this.recommend = recommend;
     }
 
-    public void setPublished(Integer published) {
+    public void setPublished(Byte published) {
         this.published = published;
     }
 
-    public void setComment(Integer comment) {
+    public void setComment(Byte comment) {
         this.comment = comment;
     }
 
@@ -163,23 +163,23 @@ public class Blog {
         return viewTimes;
     }
 
-    public Integer isAppreciation() {
+    public Byte getAppreciation() {
         return appreciation;
     }
 
-    public Integer isCopyright() {
+    public Byte getCopyright() {
         return copyright;
     }
 
-    public Integer isRecommend() {
+    public Byte getRecommend() {
         return recommend;
     }
 
-    public Integer isPublished() {
+    public Byte getPublished() {
         return published;
     }
 
-    public Integer isComment() {
+    public Byte getComment() {
         return comment;
     }
 
