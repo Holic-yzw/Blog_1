@@ -22,11 +22,11 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String toIndexPage(@RequestParam String userName,
-                          @RequestParam String passWord,
+    public String toIndexPage(@RequestParam String username,
+                          @RequestParam String password,
                           HttpSession session,
                           RedirectAttributes attributes){
-        Admin admin = service.checkAdmin(userName, passWord);
+        Admin admin = service.checkAdmin(username, password);
 
         if (admin != null) {
             admin.setPassWord(null);
