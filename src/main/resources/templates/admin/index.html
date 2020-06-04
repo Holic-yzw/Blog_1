@@ -10,12 +10,12 @@
 </head>
 <body>
 <!--导航)-->
-<nav th:replace="admin/_fragments :: adminnav(1)" class="ui inverted attached segment m-padded-td-mini m-shadow" >
+<nav th:replace="admin/_fragments :: adminnav(0)" class="ui inverted attached segment m-padded-td-mini m-shadow" >
     <div class="ui container">
         <!--stackable 可堆叠的，屏幕宽度不够时会自动上下叠起来-->
         <div class="ui inverted secondary menu stackable">
             <h2 class="ui green header item">管理后台</h2>
-            <a href="#" class="active m-item item m-mobile-hide"><i class=" home icon"></i>博客</a>
+            <a href="#" class=" m-item item m-mobile-hide"><i class=" home icon"></i>博客</a>
             <a href="#" class=" m-item item m-mobile-hide"><i class="  idea icon"></i>分类</a>
             <a href="#" class="m-item item m-mobile-hide"><i class=" tags icon"></i>标签</a>
             <div class="right menu m-item m-mobile-hide">
@@ -39,11 +39,11 @@
 <br>
 <!--中间内容-->
 <div class=" m-container-admin m-padded-td-large">
-    <div class="ui container  center aligned">
-        <div class="ui teal top attached segment  large">
+    <div class="ui container  basic center aligned">
+        <div class="ui  basic attached segment  large">
             <h3  th:text="'Hi,   '+${session.admin.getUserName()}"></h3>
         </div>
-        <div class="ui teal bottom attached segment  large">
+        <div class="ui teal basic bottom attached segment  large">
             <h3>欢迎登录！</h3>
         </div>
 </div>
