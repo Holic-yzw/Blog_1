@@ -9,6 +9,10 @@
     </resultMap>
 
     <select id="checkAdminByUserNameAndPassWord" resultMap="admin">
-        select * from admin where userName=#{userName} and passWord=#{passWord}
+        select * from t_admin where userName=#{userName} and passWord=#{passWord}
+    </select>
+
+    <select id="getSaltByUserName" resultType="string">
+        select salt from t_admin where userName=#{userName}
     </select>
 </mapper>
