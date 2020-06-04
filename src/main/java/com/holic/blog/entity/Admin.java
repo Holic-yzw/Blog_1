@@ -10,6 +10,7 @@ public class Admin {
     private String nickName;
     private String userName;
     private String passWord;
+    private String salt;
     private String email;
     private String avatar;
     private Integer type;
@@ -18,15 +19,23 @@ public class Admin {
 
     private List<Blog> blogs = new ArrayList<>();
 
+    public Admin() {
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
     public void setBlogs(List<Blog> blogs) {
         this.blogs = blogs;
     }
 
     public List<Blog> getBlogs() {
         return blogs;
-    }
-
-    public Admin() {
     }
 
     public void setId(Long id) {
