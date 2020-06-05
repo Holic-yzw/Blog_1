@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.holic.blog.mapper.TypeMapper">
+    <resultMap id="type" type="com.holic.blog.entity.Type">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+
+    <!--int saveType(Type type);-->
+
+    <!--Type getTypeById(Long id);-->
+
+    <!--Page<Type> listType(Pageable pageable);-->
+
+    <!--int updateTypeById(Long id, Type type);-->
+
+    <!--int deleteTypeById(Long id);-->
+    <insert id="saveType" parameterType="com.holic.blog.entity.Type" useGeneratedKeys="true" keyProperty="id">
+        insert into t_type(name) values (#{name})
+    </insert>
+    
+    <select id="getTypeById" resultMap="type">
+        select * from t_type where id=#{id}
+    </select>
+    
+    <update id="updateTypeById" parameterType="com.holic.blog.entity.Type">
+      update t_type set name=#{type.getName} where id=#{type.getId}
+    </update>
+
+    <delete id="deleteTypeById" >
+      delete from t_type where id=#{id}
+    </delete>
+</mapper>
