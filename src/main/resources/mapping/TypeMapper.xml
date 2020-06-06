@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.holic.blog.mapper.TypeMapper">
     <resultMap id="type" type="com.holic.blog.entity.Type">
-        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="id" jdbcType="BIGINT" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
     </resultMap>
 
@@ -24,7 +24,11 @@
     </select>
     
     <update id="updateTypeById" parameterType="com.holic.blog.entity.Type">
-      update t_type set name=#{type.getName} where id=#{type.getId}
+      update t_type
+      <set>
+          name =#{name,jdbcType=VARCHAR}
+      </set>
+        where id=#{id,jdbcType=BIGINT}
     </update>
 
     <delete id="deleteTypeById" >

@@ -39,7 +39,8 @@ public class TypeServiceImpl  implements TypeService {
 
     @Override
     public int updateType(Type type) {
-        return 0;
+        int flag = typeMapper.updateTypeById(type);
+        return flag;
     }
 
     @Override
