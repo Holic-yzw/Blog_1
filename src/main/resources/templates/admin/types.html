@@ -134,6 +134,10 @@
         $('.m-item').toggleClass('m-mobile-hide');
     });
     $('.ui.dropdown').dropdown();
+    // 消息提示框关闭初始化
+    $('.message.close').on('click', function () {
+        $(this).closest('.message').transition('fade');
+    });
 </script>
 </body>
 </html>
