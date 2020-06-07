@@ -2,9 +2,9 @@ package com.holic.blog.mapper;
 
 import com.holic.blog.entity.Type;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @Title: TypeMapper
@@ -19,7 +19,7 @@ public interface TypeMapper {
 
     Type getTypeById(Long id);
 
-    Page<Type> listType(Pageable pageable);
+    List<Type> findAllType();
 
     int updateTypeById(Type type);
 

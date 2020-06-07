@@ -6,15 +6,6 @@
         <result column="name" jdbcType="VARCHAR" property="name"/>
     </resultMap>
 
-    <!--int saveType(Type type);-->
-
-    <!--Type getTypeById(Long id);-->
-
-    <!--Page<Type> listType(Pageable pageable);-->
-
-    <!--int updateTypeById(Long id, Type type);-->
-
-    <!--int deleteTypeById(Long id);-->
     <insert id="saveType" parameterType="com.holic.blog.entity.Type" useGeneratedKeys="true" keyProperty="id">
         insert into t_type(name) values (#{name})
     </insert>
@@ -34,4 +25,8 @@
     <delete id="deleteTypeById" >
       delete from t_type where id=#{id}
     </delete>
+
+    <select id="findAllType" resultMap="type">
+        select * from t_type
+    </select>
 </mapper>

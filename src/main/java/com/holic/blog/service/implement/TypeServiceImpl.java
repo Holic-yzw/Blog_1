@@ -1,12 +1,14 @@
 package com.holic.blog.service.implement;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.holic.blog.entity.Type;
 import com.holic.blog.mapper.TypeMapper;
 import com.holic.blog.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Title: TypeServiceImpl
@@ -33,11 +35,6 @@ public class TypeServiceImpl  implements TypeService {
     }
 
     @Override
-    public Page<Type> listType(Pageable pageable) {
-        return null;
-    }
-
-    @Override
     public int updateType(Type type) {
         int flag = typeMapper.updateTypeById(type);
         return flag;
@@ -47,5 +44,16 @@ public class TypeServiceImpl  implements TypeService {
     public int deleteType(Long id) {
         int flag = typeMapper.deleteTypeById(id);
         return flag;
+    }
+
+    @Override
+    public PageInfo<Type> listType(Integer pageNum, Integer pageSize) {
+        // 获取第pageNum页，每一页pageSize条内容，默认查询总数count
+        // 紧跟在startPage方法后的第一个MyBatis 查询方法会被进行分页
+        PageHelper.startPage(pageNum, pageSize);
+        List<Type> list = typeMapper.findAllType();
+        // 用PageInfo对结果进行包装
+        PageInfo page = new PageInfo(list);
+        return page;
     }
 }

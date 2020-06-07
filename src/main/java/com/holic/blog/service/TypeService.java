@@ -1,8 +1,10 @@
 package com.holic.blog.service;
 
+import com.github.pagehelper.PageInfo;
 import com.holic.blog.entity.Type;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+
 
 /**
  * @Title: TypeService
@@ -16,7 +18,7 @@ public interface TypeService {
 
     Type getType(Long id);
 
-    Page<Type> listType(Pageable pageable);
+    PageInfo<Type> listType(Integer pageNum, Integer pageSize);
 
     int updateType(Type type);
 

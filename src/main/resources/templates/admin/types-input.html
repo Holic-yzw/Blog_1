@@ -49,8 +49,8 @@
 <!--中间内容-->
 <div class=" m-container m-padded-td-large">
     <div class="ui container ">
-        <form action="#" method="post" class="ui form">
-            <div class="field">
+        <form action="#" method="post" class="ui form" th:action="@{/admin/types/addType}">
+            <div class="required field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">名称</label>
                     <input type="text" name="name" placeholder="分类名称">
@@ -58,7 +58,7 @@
             </div>
             <div class="ui right aligned container">
                 <button class="ui button" type="button" onclick="window.history.go(-1)">返回</button><!-- onclick="window.history.go(-1)" 意为点击时返回上一个页面-->
-                <button class="ui button teal">提交</button>
+                <button class="ui button teal submit">提交</button>
             </div>
             <div class="ui error message"></div>
         </form>
@@ -120,11 +120,11 @@
     //表单校验
     $('.ui.form').form({
         fields :{
-            title : {
-                identifier : 'title',
+            name : {
+                identifier : 'name',
                 rules :[{
                     type :'empty',
-                    prompt :'标题：请输入博客标题'
+                    prompt :'请输入分类名称！'
                 }]
             }
         }
