@@ -7,6 +7,7 @@ import com.holic.blog.mapper.TypeMapper;
 import com.holic.blog.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class TypeServiceImpl  implements TypeService {
     @Autowired
     private TypeMapper typeMapper;
 
+    @Transactional
     @Override
     public int saveType(Type type) {
         int flag = typeMapper.saveType(type);
@@ -34,12 +36,14 @@ public class TypeServiceImpl  implements TypeService {
         return type;
     }
 
+    @Transactional
     @Override
     public int updateType(Type type) {
         int flag = typeMapper.updateTypeById(type);
         return flag;
     }
 
+    @Transactional
     @Override
     public int deleteType(Long id) {
         int flag = typeMapper.deleteTypeById(id);
