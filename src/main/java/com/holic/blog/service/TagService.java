@@ -1,0 +1,25 @@
+package com.holic.blog.service;
+
+import com.github.pagehelper.PageInfo;
+import com.holic.blog.entity.Tag;
+
+import java.util.List;
+
+/**
+ * @author：HOLiC_y
+ * @date：2020/6/14 0014
+ */
+public interface TagService {
+
+    int saveType(Tag tag);
+
+    Tag getTag(Long id);
+
+    List<Tag> getTagByName(String name);
+
+    PageInfo<Tag> listTag(Integer pageNum, Integer pageSize);
+
+    int updateTag(Tag tag);
+
+    int deleteTag(Long id);
+}
