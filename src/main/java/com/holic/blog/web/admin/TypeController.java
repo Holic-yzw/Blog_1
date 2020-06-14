@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -58,9 +58,47 @@ public class TypeController {
 
         int i = typeService.saveType(type);
         if (i == 0) {
-            attributes.addAttribute("message","添加分类失败！");
+            attributes.addFlashAttribute("failMessage","添加分类失败！");
         } else {
-            attributes.addAttribute("message","添加分类成功！");
+            attributes.addFlashAttribute("succMessage","添加分类成功！");
+        }
+        return "redirect:/admin/types";
+    }
+
+    @GetMapping("/types/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        model.addAttribute("type", typeService.getType(id));
+        return "admin/types-input";
+    }
+
+    @PostMapping("/types/edit/{id}")
+    public String editType(@Valid Type type, BindingResult result, RedirectAttributes attributes) {
+
+        List<Type> typeList = typeService.getTypeByName(type.getName());
+        if (typeList.size() > 0) {
+            result.rejectValue("name", "nameRepeat", "修改后的分类名称已存在，请重试！");
+        }
+
+        if (result.hasErrors()) {
+            return "admin/types-input";
+        }
+
+        int i = typeService.updateType(type);
+        if (i == 0) {
+            attributes.addFlashAttribute("failMessage","修改分类失败！");
+        } else {
+            attributes.addFlashAttribute("succMessage","修改分类成功！");
+        }
+        return "redirect:/admin/types";
+    }
+
+    @GetMapping("/types/{id}/delete")
+    public String deleteType(@PathVariable Long id, RedirectAttributes attributes) {
+        int i = typeService.deleteType(id);
+        if (i == 0) {
+            attributes.addFlashAttribute("failMessage","删除分类失败！");
+        } else {
+            attributes.addFlashAttribute("succMessage","删除分类成功！");
         }
         return "redirect:/admin/types";
     }

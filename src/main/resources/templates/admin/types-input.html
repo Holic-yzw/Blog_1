@@ -40,8 +40,8 @@
 <div class="ui menu attached pointing">
     <div  class="ui container ">
         <div class="right menu">
-            <a href="#" class="item">发布</a>
-            <a href="#" class="active item teal">列表</a>
+            <a href="#" th:href="@{/admin/types/add}" class="active teal item">新增</a>
+            <a href="#" th:href="@{/admin/types}"class=" item teal">列表</a>
         </div>
     </div>
 </div>
@@ -49,7 +49,8 @@
 <!--中间内容-->
 <div class=" m-container m-padded-td-large">
     <div class="ui container ">
-        <form action="#" method="post" class="ui form" th:object="${type}" th:action="@{/admin/types/addType}">
+        <form action="#" method="post" class="ui form" th:object="${type}" th:action="*{id} == null ? @{/admin/types/addType} : @{/admin/types/edit/{id}(id=*{id})}">
+            <input type="hidden" name="id" th:value="*{id}">
             <div class="required field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">名称</label>
@@ -135,7 +136,7 @@
             }
         }
     });
-    // 消息提示框关闭初始化
+    // 消息提示框关闭
     $('.message .close').click(function () {
         $(this).closest('.message').transition('fade');
     });
