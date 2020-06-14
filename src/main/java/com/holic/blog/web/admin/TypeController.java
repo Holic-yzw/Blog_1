@@ -6,12 +6,15 @@ import com.holic.blog.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @Title：TypeController
@@ -30,22 +33,30 @@ public class TypeController {
 
         pageNum = pageNum == null ? 1 : pageNum;
 
-        PageInfo<Type> newPage = typeService.listType(pageNum, 3); //分页大小写死
-        int pages = newPage.getPages();
+        PageInfo<Type> newPage = typeService.listType(pageNum, 10); //分页大小写死
         model.addAttribute("page", newPage);
         return "admin/types";
     }
 
     @GetMapping("/types/add")
-    public String add(){
+    public String add(Model model){
+        model.addAttribute("type",new Type());
         return "admin/types-input";
     }
 
     @PostMapping("/types/addType")
-    public String addType(Type type, RedirectAttributes attributes) {
+    public String addType(@Valid Type type, BindingResult result, RedirectAttributes attributes) {
+
+        List<Type> typeList = typeService.getTypeByName(type.getName());
+        if (typeList.size() > 0) {
+            result.rejectValue("name", "nameRepeat", "不能添加已存在的分类！");
+        }
+
+        if (result.hasErrors()) {
+            return "admin/types-input";
+        }
 
         int i = typeService.saveType(type);
-        System.out.print(i);
         if (i == 0) {
             attributes.addAttribute("message","添加分类失败！");
         } else {

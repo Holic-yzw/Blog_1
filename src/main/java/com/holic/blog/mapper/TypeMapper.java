@@ -19,6 +19,8 @@ public interface TypeMapper {
 
     Type getTypeById(Long id);
 
+    List<Type> getTypeByName(String  name);
+
     List<Type> findAllType();
 
     int updateTypeById(Type type);

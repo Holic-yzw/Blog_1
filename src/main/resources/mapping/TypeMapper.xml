@@ -13,7 +13,11 @@
     <select id="getTypeById" resultMap="type">
         select * from t_type where id=#{id}
     </select>
-    
+
+    <select id="getTypeByName" resultMap="type">
+        select * from t_type where name=#{name}
+    </select>
+
     <update id="updateTypeById" parameterType="com.holic.blog.entity.Type">
       update t_type
       <set>

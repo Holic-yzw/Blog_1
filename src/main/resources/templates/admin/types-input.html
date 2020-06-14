@@ -49,11 +49,11 @@
 <!--中间内容-->
 <div class=" m-container m-padded-td-large">
     <div class="ui container ">
-        <form action="#" method="post" class="ui form" th:action="@{/admin/types/addType}">
+        <form action="#" method="post" class="ui form" th:object="${type}" th:action="@{/admin/types/addType}">
             <div class="required field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">名称</label>
-                    <input type="text" name="name" placeholder="分类名称">
+                    <input type="text" name="name" placeholder="分类名称" th:value="*{name}">
                 </div>
             </div>
             <div class="ui right aligned container">
@@ -61,6 +61,12 @@
                 <button class="ui button teal submit">提交</button>
             </div>
             <div class="ui error message"></div>
+            <!--/*/
+            <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
+                <i class="close icon"></i>
+                <div class="header">操作失败</div>
+                <p th:errors="*{name}">提交信息不合规</p>
+            </div> /*/-->
         </form>
     </div>
 </div>
@@ -129,7 +135,10 @@
             }
         }
     });
-
+    // 消息提示框关闭初始化
+    $('.message .close').click(function () {
+        $(this).closest('.message').transition('fade');
+    });
 </script>
 </body>
 </html>

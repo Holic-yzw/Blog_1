@@ -18,6 +18,8 @@ public interface TypeService {
 
     Type getType(Long id);
 
+    List<Type> getTypeByName(String name);
+
     PageInfo<Type> listType(Integer pageNum, Integer pageSize);
 
     int updateType(Type type);
