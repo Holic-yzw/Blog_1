@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.holic.blog.mapper.BlogMapper">
+    <resultMap id="blog" type="com.holic.blog.entity.Blog">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="picUrl" jdbcType="VARCHAR" property="picUrl"/>
+        <result column="source" jdbcType="VARCHAR" property="source"/>
+        <result column="viewTimes" jdbcType="INTEGER" property="viewTimes"/>
+        <result column="appreciation" jdbcType="TINYINT" property="appreciation"/>
+        <result column="copyright" jdbcType="TINYINT" property="copyright"/>
+        <result column="recommend" jdbcType="TINYINT" property="recommend"/>
+        <result column="published" jdbcType="TINYINT" property="published"/>
+        <result column="comment" jdbcType="TINYINT" property="comment"/>
+        <result column="createDate" jdbcType="DATE" property="createDate"/>
+        <result column="updateDate" jdbcType="DATE" property="updateDate"/>
+        <result column="blog_type_id"  jdbcType="BIGINT"  property="blogTypeId"/>
+        <result column="blog_admin_id"  jdbcType="BIGINT" property="blogAdminId"/>
+    </resultMap>
+
+    <insert id="saveBlog"></insert>
+    <update id="updateBlogById"></update>
+    <delete id="deleteBlogById"></delete>
+
+    <select id="findAllBlog" resultMap="blog">
+      select * from t_blog
+        <where>
+            <if test="title != null and title != ''">
+               and title = #{title}
+            </if>
+            <if test="type != null">
+              and blog_type_id = #{blogTypeId}
+            </if>
+            <if test="recommend != null and recommend != ''">
+                and recommend = #{recommend}
+            </if>
+        </where>
+    </select>
+    <select id="getBlogById" resultType="com.holic.blog.entity.Blog"></select>
+
+
+</mapper>

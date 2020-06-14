@@ -21,11 +21,30 @@ public class Blog {
     private Date createDate;
     private Date updateDate;
 
+    private Long blogTypeId;
+    private Long blogAdminId;
+
     private Type type;
 
     private List<Tag> tags = new ArrayList<>();
 
     private Admin admin;
+
+    public void setBlogTypeId(Long blogTypeId) {
+        this.blogTypeId = blogTypeId;
+    }
+
+    public void setBlogAdminId(Long blogAdminId) {
+        this.blogAdminId = blogAdminId;
+    }
+
+    public Long getBlogTypeId() {
+        return blogTypeId;
+    }
+
+    public Long getBlogAdminId() {
+        return blogAdminId;
+    }
 
     private List<Comment> comments = new ArrayList<>();
 
