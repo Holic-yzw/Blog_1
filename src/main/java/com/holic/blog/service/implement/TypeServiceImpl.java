@@ -57,6 +57,12 @@ public class TypeServiceImpl  implements TypeService {
     }
 
     @Override
+    public List<Type> findAllType() {
+        List<Type> allType = typeMapper.findAllType();
+        return allType;
+    }
+
+    @Override
     public PageInfo<Type> listType(Integer pageNum, Integer pageSize) {
         // 获取第pageNum页，每一页pageSize条内容，默认查询总数count
         // 紧跟在startPage方法后的第一个MyBatis 查询方法会被进行分页

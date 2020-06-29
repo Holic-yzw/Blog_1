@@ -29,7 +29,7 @@
             <if test="title != null and title != ''">
                and title = #{title}
             </if>
-            <if test="type != null">
+            <if test="blogTypeId != null">
               and blog_type_id = #{blogTypeId}
             </if>
             <if test="recommend != null and recommend != ''">
