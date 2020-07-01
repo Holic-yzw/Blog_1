@@ -1,6 +1,8 @@
 package com.holic.blog.mapper;
 
 import com.holic.blog.entity.Blog;
+import com.holic.blog.entity.example.ExampleForSearchBlog;
+import com.holic.blog.entity.example.ExampleForShowBlog;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +15,9 @@ import java.util.List;
 @Repository
 public interface BlogMapper {
 
-    List<Blog> findAllBlog(Blog blog);
+    List<ExampleForShowBlog> findAllBlogBySearch(ExampleForSearchBlog blog);
+
+    List<ExampleForShowBlog> findAllBlog();
 
     Blog getBlogById(Long id);
 

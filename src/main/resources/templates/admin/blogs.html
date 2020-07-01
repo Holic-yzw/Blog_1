@@ -46,20 +46,20 @@
 <!--中间内容-->
 <div class=" m-container-blog m-padded-td-large">
     <div class="ui container ">
-        <form action="#" method="post" class="ui secondary segment form">
+        <div class="ui secondary segment form">
             <input type="hidden" name="page">
             <div class="inline fields">
                 <div class="field">
                     <input type="text" name="title" placeholder="标题">
                 </div>
-                <div class="field">
+                <div  class="field">
                     <div class="ui selection dropdown">
                         <!--隐藏的输入框来承接下拉选中的值，数据可以选择初始化页面时加载，也可以ajax在点击的时候加载，数据少使用前者-->
-                        <input type="hidden" name="type">
+                        <input type="hidden" name="typeId">
                         <i class="dropdown icon"></i>
                         <div class="default text">分类</div>
                         <div class="menu">
-                            <div th:each="type : ${types}" class="item" data-value="2" th:data-value="${type.getId()}" th:text="${type,getName()}">Java</div>
+                            <div th:each="type : ${types}"  class="item" data-value="2" th:data-value="${type.getId()}" th:text="${type.getName()}">Java</div>
                             <!--/*-->
                             <div class="item" data-value="3">开发者手册</div>
                             <!--*/-->
@@ -76,7 +76,7 @@
                     <button type="button" id="search-but" class="ui button mini teal basic"><i class="icon search"></i>搜索</button>
                 </div>
             </div>
-        </form>
+        </div>
         <div id="table-content">
             <!--BlogController.search 查询结果返回于此-->
             <table th:fragment="blogList" class="ui compact table">
@@ -95,12 +95,13 @@
                     <td th:text="${iterStat.count}">1</td>
                     <!--以下3项需要单独写一个查询对象来返回，先这么占个位吧-->
                     <td th:text="${blog.getTitle()}">刻意联系清单</td>
-                    <td th:text="${blog.getType()}">认知提升</td>
-                    <td th:text="${blog.getRecommend()}">是</td>
+                    <td th:text="${blog.getTypeName()}">认知提升</td>
+                    <td th:if="${blog.getRecommend()} eq 'true'">是</td>
+                    <td th:if="${blog.getRecommend()} eq 'false'">否</td>
                     <td th:text="${blog.getUpdateDate()}">20200520</td>
                     <td>
-                        <a href="#" th:href="@{/admin/blogs/{id}/edit(id=${tag.getId()})}" class="ui mini basic teal button">编辑</a>
-                        <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${tag.getId()})}" class="ui mini basic red button">删除</a>
+                        <a href="#" th:href="@{/admin/blogs/{id}/edit(id=${blog.getId()})}" class="ui mini basic teal button">编辑</a>
+                        <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.getId()})}" class="ui mini basic red button">删除</a>
                     </td>
                 </tr>
                 </tbody>
@@ -179,7 +180,8 @@
         $("[name='page']").val($(obj).data("page"));
         sendReq();
     }
-    
+
+    // load 会根据参数类型来决定发送GET还是POST请求，参数字符串为GET，对象则为POST
     function sendReq() {
         $("#table-content").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search", {
             title : $("[name='title']").val(),

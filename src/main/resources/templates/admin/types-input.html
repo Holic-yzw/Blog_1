@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>增加分类</title>
     <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" rel="stylesheet">
-    <!--markdown插件的css-->
-    <link href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}" rel="stylesheet">
     <!--引用自定义的css-->
     <link href="../../static/css/me.css" th:href="@{/css/me.css}" rel="stylesheet">
 </head>
@@ -62,12 +60,6 @@
                 <button class="ui button teal submit">提交</button>
             </div>
             <div class="ui error message"></div>
-            <!--/*/
-            <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
-                <i class="close icon"></i>
-                <div class="header">操作失败</div>
-                <p th:errors="*{name}">提交信息不合规</p>
-            </div> /*/-->
         </form>
     </div>
 </div>
@@ -117,8 +109,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-<!--markdown插件js-->
-<script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
 <script>
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');

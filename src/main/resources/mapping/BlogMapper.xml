@@ -8,36 +8,42 @@
         <result column="picUrl" jdbcType="VARCHAR" property="picUrl"/>
         <result column="source" jdbcType="VARCHAR" property="source"/>
         <result column="viewTimes" jdbcType="INTEGER" property="viewTimes"/>
-        <result column="appreciation" jdbcType="TINYINT" property="appreciation"/>
-        <result column="copyright" jdbcType="TINYINT" property="copyright"/>
-        <result column="recommend" jdbcType="TINYINT" property="recommend"/>
-        <result column="published" jdbcType="TINYINT" property="published"/>
-        <result column="comment" jdbcType="TINYINT" property="comment"/>
+        <result column="appreciation" jdbcType="VARCHAR" property="appreciation"/>
+        <result column="copyright" jdbcType="VARCHAR" property="copyright"/>
+        <result column="recommend" jdbcType="VARCHAR" property="recommend"/>
+        <result column="published" jdbcType="VARCHAR" property="published"/>
+        <result column="comment" jdbcType="VARCHAR" property="comment"/>
         <result column="createDate" jdbcType="DATE" property="createDate"/>
         <result column="updateDate" jdbcType="DATE" property="updateDate"/>
-        <result column="blog_type_id"  jdbcType="BIGINT"  property="blogTypeId"/>
-        <result column="blog_admin_id"  jdbcType="BIGINT" property="blogAdminId"/>
+        <result column="blogTypeId"  jdbcType="BIGINT"  property="blogTypeId"/>
+        <result column="blogAdminId"  jdbcType="BIGINT" property="blogAdminId"/>
     </resultMap>
 
     <insert id="saveBlog"></insert>
     <update id="updateBlogById"></update>
     <delete id="deleteBlogById"></delete>
 
-    <select id="findAllBlog" resultMap="blog">
-      select * from t_blog
-        <where>
-            <if test="title != null and title != ''">
-               and title = #{title}
-            </if>
-            <if test="blogTypeId != null">
-              and blog_type_id = #{blogTypeId}
-            </if>
-            <if test="recommend != null and recommend != ''">
-                and recommend = #{recommend}
-            </if>
-        </where>
+    <select id="findAllBlog" resultType="com.holic.blog.entity.example.ExampleForShowBlog">
+      select a.title,a.recommend,a.updateDate,b.name typeName,a.id from t_blog a,t_type b where a.blogTypeId=b.id
     </select>
+
     <select id="getBlogById" resultType="com.holic.blog.entity.Blog"></select>
+
+    <select id="findAllBlogBySearch" resultType="com.holic.blog.entity.example.ExampleForShowBlog" parameterType="com.holic.blog.entity.example.ExampleForSearchBlog">
+      select a.title,a.recommend,a.updateDate,b.name typeName,a.id from t_blog a,t_type b
+      <where>
+          a.blogTypeId=b.id
+          <if test="title != null and title != ''">
+              and title = #{title}
+          </if>
+          <if test="typeId != null and typeId != ''">
+              and blogTypeId = #{typeId}
+          </if>
+          <if test="recommend != null and recommend !=''">
+              and recommend=#{recommend}
+          </if>
+      </where>
+    </select>
 
 
 </mapper>
