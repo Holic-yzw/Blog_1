@@ -27,7 +27,7 @@ public class BlogServiceImpl implements BlogService {
     private BlogMapper blogMapper;
 
     @Override
-    public PageInfo<Blog> listBlog(Integer pageNum, Integer pageSize, ExampleForSearchBlog blog) {
+    public PageInfo<ExampleForShowBlog> listBlog(Integer pageNum, Integer pageSize, ExampleForSearchBlog blog) {
         PageHelper.startPage(pageNum, pageSize);
         List<ExampleForShowBlog> list = blogMapper.findAllBlogBySearch(blog);
 
@@ -45,7 +45,7 @@ public class BlogServiceImpl implements BlogService {
      * @return: com.github.pagehelper.PageInfo<com.holic.blog.entity.Blog>
      **/
     @Override
-    public PageInfo<Blog> listBlog(Integer pageNum, Integer pageSize) {
+    public PageInfo<ExampleForShowBlog> listBlog(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<ExampleForShowBlog> list = blogMapper.findAllBlog();
         PageInfo page = new PageInfo(list);

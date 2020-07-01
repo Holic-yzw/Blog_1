@@ -3,6 +3,7 @@ package com.holic.blog.web.admin;
 import com.github.pagehelper.PageInfo;
 import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.example.ExampleForSearchBlog;
+import com.holic.blog.entity.example.ExampleForShowBlog;
 import com.holic.blog.service.BlogService;
 import com.holic.blog.service.TypeService;
 import org.slf4j.Logger;
@@ -35,7 +36,7 @@ public class BlogController {
     public String blogs(Model model, Integer pageNum) {
         pageNum = pageNum == null ? 1 : pageNum;
 
-        PageInfo<Blog> newPage = blogService.listBlog(pageNum, 1);
+        PageInfo<ExampleForShowBlog> newPage = blogService.listBlog(pageNum, 1);
         model.addAttribute("types", typeService.findAllType());
         model.addAttribute("page", newPage);
         return "admin/blogs";
@@ -49,7 +50,7 @@ public class BlogController {
 
         logger.info("\n 日志条件查询入参：\n {}", blog);
 
-        PageInfo<Blog> newPage = blogService.listBlog(pageNum, 1, blog);
+        PageInfo<ExampleForShowBlog> newPage = blogService.listBlog(pageNum, 1, blog);
         System.out.println(newPage.getPages());
         model.addAttribute("page", newPage);
         // 返回一个thymeleaf的片段

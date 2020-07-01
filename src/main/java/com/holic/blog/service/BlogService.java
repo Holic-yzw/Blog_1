@@ -3,6 +3,7 @@ package com.holic.blog.service;
 import com.github.pagehelper.PageInfo;
 import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.example.ExampleForSearchBlog;
+import com.holic.blog.entity.example.ExampleForShowBlog;
 
 /**
  * @author：HOLiC_y
@@ -10,9 +11,9 @@ import com.holic.blog.entity.example.ExampleForSearchBlog;
  */
 public interface BlogService {
 
-    PageInfo<Blog> listBlog(Integer pageNum, Integer pageSize, ExampleForSearchBlog blog);
+    PageInfo<ExampleForShowBlog> listBlog(Integer pageNum, Integer pageSize, ExampleForSearchBlog blog);
 
-    PageInfo<Blog> listBlog(Integer pageNum, Integer pageSize);
+    PageInfo<ExampleForShowBlog> listBlog(Integer pageNum, Integer pageSize);
 
     Blog getBlog(Long id);
 
