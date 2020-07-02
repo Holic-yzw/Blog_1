@@ -18,16 +18,108 @@
         <result column="blogTypeId"  jdbcType="BIGINT"  property="blogTypeId"/>
         <result column="blogAdminId"  jdbcType="BIGINT" property="blogAdminId"/>
     </resultMap>
+    <insert id="saveBlog" parameterType="com.holic.blog.entity.Blog" useGeneratedKeys="true" keyProperty="id">
+        insert into t_blog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="title != null and title !=''">
+              title,
+          </if>
+          <if test="content != null and content !=''">
+              content,
+          </if>
+          <if test="picUrl != null and picUrl !=''">
+              picUrl,
+          </if>
+          <if test="source != null and source != ''">
+              source,
+          </if>
+          <if test="viewTimes != null and viewTimes !=''">
+              viewTimes,
+          </if>
+          <if test="appreciation != null and appreciation != ''">
+              appreciation,
+          </if>
+          <if test="copyright != null and copyright != ''">
+              copyright,
+          </if>
+          <if test="recommend != null and recommend != ''">
+              recommend,
+          </if>
+          <if test="published != null and published != ''">
+              published,
+          </if>
+          <if test="comment != null and comment != ''">
+              comment,
+          </if>
+          <if test="createDate != null and createDate != ''">
+              createDate,
+          </if>
+          <if test="updateDate != null and updateDate != ''">
+              updateDate,
+          </if>
+          <if test="blogTypeId != null and blogTypeId != ''">
+              blogTypeId,
+          </if>
+          <if test="blogAdminId != null and blogAdminId != ''">
+              blogAdminId
+          </if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="title != null and title !=''">
+                #{title},
+            </if>
+            <if test="content != null and content !=''">
+                #{content},
+            </if>
+            <if test="picUrl != null and picUrl !=''">
+                #{picUrl},
+            </if>
+            <if test="source != null and source != ''">
+                #{source},
+            </if>
+            <if test="viewTimes != null and viewTimes !=''">
+                #{viewTimes},
+            </if>
+            <if test="appreciation != null and appreciation != ''">
+                #{appreciation},
+            </if>
+            <if test="copyright != null and copyright != ''">
+                #{copyright},
+            </if>
+            <if test="recommend != null and recommend != ''">
+                #{recommend},
+            </if>
+            <if test="published != null and published != ''">
+                #{published},
+            </if>
+            <if test="comment != null and comment != ''">
+                #{comment},
+            </if>
+            <if test="createDate != null and createDate != ''">
+                #{createDate},
+            </if>
+            <if test="updateDate != null and updateDate != ''">
+                #{updateDate},
+            </if>
+            <if test="blogTypeId != null and blogTypeId != ''">
+                #{blogTypeId},
+            </if>
+            <if test="blogAdminId != null and blogAdminId != ''">
+                #{blogAdminId},
+            </if>
+        </trim>
+    </insert>
 
-    <insert id="saveBlog"></insert>
-    <update id="updateBlogById"></update>
-    <delete id="deleteBlogById"></delete>
+    <insert id="saveLink" parameterType="java.util.List" useGeneratedKeys="true">
+      insert into t_link (blogId, tagId) values
+                                                <foreach collection="list" separator="," item="item">
+                                                    (#{item.blogId}, #{item.tagId})
+                                                </foreach>
+    </insert>
 
     <select id="findAllBlog" resultType="com.holic.blog.entity.example.ExampleForShowBlog">
       select a.title,a.recommend,a.updateDate,b.name typeName,a.id from t_blog a,t_type b where a.blogTypeId=b.id
     </select>
-
-    <select id="getBlogById" resultType="com.holic.blog.entity.Blog"></select>
 
     <select id="findAllBlogBySearch" resultType="com.holic.blog.entity.example.ExampleForShowBlog" parameterType="com.holic.blog.entity.example.ExampleForSearchBlog">
       select a.title,a.recommend,a.updateDate,b.name typeName,a.id from t_blog a,t_type b
@@ -44,9 +136,20 @@
           </if>
       </where>
     </select>
+
     <select id="countExistBlog" resultType="java.lang.Integer">
         SELECT count(*) FROM t_blog WHERE title=#{title}
     </select>
 
-
+    <select id="getBlogById" resultType="com.holic.blog.entity.Blog"></select>
+    <update id="updateBlogById"></update>
+    <delete id="deleteBlogById"></delete>
 </mapper>
+
+<!--
+#     item表示集合中每一个元素进行迭代时的别名，separator表示在每次进行迭代之间以什么符号作为分隔 符，
+#     collection属性，该属性是必须指定的，但是在不同情况 下，该属性的值是不一样的：
+#     1.如果传入的是单参数且参数类型是一个List的时候，collection属性值为list
+#     2.如果传入的是单参数且参数类型是一个array数组的时候，collection的属性值为array
+#     3.如果传入的参数是多个的时候，我们就需要把它们封装成一个Map了，当然单参数也可以封装成map
+-->

@@ -72,6 +72,10 @@ public class BlogServiceImpl implements BlogService {
             link.setTagId(blogTagId[j]);
             linkList.add(link);
         }
+        int count = blogMapper.saveLink(linkList);
+        if (count != linkList.size()) {
+            throw new RuntimeException("保存中间表失败");
+        }
         return i;
     }
 

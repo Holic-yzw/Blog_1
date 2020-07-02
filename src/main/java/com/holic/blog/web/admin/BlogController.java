@@ -80,7 +80,7 @@ public class BlogController {
 
         int count = blogService.countExistBlog(blog.getTitle());
         if (count > 0) {
-            result.rejectValue("title", "titleRepeat", "博客名称不能重复！");
+            result.rejectValue("name", "nameRepeat", "博客名称不能重复！");
         }
 
         if (result.hasErrors()) {

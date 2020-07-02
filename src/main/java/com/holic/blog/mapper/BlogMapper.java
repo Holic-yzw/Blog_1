@@ -1,6 +1,7 @@
 package com.holic.blog.mapper;
 
 import com.holic.blog.entity.Blog;
+import com.holic.blog.entity.Link;
 import com.holic.blog.entity.example.ExampleForSearchBlog;
 import com.holic.blog.entity.example.ExampleForShowBlog;
 import org.springframework.stereotype.Repository;
@@ -28,4 +29,7 @@ public interface BlogMapper {
     int deleteBlogById(Long id);
 
     int countExistBlog(String title);
+
+    int saveLink(List<Link> linkList);
+
 }
