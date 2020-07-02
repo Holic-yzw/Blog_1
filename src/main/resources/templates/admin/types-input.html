@@ -60,6 +60,12 @@
                 <button class="ui button teal submit">提交</button>
             </div>
             <div class="ui error message"></div>
+            <!--/*/
+            <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
+                <i class="close icon"></i>
+                <div class="header">操作失败</div>
+                <p th:errors="*{name}">提交信息不合规</p>
+            </div> /*/-->
         </form>
     </div>
 </div>
