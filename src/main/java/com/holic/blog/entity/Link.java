@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Link {
+    private Long id;
     private Long blogId;
     private Long tagId;
 }
+
