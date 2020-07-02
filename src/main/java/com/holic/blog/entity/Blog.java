@@ -25,6 +25,7 @@ public class Blog {
     private String updateDate;
 
     private Long blogTypeId;
+    private Long[] blogTagId;
     private Long blogAdminId;
 
 }

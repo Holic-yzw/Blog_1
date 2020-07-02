@@ -44,6 +44,9 @@
           </if>
       </where>
     </select>
+    <select id="countExistBlog" resultType="java.lang.Integer">
+        SELECT count(*) FROM t_blog WHERE title=#{title}
+    </select>
 
 
 </mapper>

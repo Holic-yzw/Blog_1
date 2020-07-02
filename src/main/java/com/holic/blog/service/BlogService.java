@@ -23,4 +23,6 @@ public interface BlogService {
 
     int deleteBlog(Long id);
 
+    int countExistBlog(String title);
+
 }

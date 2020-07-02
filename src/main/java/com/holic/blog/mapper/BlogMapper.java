@@ -26,4 +26,6 @@ public interface BlogMapper {
     int updateBlogById(Blog blog);
 
     int deleteBlogById(Long id);
+
+    int countExistBlog(String title);
 }

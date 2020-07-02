@@ -3,6 +3,7 @@ package com.holic.blog.service.implement;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.holic.blog.entity.Blog;
+import com.holic.blog.entity.Link;
 import com.holic.blog.entity.example.ExampleForSearchBlog;
 import com.holic.blog.entity.example.ExampleForShowBlog;
 import com.holic.blog.mapper.BlogMapper;
@@ -59,7 +60,16 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public int saveBlog(Blog blog) {
-        return 0;
+        int i = blogMapper.saveBlog(blog);
+        Long blogId = blog.getId();
+        Long[] blogTagId = blog.getBlogTagId();
+        // 批量插入到中间表里
+        for (int j=0; j < blogTagId.length; j++) {
+            Link link = new Link();
+            link.setBlogId(blogId);
+            link.setTagId(blogTagId[j]);
+        }
+        return i;
     }
 
     @Override
@@ -70,6 +80,12 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public int deleteBlog(Long id) {
         return 0;
+    }
+
+    @Override
+    public int countExistBlog(String title) {
+        int i = blogMapper.countExistBlog(title);
+        return i;
     }
 
 

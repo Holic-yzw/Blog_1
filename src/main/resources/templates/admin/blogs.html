@@ -46,6 +46,16 @@
 <!--中间内容-->
 <div class=" m-container-blog m-padded-td-large">
     <div class="ui container ">
+        <div class="ui negative message" th:unless="${#strings.isEmpty(failMessage)}" >
+            <i class="close icon"></i>
+            <div class="header">提示</div>
+            <p th:text="${failMessage}">ok</p>
+        </div>
+        <div class="ui success message" th:unless="${#strings.isEmpty(succMessage)}" >
+            <i class="close icon"></i>
+            <div class="header">提示</div>
+            <p th:text="${succMessage}">ok</p>
+        </div>
         <div class="ui secondary segment form">
             <input type="hidden" name="page">
             <div class="inline fields">

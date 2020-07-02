@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useAffectedRows=true
     username: root
     password: root
 
@@ -9,14 +9,14 @@ logging:
 #  config: classpath:logback-spring.xml
   level:
     root: info
-    com.holic.log: debug
+    com.holic.blog: debug
   file:
     name: D:/log/springboot/dev.log
     max-history: 14
     max-size: 30MB
     total-size-cap: 500MB
   pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} -- [%thread] -- %-5level --%logger{50} ----> %msg%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} -- [%thread] -- %-5level -- %logger{50} ----> %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} --- [%thread] --- %-5level --- %logger{50} --- %msg%n"
 
 #  %d{yyyy-MM-dd HH:mm:ss.SSS}——日志输出时间
