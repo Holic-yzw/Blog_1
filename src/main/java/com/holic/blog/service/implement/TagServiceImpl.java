@@ -61,4 +61,10 @@ public class TagServiceImpl implements TagService {
         int i = tagMapper.deleteTagById(id);
         return i;
     }
+
+    @Override
+    public List<Tag> findAllTag() {
+        List<Tag> allTag = tagMapper.findAllTag();
+        return allTag;
+    }
 }
