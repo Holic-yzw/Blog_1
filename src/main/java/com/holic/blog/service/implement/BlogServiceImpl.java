@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,10 +65,12 @@ public class BlogServiceImpl implements BlogService {
         Long blogId = blog.getId();
         Long[] blogTagId = blog.getBlogTagId();
         // 批量插入到中间表里
+        ArrayList<Link> linkList = new ArrayList<>();
         for (int j=0; j < blogTagId.length; j++) {
             Link link = new Link();
             link.setBlogId(blogId);
             link.setTagId(blogTagId[j]);
+            linkList.add(link);
         }
         return i;
     }
