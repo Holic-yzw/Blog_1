@@ -54,15 +54,11 @@
             <input type="hidden" name="id" th:value="*{id}">
             <input type="hidden" name="published">
             <input type="hidden" name="blogAdminId">
-            <div class="ui negative message" id="check" th:unless="${#strings.isEmpty(error)}" th:fragment="check">
-                <i class="close icon"></i>
-                <div class="header">操作失败</div>
-                <p >博客名称不能重复</p>
-            </div>
+            <div class="ui negative message" id="check" th:unless="${#strings.isEmpty(error)}" th:fragment="check"></div><!--这个div是做标题是否重复校验用的-->
             <div class=" required field">
                 <div class="ui left labeled input">
                     <div class="ui selection dropdown label teal basic compact">
-                        <input type="hidden"  name="source">
+                        <input type="hidden"  name="source" th:value="*{source}">
                         <i class="dropdown icon"></i>
                         <div class="default text">原创</div>
                         <div class="menu">
@@ -76,7 +72,7 @@
             </div>
             <div class="field">
                 <div id="md-content" style="z-index: 1 !important;">
-                    <textarea placeholder="博客内容" name="content" style="display: none"></textarea>
+                    <textarea placeholder="博客内容" name="content" style="display: none" th:text="*{content}"></textarea>
                 </div>
             </div>
             <div class="two fields">
@@ -84,7 +80,7 @@
                     <div class="ui left labeled input">
                         <label class="ui compact teal basic label" >分类</label>
                         <div class="ui selection fluid dropdown">
-                            <input type="hidden" name="blogTypeId">
+                            <input type="hidden" name="blogTypeId" th:value="*{blogTypeId}">
                             <i class="dropdown icon"></i>
                             <div class="default text">分类</div>
                             <div class="menu">
@@ -97,7 +93,7 @@
                     <div class="ui left labeled input">
                         <label class="ui compact teal basic label" >标签</label>
                         <div class="ui selection fluid dropdown multiple search">
-                            <input type="hidden" name="blogTagId">
+                            <input type="hidden" name="blogTagId" th:value="*{blogTagId}">
                             <i class="dropdown icon"></i>
                             <div class="default text">标签</div>
                             <div class="menu">
@@ -110,32 +106,32 @@
             <div class="field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">首图</label>
-                    <input type="text" name="picUrl" placeholder="首图引用地址">
+                    <input type="text" name="picUrl" placeholder="首图引用地址" th:value="*{picUrl}">
                 </div>
 
             </div>
             <div class="fields inline">
                 <div class="field">
                     <div class="ui checkbox ">
-                        <input class="hidden" type="checkbox" name="recommend" id="recommend" value="true">
+                        <input class="hidden" type="checkbox" name="recommend" id="recommend" th:checked="*{recommend}">
                         <label for="recommend">是否推荐到首页</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input class="hidden" type="checkbox" name="copyright" id="copyright" value="true">
+                        <input class="hidden" type="checkbox" name="copyright" id="copyright" th:checked="*{copyright}">
                         <label for="copyright">是否转载</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input class="hidden" type="checkbox" name="appreciation" id="appreciation" value="true">
+                        <input class="hidden" type="checkbox" name="appreciation" id="appreciation" th:checked="*{appreciation}">
                         <label for="appreciation">是否显示赞赏</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input class="hidden" type="checkbox" name="comment" id="comment" value="true">
+                        <input class="hidden" type="checkbox" name="comment" id="comment" th:checked="*{comment}">
                         <label for="comment">是否开放留言</label>
                     </div>
                 </div>
@@ -271,7 +267,7 @@
 
     // 消息提示框关闭
     $('.message .close').click(function () {
-        $(this).closest('.message').transition('fade');
+        $(this).closest('.check_title').transition('fade');
     });
 
     function check() {

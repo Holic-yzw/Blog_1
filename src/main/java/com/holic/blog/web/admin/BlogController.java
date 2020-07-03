@@ -12,12 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.validation.Valid;
-import java.util.Map;
 
 /**
  * @Title：BlogController
@@ -31,6 +27,8 @@ public class BlogController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    private final Integer pageSize = 5;
+
     @Autowired
     private BlogService blogService;
     @Autowired
@@ -42,7 +40,6 @@ public class BlogController {
     public String blogs(Model model, Integer pageNum) {
 
         pageNum = pageNum == null ? 1 : pageNum;
-        Integer pageSize = 1;
 
         PageInfo<ExampleForShowBlog> newPage = blogService.listBlog(pageNum, pageSize);
         model.addAttribute("types", typeService.findAllType());
@@ -57,9 +54,7 @@ public class BlogController {
         pageNum = pageNum == null ? 1 : pageNum;
 
         logger.info("\n 日志条件查询入参：{} \n ", blog);
-
-        PageInfo<ExampleForShowBlog> newPage = blogService.listBlog(pageNum, 1, blog);
-        System.out.println(newPage.getPages());
+        PageInfo<ExampleForShowBlog> newPage = blogService.listBlog(pageNum, pageSize, blog);
         model.addAttribute("page", newPage);
         // 返回一个thymeleaf的片段
         return "admin/blogs :: blogList";
@@ -89,26 +84,52 @@ public class BlogController {
     }
 
     @PostMapping("/blogs/add")
-    public String add(@Valid Blog blog, BindingResult result, RedirectAttributes attributes) {
+    public String add(Blog blog, RedirectAttributes attributes) {
 
-        int count = blogService.countExistBlog(blog.getTitle());
-        if (count > 0) {
-            result.rejectValue("title", "titleRepeat", "博客名称不能重复！");
-        }
+        logger.info("\n 日志入参：{} \n", blog);
 
-        if (result.hasErrors()) {
-            return "admin/blogs-input";
-        }
-
-        logger.info("\n 新增日志入参：{} \n", blog);
-
-        int i = blogService.saveBlog(blog);
-        if (i == 0) {
-            attributes.addFlashAttribute("failMessage","新增博客失败！");
+        if (blog.getId() == null) {
+            int i = blogService.saveBlog(blog);
+            if (i == 0) {
+                attributes.addFlashAttribute("failMessage","新增博客失败！");
+            } else {
+                attributes.addFlashAttribute("succMessage","新增博客成功！");
+            }
         } else {
-            attributes.addFlashAttribute("succMessage","新增博客成功！");
+            int i = blogService.updateBlog(blog);
+            if (i == 0) {
+                attributes.addFlashAttribute("failMessage","更新博客失败！");
+            } else {
+                attributes.addFlashAttribute("succMessage","更新博客成功！");
+            }
         }
 
         return "redirect:/admin/blogs";
     }
+
+    @GetMapping("/blogs/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+
+        Blog blog = blogService.getBlog(id);
+        String ints = blogService.getTagIdByBlogId(id);
+        blog.setBlogTagId(ints);
+        blog.getBlogTagId();
+        model.addAttribute("blog", blog);// 将查到的博客对象返给页面进行修改
+        model.addAttribute("types", typeService.findAllType());
+        model.addAttribute("tags", tagService.findAllTag());
+
+        return "admin/blogs-input";
+    }
+
+    @GetMapping("/blogs/{id}/delete")
+    public String delete(@PathVariable Long id, RedirectAttributes attributes) {
+        int i = blogService.deleteBlog(id);
+        if (i == 0) {
+            attributes.addFlashAttribute("failMessage","删除博客失败！");
+        } else {
+            attributes.addFlashAttribute("succMessage","删除博客成功！");
+        }
+        return "redirect:/admin/blogs";
+    }
+
 }

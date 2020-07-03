@@ -16,5 +16,6 @@ public class ExampleForShowBlog {
     private String title;
     private String typeName;
     private String recommend;
+    private String published; // 为true时是发布，否则为草稿
     private String updateDate;
 }

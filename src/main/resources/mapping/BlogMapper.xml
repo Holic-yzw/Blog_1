@@ -118,11 +118,11 @@
     </insert>
 
     <select id="findAllBlog" resultType="com.holic.blog.entity.example.ExampleForShowBlog">
-      select a.title,a.recommend,a.updateDate,b.name typeName,a.id from t_blog a,t_type b where a.blogTypeId=b.id
+      select a.title,a.recommend,a.published,a.updateDate,b.name typeName,a.id from t_blog a,t_type b where a.blogTypeId=b.id
     </select>
 
     <select id="findAllBlogBySearch" resultType="com.holic.blog.entity.example.ExampleForShowBlog" parameterType="com.holic.blog.entity.example.ExampleForSearchBlog">
-      select a.title,a.recommend,a.updateDate,b.name typeName,a.id from t_blog a,t_type b
+      select a.title,a.recommend,a.published,a.updateDate,b.name typeName,a.id from t_blog a,t_type b
       <where>
           a.blogTypeId=b.id
           <if test="title != null and title != ''">
@@ -141,9 +141,29 @@
         SELECT count(*) FROM t_blog WHERE title=#{title}
     </select>
 
-    <select id="getBlogById" resultType="com.holic.blog.entity.Blog"></select>
-    <update id="updateBlogById"></update>
-    <delete id="deleteBlogById"></delete>
+    <select id="getBlogById" resultType="com.holic.blog.entity.Blog">
+        select * from t_blog where id = #{id}
+    </select>
+    <select id="getTagIdByBlogId" resultType="java.lang.Long">
+        select tagId from t_link where blogId=#{id}
+    </select>
+
+
+    <update id="updateBlogById" parameterType="com.holic.blog.entity.Blog">
+        update t_blog a
+        set a.title=#{title},a.content=#{content},a.picUrl=#{picUrl},a.source=#{source},
+              a.appreciation=#{appreciation},a.copyright=#{copyright},a.recommend=#{recommend},
+              a.published=#{published},a.comment=#{comment},a.updateDate=#{updateDate},a.blogTypeId=#{blogTypeId},a.blogAdminId=#{blogAdminId}
+        where a.id=#{id}
+    </update>
+
+    <delete id="deleteBlogById">
+      delete from t_blog where id=#{id}
+    </delete>
+
+    <delete id="deleteLinkByBlogId">
+        delete from t_link where blogId=#{id}
+    </delete>
 </mapper>
 
 <!--

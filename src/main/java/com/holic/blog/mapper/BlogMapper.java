@@ -32,4 +32,8 @@ public interface BlogMapper {
 
     int saveLink(List<Link> linkList);
 
+    List<Long> getTagIdByBlogId(Long id);
+
+    int deleteLinkByBlogId(Long id);
+
 }

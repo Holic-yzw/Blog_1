@@ -12,10 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -60,9 +62,14 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog getBlog(Long id) {
-        return null;
+        Blog blog = blogMapper.getBlogById(id);
+        if (blog == null) {
+            throw new RuntimeException("查找博客失败");
+        }
+        return blog;
     }
 
+    @Transactional
     @Override
     public int saveBlog(Blog blog) {
 
@@ -71,30 +78,56 @@ public class BlogServiceImpl implements BlogService {
         int i = blogMapper.saveBlog(blog);
 
         Long blogId = blog.getId();
-        Long[] blogTagId = blog.getBlogTagId();
+        String tagIds = blog.getBlogTagId();
+        saveLink(blogId, tagIds);
+        return i;
+    }
+
+    @Transactional
+    @Override
+    public int updateBlog(Blog blog) {
+
+        blog.setUpdateDate(date);
+        int i = blogMapper.updateBlogById(blog);
+
+        Long blogId = blog.getId();
+        String tagIds = blog.getBlogTagId();
+
+        // 查找未修改之前的tagId,并于修改后的比较,不一致则删掉之前的，保存新的
+        String origin = getTagIdByBlogId(blogId);
+        if (!origin.equalsIgnoreCase(tagIds)) {
+            blogMapper.deleteLinkByBlogId(blogId);
+            saveLink(blogId, tagIds);
+        }
+
+        return i;
+    }
+
+    private void saveLink(Long blogId, String tagIds) {
+        List<String> stringList = Arrays.asList(tagIds.split(","));
         // 批量插入到中间表里
         ArrayList<Link> linkList = new ArrayList<>();
-        for (int j=0; j < blogTagId.length; j++) {
+        for (int j = 0; j < stringList.size(); j++) {
             Link link = new Link();
             link.setBlogId(blogId);
-            link.setTagId(blogTagId[j]);
+            link.setTagId(Long.parseLong(stringList.get(j)));
             linkList.add(link);
         }
         int count = blogMapper.saveLink(linkList);
         if (count != linkList.size()) {
             throw new RuntimeException("保存中间表失败");
         }
-        return i;
     }
 
-    @Override
-    public int updateBlog(Blog blog) {
-        return 0;
-    }
-
+    @Transactional
     @Override
     public int deleteBlog(Long id) {
-        return 0;
+        int i = blogMapper.deleteBlogById(id);
+        int j = blogMapper.deleteLinkByBlogId(id);
+        if (i ==0 || j ==0) {
+            throw new RuntimeException("删除博客失败");
+        }
+        return 1;
     }
 
     @Override
@@ -103,5 +136,17 @@ public class BlogServiceImpl implements BlogService {
         return i;
     }
 
+    @Override
+    public String getTagIdByBlogId(Long id) {
+        List<Long> list = blogMapper.getTagIdByBlogId(id);
+        StringBuffer buffer = new StringBuffer();
+        for (int i = 0; i < list.size(); i++) {
+            buffer.append(list.get(i));
+            buffer.append(",");
+        }
+        String str = buffer.toString();
+        String s = str.substring(0, str.lastIndexOf(","));
+        return s;
+    }
 
 }

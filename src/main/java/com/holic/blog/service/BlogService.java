@@ -25,4 +25,6 @@ public interface BlogService {
 
     int countExistBlog(String title);
 
+    String getTagIdByBlogId(Long id);
+
 }
