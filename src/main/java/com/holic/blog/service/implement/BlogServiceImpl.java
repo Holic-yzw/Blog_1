@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,8 @@ public class BlogServiceImpl implements BlogService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    private String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
     @Autowired
     private BlogMapper blogMapper;
 
@@ -33,7 +37,7 @@ public class BlogServiceImpl implements BlogService {
         PageHelper.startPage(pageNum, pageSize);
         List<ExampleForShowBlog> list = blogMapper.findAllBlogBySearch(blog);
 
-        logger.info("\n 日志条件查询结果  \n {}", list.toString());
+        logger.info("\n 日志条件查询结果 {} \n ", list.toString());
 
         PageInfo page = new PageInfo(list);
         return page;
@@ -61,7 +65,11 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public int saveBlog(Blog blog) {
+
+        blog.setCreateDate(date);
+        blog.setUpdateDate(date);
         int i = blogMapper.saveBlog(blog);
+
         Long blogId = blog.getId();
         Long[] blogTagId = blog.getBlogTagId();
         // 批量插入到中间表里

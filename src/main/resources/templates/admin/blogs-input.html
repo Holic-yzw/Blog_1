@@ -50,9 +50,15 @@
 <!--中间内容-->
 <div class=" m-container m-padded-td-large">
     <div class="ui container ">
-        <form id="blog-form" action="#" th:action="@{/admin/blogs/add}" method="post" class="ui form">
+        <form id="blog-form" action="#" th:action="@{/admin/blogs/add}" method="post" class="ui form" th:object="${blog}">
+            <input type="hidden" name="id" th:value="*{id}">
             <input type="hidden" name="published">
             <input type="hidden" name="blogAdminId">
+            <div class="ui negative message" id="check" th:unless="${#strings.isEmpty(error)}" th:fragment="check">
+                <i class="close icon"></i>
+                <div class="header">操作失败</div>
+                <p >博客名称不能重复</p>
+            </div>
             <div class=" required field">
                 <div class="ui left labeled input">
                     <div class="ui selection dropdown label teal basic compact">
@@ -65,7 +71,7 @@
                             <div class="item" data-value="翻译" th:data-value="翻译">翻译</div>
                         </div>
                     </div>
-                    <input  type="text" name="title" placeholder="标题">
+                    <input  onblur="check()" type="text" name="title" placeholder="标题" th:value="*{title}">
                 </div>
             </div>
             <div class="field">
@@ -140,12 +146,6 @@
                 <button class="ui button teal" type="button" id="publish-but">发布</button>
             </div>
             <div class="ui error message"></div>
-            <!--/*/
-            <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
-                <i class="close icon"></i>
-                <div class="header">操作失败</div>
-                <p th:errors="*{name}">提交信息不合规</p>
-            </div> /*/-->
         </form>
     </div>
 </div>
@@ -273,6 +273,18 @@
     $('.message .close').click(function () {
         $(this).closest('.message').transition('fade');
     });
+
+    function check() {
+        var title = $('[name="title"]').val();
+        $.post(/*[[@{/admin/blogs/checkTitle}]]*/"/admin/blogs/checkTitle", {
+            title : title
+        },function (data) {
+            if (data != "") {
+                alert("博客名称重复!")
+                $('[name="title"]').val('');
+            }
+        });
+    }
 </script>
 </body>
 </html>

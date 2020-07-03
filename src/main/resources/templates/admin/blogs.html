@@ -199,6 +199,11 @@
             page : $("[name='page']").val()
         });
     }
+
+    // 消息提示框关闭
+    $('.message .close').click(function () {
+        $(this).closest('.message').transition('fade');
+    });
 </script>
 </body>
 </html>

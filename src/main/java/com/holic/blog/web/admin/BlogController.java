@@ -13,12 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 /**
  * @Title：BlogController
@@ -69,10 +68,24 @@ public class BlogController {
     @GetMapping("/blogs/add")
     public String gotoAddPage(Model model) {
 
+        // 页面数据初始化，一定要注意blog对象也必须传过去，不然后续的页面校验会出错，找不到blog对象（或者找不到title等错误）
         model.addAttribute("types", typeService.findAllType());
         model.addAttribute("tags", tagService.findAllTag());
+        model.addAttribute("blog",new Blog());
 
         return "admin/blogs-input";
+    }
+
+
+    @PostMapping("/blogs/checkTitle")
+    public String checkTitle(@RequestParam String title, Model model) {
+        int count = blogService.countExistBlog(title);
+        if (count != 0) {
+            model.addAttribute("error","已存在");
+        } else {
+            model.addAttribute("error",null);
+        }
+        return "admin/blogs-input :: check";
     }
 
     @PostMapping("/blogs/add")
@@ -80,7 +93,7 @@ public class BlogController {
 
         int count = blogService.countExistBlog(blog.getTitle());
         if (count > 0) {
-            result.rejectValue("name", "nameRepeat", "博客名称不能重复！");
+            result.rejectValue("title", "titleRepeat", "博客名称不能重复！");
         }
 
         if (result.hasErrors()) {
@@ -91,9 +104,9 @@ public class BlogController {
 
         int i = blogService.saveBlog(blog);
         if (i == 0) {
-            attributes.addFlashAttribute("failMessage","添加标签失败！");
+            attributes.addFlashAttribute("failMessage","新增博客失败！");
         } else {
-            attributes.addFlashAttribute("succMessage","添加标签成功！");
+            attributes.addFlashAttribute("succMessage","新增博客成功！");
         }
 
         return "redirect:/admin/blogs";
