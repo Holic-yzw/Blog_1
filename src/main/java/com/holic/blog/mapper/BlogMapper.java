@@ -2,23 +2,22 @@ package com.holic.blog.mapper;
 
 import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.Link;
-import com.holic.blog.entity.example.ExampleForSearchBlog;
-import com.holic.blog.entity.example.ExampleForShowBlog;
+import com.holic.blog.entity.example.SearchBlogForAdmin;
+import com.holic.blog.entity.example.ShowBlogForAdmin;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
- * @Description：TODO
  * @author：HOLiC_y
- * @date：2020/6/14 0014
+ * @date：2020/6/14
  */
 @Repository
 public interface BlogMapper {
 
-    List<ExampleForShowBlog> findAllBlogBySearch(ExampleForSearchBlog blog);
+    List<ShowBlogForAdmin> findAllBlogBySearch(SearchBlogForAdmin blog);
 
-    List<ExampleForShowBlog> findAllBlog();
+    List<ShowBlogForAdmin> findAllBlog();
 
     Blog getBlogById(Long id);
 

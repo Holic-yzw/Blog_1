@@ -123,11 +123,11 @@
                                                 </foreach>
     </insert>
 
-    <select id="findAllBlog" resultType="com.holic.blog.entity.example.ExampleForShowBlog">
+    <select id="findAllBlog" resultType="com.holic.blog.entity.example.ShowBlogForAdmin">
       select a.title,a.recommend,a.published,a.updateDate,b.name typeName,a.id from t_blog a,t_type b where a.blogTypeId=b.id
     </select>
 
-    <select id="findAllBlogBySearch" resultType="com.holic.blog.entity.example.ExampleForShowBlog" parameterType="com.holic.blog.entity.example.ExampleForSearchBlog">
+    <select id="findAllBlogBySearch" resultType="com.holic.blog.entity.example.ShowBlogForAdmin" parameterType="com.holic.blog.entity.example.SearchBlogForAdmin">
       select a.title,a.recommend,a.published,a.updateDate,b.name typeName,a.id from t_blog a,t_type b
       <where>
           a.blogTypeId=b.id

@@ -4,8 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.Link;
-import com.holic.blog.entity.example.ExampleForSearchBlog;
-import com.holic.blog.entity.example.ExampleForShowBlog;
+import com.holic.blog.entity.example.SearchBlogForAdmin;
+import com.holic.blog.entity.example.ShowBlogForAdmin;
 import com.holic.blog.mapper.BlogMapper;
 import com.holic.blog.service.BlogService;
 import org.slf4j.Logger;
@@ -35,14 +35,14 @@ public class BlogServiceImpl implements BlogService {
     private BlogMapper blogMapper;
 
     @Override
-    public PageInfo<ExampleForShowBlog> listBlog(Integer pageNum, Integer pageSize, ExampleForSearchBlog blog) {
+    public PageInfo<ShowBlogForAdmin> listBlog(Integer pageNum, Integer pageSize, SearchBlogForAdmin blog) {
 
         // 参数转换
         String recommend = "true".equalsIgnoreCase(blog.getRecommend()) ? "on" : "off";
         blog.setRecommend(recommend);
 
         PageHelper.startPage(pageNum, pageSize);
-        List<ExampleForShowBlog> list = blogMapper.findAllBlogBySearch(blog);
+        List<ShowBlogForAdmin> list = blogMapper.findAllBlogBySearch(blog);
 
         logger.info("\n 日志条件查询结果 {} \n ", list.toString());
 
@@ -58,9 +58,9 @@ public class BlogServiceImpl implements BlogService {
      * @return: com.github.pagehelper.PageInfo<com.holic.blog.entity.Blog>
      **/
     @Override
-    public PageInfo<ExampleForShowBlog> listBlog(Integer pageNum, Integer pageSize) {
+    public PageInfo<ShowBlogForAdmin> listBlog(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<ExampleForShowBlog> list = blogMapper.findAllBlog();
+        List<ShowBlogForAdmin> list = blogMapper.findAllBlog();
         PageInfo page = new PageInfo(list);
         return page;
     }

@@ -2,8 +2,8 @@ package com.holic.blog.web.admin;
 
 import com.github.pagehelper.PageInfo;
 import com.holic.blog.entity.Blog;
-import com.holic.blog.entity.example.ExampleForSearchBlog;
-import com.holic.blog.entity.example.ExampleForShowBlog;
+import com.holic.blog.entity.example.SearchBlogForAdmin;
+import com.holic.blog.entity.example.ShowBlogForAdmin;
 import com.holic.blog.service.BlogService;
 import com.holic.blog.service.TagService;
 import com.holic.blog.service.TypeService;
@@ -42,20 +42,20 @@ public class BlogController {
 
         pageNum = pageNum == null ? 1 : pageNum;
 
-        PageInfo<ExampleForShowBlog> newPage = blogService.listBlog(pageNum, pageSize);
+        PageInfo<ShowBlogForAdmin> newPage = blogService.listBlog(pageNum, pageSize);
         model.addAttribute("types", typeService.findAllType());
         model.addAttribute("page", newPage);
         return "admin/blogs";
     }
 
     @PostMapping("/blogs/search")
-    public String search(Model model, ExampleForSearchBlog blog) {
+    public String search(Model model, SearchBlogForAdmin blog) {
 
         Integer pageNum = blog.getPage();
         pageNum = pageNum == null ? 1 : pageNum;
 
         logger.info("\n 日志条件查询入参：{} \n ", blog);
-        PageInfo<ExampleForShowBlog> newPage = blogService.listBlog(pageNum, pageSize, blog);
+        PageInfo<ShowBlogForAdmin> newPage = blogService.listBlog(pageNum, pageSize, blog);
         model.addAttribute("page", newPage);
         // 返回一个thymeleaf的片段
         return "admin/blogs :: blogList";
