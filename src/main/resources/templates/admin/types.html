@@ -44,7 +44,7 @@
 </div>
 
 <!--中间内容-->
-<div class=" m-container m-padded-td-large">
+<div class=" m-container-blog m-padded-td-large">
     <div class="ui container ">
         <div class="ui negative message" th:unless="${#strings.isEmpty(failMessage)}" >
             <i class="close icon"></i>
@@ -56,36 +56,38 @@
             <div class="header">提示</div>
             <p th:text="${succMessage}">ok</p>
         </div>
-        <table class="ui celled table">
-            <thead>
-            <tr>
-                <th></th><!--序列号-->
-                <th>分类名称</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="type,iterStat : ${page.getList()}">
-                <td  th:text="${iterStat.count}">1</td>
-                <td th:text="${type.getName()}">刻意联系清单</td>
-                <td>
-                    <a href="#" th:href="@{/admin/types/{id}/edit(id=${type.getId()})}" class="ui mini basic teal button">编辑</a>
-                    <a href="#" th:href="@{/admin/types/{id}/delete(id=${type.getId()})}" class="ui mini basic red button">删除</a>
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <th colspan="6" ><!--合并单元格-->
-                    <div class="ui mini pagination menu" th:if="${page.getPages()>1}">
-                        <a class=" item" th:href="@{/admin/types(pageNum=${page.getPageNum()} -1)}" th:unless="${page.isIsFirstPage()}">上一页</a>
-                        <a class=" item" th:href="@{/admin/types(pageNum=${page.getPageNum()}+1)}" th:unless="${page.isIsLastPage()}">下一页</a>
-                    </div>
-                    <a href="#"  th:href="@{/admin/types/add}" class="ui  mini right floated teal basic button">新增</a>
-                </th>
-            </tr>
-            </tfoot>
-        </table>
+        <div class="ui segment teal"><!--顶部窄绿条效果-->
+            <table class="ui compact table">
+                <thead>
+                <tr>
+                    <th></th><!--序列号-->
+                    <th>分类名称</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="type,iterStat : ${page.getList()}">
+                    <td  th:text="${iterStat.count}">1</td>
+                    <td th:text="${type.getName()}">刻意联系清单</td>
+                    <td>
+                        <a href="#" th:href="@{/admin/types/{id}/edit(id=${type.getId()})}" class="ui mini basic teal button">编辑</a>
+                        <a href="#" th:href="@{/admin/types/{id}/delete(id=${type.getId()})}" class="ui mini basic red button">删除</a>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th colspan="6" ><!--合并单元格-->
+                        <div class="ui mini pagination menu" th:if="${page.getPages()>1}">
+                            <a class=" item" th:href="@{/admin/types(pageNum=${page.getPageNum()} -1)}" th:unless="${page.isIsFirstPage()}">上一页</a>
+                            <a class=" item" th:href="@{/admin/types(pageNum=${page.getPageNum()}+1)}" th:unless="${page.isIsLastPage()}">下一页</a>
+                        </div>
+                        <a href="#"  th:href="@{/admin/types/add}" class="ui  mini right floated teal basic button">新增</a>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 </div>
 
