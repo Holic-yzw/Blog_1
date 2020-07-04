@@ -61,7 +61,10 @@
               blogTypeId,
           </if>
           <if test="blogAdminId != null and blogAdminId != ''">
-              blogAdminId
+              blogAdminId,
+          </if>
+          <if test="desc != null and desc != ''">
+              desc,
           </if>
         </trim>
         <trim prefix=" values (" suffix=")" suffixOverrides=",">
@@ -106,6 +109,9 @@
             </if>
             <if test="blogAdminId != null and blogAdminId != ''">
                 #{blogAdminId},
+            </if>
+            <if test="desc != null and desc != ''">
+                #{desc},
             </if>
         </trim>
     </insert>
@@ -153,7 +159,8 @@
         update t_blog a
         set a.title=#{title},a.content=#{content},a.picUrl=#{picUrl},a.source=#{source},
               a.appreciation=#{appreciation},a.copyright=#{copyright},a.recommend=#{recommend},
-              a.published=#{published},a.comment=#{comment},a.updateDate=#{updateDate},a.blogTypeId=#{blogTypeId},a.blogAdminId=#{blogAdminId}
+              a.published=#{published},a.comment=#{comment},a.updateDate=#{updateDate},a.desc=#{desc},
+              a.blogTypeId=#{blogTypeId},a.blogAdminId=#{blogAdminId}
         where a.id=#{id}
     </update>
 

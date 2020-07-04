@@ -54,7 +54,7 @@
             <input type="hidden" name="published">
             <input type="hidden" name="blogAdminId">
             <div class="ui negative message" id="check" th:unless="${#strings.isEmpty(error)}" th:fragment="check"></div><!--这个div是做标题是否重复校验用的-->
-            <div class=" required field">
+            <div class="required field">
                 <div class="ui left labeled input">
                     <div class="ui selection dropdown label teal basic compact">
                         <input type="hidden"  name="source" th:value="*{source}">
@@ -69,12 +69,12 @@
                     <input  onblur="check()" type="text" name="title" placeholder="标题" th:value="*{title}">
                 </div>
             </div>
-            <div class="field">
+            <div class="required field">
                 <div id="md-content" style="z-index: 1 !important;">
                     <textarea placeholder="博客内容" name="content" style="display: none" th:text="*{content}"></textarea>
                 </div>
             </div>
-            <div class="two fields">
+            <div class="required two fields">
                 <div class="field">
                     <div class="ui left labeled input">
                         <label class="ui compact teal basic label" >分类</label>
@@ -102,11 +102,14 @@
                     </div>
                 </div>
             </div>
-            <div class="field">
+            <div class="required field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">首图</label>
                     <input type="text" name="picUrl" placeholder="首图引用地址" th:value="*{picUrl}">
                 </div>
+            </div>
+            <div class="required field">
+                <textarea name="desc" th:text="*{desc}" placeholder="博客描述..." maxlength="200"></textarea>
             </div>
             <div class="fields inline">
                 <div class="field">
@@ -246,6 +249,13 @@
                 rules :[{
                     type :'empty',
                     prompt :'首图引用地址不能为空'
+                }]
+            },
+            desc : {
+                identifier : 'desc',
+                rules :[{
+                    type :'empty',
+                    prompt :'请输入博客描述'
                 }]
             }
         }
