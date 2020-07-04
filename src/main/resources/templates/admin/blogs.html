@@ -106,12 +106,14 @@
                     <td th:text="${iterStat.count}">1</td>
                     <td th:text="${blog.getTitle()}">刻意联系清单</td>
                     <td th:text="${blog.getTypeName()}">认知提升</td>
-                    <td th:text="(${blog.getRecommend()} eq 'true') ? '是' : '否'">是</td>
-                    <td th:text="(${blog.getPublished()} eq 'true') ? '发布' : '草稿'">否</td>
+                    <td th:text="(${blog.getRecommend()} eq 'on') ? '是' : '否'">是</td>
+                    <td th:text="(${blog.getPublished()} eq 'on') ? '发布' : '草稿'">否</td>
                     <td th:text="${blog.getUpdateDate()}">20200520</td>
                     <td>
                         <a href="#" th:href="@{/admin/blogs/{id}/edit(id=${blog.getId()})}" class="ui mini basic teal button">编辑</a>
-                        <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.getId()})}" class="ui mini basic red button">删除</a>
+                        <!--<a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.getId()})}" class="ui mini basic red button">删除</a>-->
+                        <input type="hidden" name="delete_but">
+                        <button  onclick="deleteBlog(this)" class="ui mini basic red button" th:attr="data-id=${blog.getId()}">删除</button>
                     </td>
                 </tr>
                 </tbody>
@@ -183,11 +185,29 @@
 
     $('.ui.dropdown').dropdown();
 
+    function deleteBlog(obj) {
+        var b = confirm("确定要删除这篇博客吗？");
+        if (b == true) {
+            $("[name='delete_but']").val($(obj).data("id"));
+            var  id = $("[name='delete_but']").val();
+            $.get(/*[[@{/admin/blogs/delete}]]*/"/admin/blogs/delete",
+                {id : id},
+                function (data) {
+                    if (data == "succ") {
+                        alert("删除成功");
+                        location.reload(); //重新加载当前页面一次，相当于页面的刷新按钮，同重定向的效果。如果和编辑按钮一样，通过thymeleaf的标签
+                    } else {
+                        alert("删除失败");
+                    }                               //th:href 进行删除，Controller返回的页面重定向（ "redirect:/admin/blogs" ）会直接刷新页面，现在增加了删除
+                });                                   //前确认，通过js发送请求进行删除，返回的重定向后的页面在 data 中，当前页面不会自动刷新，所以就需要添加
+        }                                             //回调函数来刷新页面，效果一样
+    }
+
     $("#search-but").click(function () {
         $("[name='page']").val(0);
         sendReq();
     });
-    
+
     function page(obj) {
         $("[name='page']").val($(obj).data("page"));
         sendReq();

@@ -144,10 +144,10 @@
     <select id="getBlogById" resultType="com.holic.blog.entity.Blog">
         select * from t_blog where id = #{id}
     </select>
+
     <select id="getTagIdByBlogId" resultType="java.lang.Long">
         select tagId from t_link where blogId=#{id}
     </select>
-
 
     <update id="updateBlogById" parameterType="com.holic.blog.entity.Blog">
         update t_blog a

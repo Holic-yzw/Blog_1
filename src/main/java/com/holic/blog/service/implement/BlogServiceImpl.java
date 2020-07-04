@@ -36,6 +36,11 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public PageInfo<ExampleForShowBlog> listBlog(Integer pageNum, Integer pageSize, ExampleForSearchBlog blog) {
+
+        // 参数转换
+        String recommend = "true".equalsIgnoreCase(blog.getRecommend()) ? "on" : "off";
+        blog.setRecommend(recommend);
+
         PageHelper.startPage(pageNum, pageSize);
         List<ExampleForShowBlog> list = blogMapper.findAllBlogBySearch(blog);
 

@@ -46,7 +46,6 @@
         </div>
     </div>
 </div>
-
 <!--中间内容-->
 <div class=" m-container m-padded-td-large">
     <div class="ui container ">
@@ -108,7 +107,6 @@
                     <label class="ui teal basic label">首图</label>
                     <input type="text" name="picUrl" placeholder="首图引用地址" th:value="*{picUrl}">
                 </div>
-
             </div>
             <div class="fields inline">
                 <div class="field">
@@ -126,13 +124,13 @@
                 <div class="field">
                     <div class="ui checkbox">
                         <input class="hidden" type="checkbox" name="appreciation" id="appreciation" th:checked="*{appreciation}">
-                        <label for="appreciation">是否显示赞赏</label>
+                        <label for="appreciation">是否显示赞赏按钮</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
                         <input class="hidden" type="checkbox" name="comment" id="comment" th:checked="*{comment}">
-                        <label for="comment">是否开放留言</label>
+                        <label for="comment">是否开放评论</label>
                     </div>
                 </div>
             </div>
@@ -149,6 +147,7 @@
 <br>
 <br>
 <br>
+
 <!--底部-->
 <footer  th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-td-max">
     <div class="ui center aligned container">
@@ -188,7 +187,6 @@
         </div>
     </div>
 </footer>
-
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <!--markdown插件js-->
@@ -202,12 +200,12 @@
 
     var adminId = [[${session.admin.getId()}]]; // th:inline表示thymeleaf中的内联（即在javascript访问model中的数据）就能获取session中的值了
     $('#save-but').click(function () {
-        $('[name="published"]').val(false);
+        $('[name="published"]').val('off');
         $('[name="blogAdminId"]').val(adminId);
         $('#blog-form').submit();
     });
     $('#publish-but').click(function () {
-        $('[name="published"]').val(true);
+        $('[name="published"]').val('on');
         $('[name="blogAdminId"]').val(adminId);
         $('#blog-form').submit();
     });
@@ -275,7 +273,7 @@
         $.post(/*[[@{/admin/blogs/checkTitle}]]*/"/admin/blogs/checkTitle", {
             title : title
         },function (data) {
-            if (data != "") {
+            if (data == "fail") {
                 alert("博客名称重复!")
                 $('[name="title"]').val('');
             }

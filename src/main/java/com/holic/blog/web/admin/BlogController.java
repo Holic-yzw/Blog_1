@@ -7,6 +7,7 @@ import com.holic.blog.entity.example.ExampleForShowBlog;
 import com.holic.blog.service.BlogService;
 import com.holic.blog.service.TagService;
 import com.holic.blog.service.TypeService;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,15 +73,18 @@ public class BlogController {
     }
 
 
+    @ResponseBody
     @PostMapping("/blogs/checkTitle")
-    public String checkTitle(@RequestParam String title, Model model) {
+    public String checkTitle( String title) {
+        // post请求不使用对象接参的话，那么参数名前后端要保持一致，不然接不到
         int count = blogService.countExistBlog(title);
+        String result = "";
         if (count != 0) {
-            model.addAttribute("error","已存在");
+            result = "fail";
         } else {
-            model.addAttribute("error",null);
+            result = "succ";
         }
-        return "admin/blogs-input :: check";
+        return result;
     }
 
     @PostMapping("/blogs/add")
@@ -121,15 +125,26 @@ public class BlogController {
         return "admin/blogs-input";
     }
 
-    @GetMapping("/blogs/{id}/delete")
-    public String delete(@PathVariable Long id, RedirectAttributes attributes) {
+    @ResponseBody
+    @GetMapping("/blogs/delete")
+    public String delete(@Param("id") Long id) {
+
+        // get请求获取参数，可以用@Param(""),引号内是前端请求时参数的名字，比如：
+        //        $.get(/*[[@{/admin/blogs/delete}]]*/"/admin/blogs/delete",
+        //                {id : id, name : 'jjjjj'});
+        //id这个参数的取值
+        //@PathVariable是为rest风格而准备的，上面这个例子就不适用
+        //当然参数太多，post请求用对象接受参数更好
+        String result = "";
+
         int i = blogService.deleteBlog(id);
-        if (i == 0) {
-            attributes.addFlashAttribute("failMessage","删除博客失败！");
+        if (i == 1) {
+            result = "succ";
         } else {
-            attributes.addFlashAttribute("succMessage","删除博客成功！");
+            result = "fail";
         }
-        return "redirect:/admin/blogs";
+
+        return result;
     }
 
 }
