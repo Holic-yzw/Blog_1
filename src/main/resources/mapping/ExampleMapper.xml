@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.holic.blog.mapper.ExampleMapper">
+
+    <select id="findAllBlog" resultType="com.holic.blog.entity.example.ShowBlogForViewer">
+        SELECT a.id,a.title,a.description,b.nickName adminNickName,b.avatar adminAvatar,a.updateDate,a.viewTimes,a.picUrl,c.name typeName
+        FROM t_blog a,t_admin b,t_type c WHERE a.blogAdminId=b.id and a.blogTypeId=c.id
+    </select>
+
+    <select id="fianTypeOfMostBlog" resultType="com.holic.blog.entity.example.ShowTypeForViewer">
+        SELECT b.name typeName,a.blogTypeId typeId,COUNT(a.id) countBlog FROM t_blog a,t_type b WHERE a.blogTypeId=b.id
+        GROUP BY a.blogTypeId,b.name ORDER BY COUNT(a.id) DESC LIMIT 6
+    </select>
+
+    <select id="fianTagOfMostBlog" resultType="com.holic.blog.entity.example.ShowTagForViewer">
+        SELECT b.name tagName,b.id tagId,COUNT(c.blogId) countBlog FROM t_blog a,t_tag b,t_link c WHERE a.id=c.blogId and b.id=c.tagId
+        GROUP BY b.id,b.name ORDER BY COUNT(c.blogId) DESC LIMIT 6
+    </select>
+
+    <select id="findLatestBlog" resultType="com.holic.blog.entity.example.ShowLatestBlogForViewer">
+        SELECT a.title,a.id FROM t_blog a where a.recommend='on'   ORDER BY a.updateDate DESC LIMIT 6;
+    </select>
+
+    <select id="findBlogByQuery" resultType="com.holic.blog.entity.example.ShowBlogForViewer">
+        SELECT a.id,a.title,a.description,b.nickName adminNickName,b.avatar adminAvatar, a.updateDate,a.viewTimes,a.picUrl,c.name typeName
+        FROM t_blog a,t_admin b,t_type c
+        WHERE a.blogAdminId=b.id and a.blogTypeId=c.id and (a.title like concat('%',#{query},'%') or a.description LIKE concat('%',#{query},'%'))
+    </select>
+
+</mapper>
