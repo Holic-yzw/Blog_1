@@ -93,6 +93,25 @@
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
         </dependency>
+        <!--markdown文本回转为HTML页面-start-->
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>0.15.0</version>
+        </dependency>
+        <dependency>
+            <!--为h(标题)标签添加id属性，方便目录生成插件生成目录-->
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark-ext-heading-anchor</artifactId>
+            <version>0.15.0</version>
+        </dependency>
+        <dependency>
+            <!--专门处理表格-->
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark-ext-gfm-tables</artifactId>
+            <version>0.15.0</version>
+        </dependency>
+        <!--markdown文本回转为HTML页面-end-->
     </dependencies>
 
     <build>

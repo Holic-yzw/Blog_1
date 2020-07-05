@@ -20,4 +20,5 @@ public class ShowBlogForViewer {
     private Integer viewTimes;
     private String picUrl;
     private String typeName;
+    private Long typeId;
 }

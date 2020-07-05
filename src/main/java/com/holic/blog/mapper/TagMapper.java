@@ -17,9 +17,12 @@ public interface TagMapper {
 
     List<Tag> getTagByName(String  name);
 
+    List<Tag> getTagByBlogId(Long  id);
+
     List<Tag> findAllTag();
 
     int updateTagById(Tag tag);
 
     int deleteTagById(Long id);
+
 }

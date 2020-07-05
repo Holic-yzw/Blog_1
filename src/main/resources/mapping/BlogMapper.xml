@@ -155,6 +155,10 @@
         select tagId from t_link where blogId=#{id}
     </select>
 
+    <select id="getAuthorByBlogId" resultType="com.holic.blog.entity.Admin">
+        SELECT a.id,a.nickName,a.avatar FROM t_admin a,t_blog b WHERE a.id=b.blogAdminId and b.id=#{id}
+    </select>
+
     <update id="updateBlogById" parameterType="com.holic.blog.entity.Blog">
         update t_blog a
         set a.title=#{title},a.content=#{content},a.picUrl=#{picUrl},a.source=#{source},

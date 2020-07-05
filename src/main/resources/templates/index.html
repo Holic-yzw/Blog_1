@@ -78,7 +78,7 @@
                                         </div>
                                     </div>
                                     <div class="ui right aligned five wide column">
-                                        <a href="#" target="_blank" class="ui label teal basic m-padded-mini m-text-thin" th:text="${blog.getTypeName()}">认知提升</a>
+                                        <a href="#" th:href="@{/holic/type(id=${blog.getTypeId()})}" target="_blank" class="ui label teal basic m-padded-mini m-text-thin" th:text="${blog.getTypeName()}">认知提升</a>
                                     </div>
                                 </div>
                             </div>

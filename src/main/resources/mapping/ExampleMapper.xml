@@ -3,8 +3,8 @@
 <mapper namespace="com.holic.blog.mapper.ExampleMapper">
 
     <select id="findAllBlog" resultType="com.holic.blog.entity.example.ShowBlogForViewer">
-        SELECT a.id,a.title,a.description,b.nickName adminNickName,b.avatar adminAvatar,a.updateDate,a.viewTimes,a.picUrl,c.name typeName
-        FROM t_blog a,t_admin b,t_type c WHERE a.blogAdminId=b.id and a.blogTypeId=c.id
+        SELECT a.id,a.title,a.description,b.nickName adminNickName,b.avatar adminAvatar,a.updateDate,a.viewTimes,a.picUrl,c.name typeName,c.id typeId
+        FROM t_blog a,t_admin b,t_type c WHERE a.blogAdminId=b.id and a.blogTypeId=c.id and a.published='on'
     </select>
 
     <select id="fianTypeOfMostBlog" resultType="com.holic.blog.entity.example.ShowTypeForViewer">
@@ -18,13 +18,13 @@
     </select>
 
     <select id="findLatestBlog" resultType="com.holic.blog.entity.example.ShowLatestBlogForViewer">
-        SELECT a.title,a.id FROM t_blog a where a.recommend='on'   ORDER BY a.updateDate DESC LIMIT 6;
+        SELECT a.title,a.id FROM t_blog a where a.recommend='on' and a.published='on'   ORDER BY a.updateDate DESC LIMIT 6;
     </select>
 
     <select id="findBlogByQuery" resultType="com.holic.blog.entity.example.ShowBlogForViewer">
         SELECT a.id,a.title,a.description,b.nickName adminNickName,b.avatar adminAvatar, a.updateDate,a.viewTimes,a.picUrl,c.name typeName
         FROM t_blog a,t_admin b,t_type c
-        WHERE a.blogAdminId=b.id and a.blogTypeId=c.id and (a.title like concat('%',#{query},'%') or a.description LIKE concat('%',#{query},'%'))
+        WHERE a.blogAdminId=b.id and a.blogTypeId=c.id and a.published='on' and (a.title like concat('%',#{query},'%') or a.description LIKE concat('%',#{query},'%'))
     </select>
 
 </mapper>

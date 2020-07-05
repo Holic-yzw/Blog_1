@@ -17,6 +17,8 @@ public interface TagService {
 
     List<Tag> getTagByName(String name);
 
+    List<Tag> getTagByBlogId(Long id);
+
     PageInfo<Tag> listTag(Integer pageNum, Integer pageSize);
 
     int updateTag(Tag tag);

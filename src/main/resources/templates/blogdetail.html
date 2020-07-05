@@ -49,26 +49,29 @@
         <div class="ui segment top attached">
             <div class="ui horizontal  link list">
                 <div class="item">
-                    <img src="https://picsum.photos/id/1001/100/150" class="ui avatar image">
-                    <div class="ui content"><div class="ui header m-text-size">Holic</div> </div>
+                    <img src="https://picsum.photos/id/1001/100/150" th:src="@{${author.getAvatar()}}" class="ui avatar image">
+                    <div class="ui content"><div class="ui header m-text-size" th:text="${author.getNickName()}">Holic</div> </div>
                 </div>
-                <div class="item"><i class="icon calendar"></i>2020-02-15 </div>
-                <div class="item"><i class="eye icon"></i>200 </div>
+                <div class="item">
+                    <i class="icon calendar"></i>
+                    <span th:text="${blog.getUpdateDate()}">2020-02-15</span>
+                </div>
+                <div class="item"><i class="eye icon"></i><span th:text="${blog.getViewTimes()}">200</span></div>
             </div>
         </div>
         <div class="ui segment attached">
             <!--图片区 https://picsum.photos/id/1001/800/450  -->
-            <img src="../static/images/20200220205316.jpg" th:src="@{/images/20200220205316.jpg}" class="ui fluid image rounded" >
+            <img src="../static/images/20200220205316.jpg" th:src="@{${blog.getPicUrl()}}" class="ui fluid image rounded" >
         </div>
         <div class="ui segment padded attached " >
             <!--博客正文-->
-            <!--标签-->
             <div class="ui segment basic right aligned">
-                <div class="ui label orange basic">原创</div>
+                <div class="ui label orange basic" th:text="${blog.getSource()}">原创</div>
             </div>
-            <h2 class="ui centered aligned header">你能感觉到痛苦吗</h2>
+            <h2 class="ui centered aligned header" th:text="${blog.getTitle()}">你能感觉到痛苦吗</h2>
             <br>
-            <div id="content" class="m-padded-landr-responsive typo typo-selection js-toc-content">
+            <!--展示博客内容时，使用th:utext标签，即非转义，这样就会把格式展示；若使用th:text，则仍以纯文本展示-->
+            <div id="content" class="m-padded-landr-responsive typo typo-selection js-toc-content" th:utext="${blog.getContent()}">
                 <h2 id="tagline" class="serif">一致化浏览器排版效果，构建最适合中文阅读的网页排版</h2>
 
                 <ol id="table">
@@ -445,11 +448,12 @@ h5,h6{font-size:1em;}
 
                 <h5 id="appendix2">2、开源许可</h5>
             </div>
+
             <div class="m-padded-landr-responsive m-padded-td-little">
-                <div class="ui label left pointing teal basic ">方法论</div>
+                <div class="ui label left pointing teal basic " th:each="tag : ${tags}" th:text="${tag.getName()}">方法论</div>
             </div>
             <!--赞赏按钮-->
-            <div class="ui segment center aligned basic">
+            <div class="ui segment center aligned basic" th:if="${blog.getAppreciation()} eq 'on'">
                 <button class="ui label orange button  circular basic" id="payButton">赞 赏</button>
             </div>
             <div class="ui flowing popup transition hidden pay">
@@ -469,10 +473,10 @@ h5,h6{font-size:1em;}
             <div class="ui middle aligned grid">
                 <div class="eleven wide column">
                     <ui class="list">
-                        <li>作者：Holic</li>
-                        <li>发表时间</li>
-                        <li>版权说明</li>
-                        <li>微信转载</li>
+                        <li>作者：<span th:text="${author.getNickName()}">Holic</span><a href="#" th:href="@{/holic/about}" target="_blank">（联系我）</a></li>
+                        <li>发表时间：<span th:text="${blog.getUpdateDate()}">20200502</span></li>
+                        <li>版权说明：自由转载-非衍生-非商用保持署名</li>
+                        <li>微信转载：此功能有待开发</li>
                     </ui>
                 </div>
                 <div class="five wide column">
@@ -480,7 +484,8 @@ h5,h6{font-size:1em;}
                 </div>
             </div>
         </div>
-        <div class="ui segment bottom attached">
+
+        <div class="ui segment bottom attached" th:if="${blog.getComment()} eq 'on'">
             <!--留言区域-->
             <div id="comment" class="ui teal segment">
                 <div class="ui comments">
@@ -583,6 +588,7 @@ h5,h6{font-size:1em;}
         </div>
     </div>
 </div>
+
 <div class="m-fixed m-right-bottom m-padded-middle" style="display: none" id="toolbar">
     <div class="ui vertical icon buttons  ">
         <button type="button" class="ui teal button toc-catalogue" >目录</button>
@@ -652,7 +658,7 @@ h5,h6{font-size:1em;}
 <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script><!--生成二维码-->
 <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script><!--平滑滚动插件-->
 <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script><!--滚动侦测，当滑动到某个位置时显示小工具条-->
-<script>
+<script th:inline="javascript">
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
     });
@@ -708,9 +714,11 @@ h5,h6{font-size:1em;}
         }
     });
 
-    // 生成二维码
+    // 生成文章对应的二维码
+    var serverUrl = "127.0.0.1:8080"; // 项目完成后买个域名换上去，再组个云服务器，美汁汁
+    var uri=/*[[@{/holic/blog/{id}(id=${blog.getId()})}]]*/"";
     var qrcode = new QRCode("qrcode", { // 第一个参数是承载生成的二维码的元素的ID
-        text: "http://jindo.dev.naver.com/collie",
+        text: serverUrl+uri,
         width: 128,
         height: 128,
         colorDark : "#000000",

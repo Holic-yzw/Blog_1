@@ -33,4 +33,7 @@
     <select id="findAllTag" resultMap="tag">
         select * from t_tag
     </select>
+    <select id="getTagByBlogId" resultType="com.holic.blog.entity.Tag">
+        SELECT a.`name` FROM t_tag a,t_link b WHERE a.id=b.tagId and b.blogId = #{id}
+    </select>
 </mapper>

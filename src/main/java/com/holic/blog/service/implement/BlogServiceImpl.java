@@ -2,12 +2,14 @@ package com.holic.blog.service.implement;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.holic.blog.entity.Admin;
 import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.Link;
 import com.holic.blog.entity.example.SearchBlogForAdmin;
 import com.holic.blog.entity.example.ShowBlogForAdmin;
 import com.holic.blog.mapper.BlogMapper;
 import com.holic.blog.service.BlogService;
+import com.holic.blog.util.MarkDownUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +73,21 @@ public class BlogServiceImpl implements BlogService {
         if (blog == null) {
             throw new RuntimeException("查找博客失败");
         }
+        return blog;
+    }
+
+    /* * 
+     * @Description:将content的内容进行处理，既将markdown文本转换为HTML内容
+     * @Author:HOLiC
+     * @Date:2020/7/5 0005 
+     * @Param:[id]
+     * @return:com.holic.blog.entity.Blog
+     * */
+    @Override
+    public Blog getBlogForView(Long id) {
+        Blog blog = blogMapper.getBlogById(id);
+        String content = blog.getContent();
+        blog.setContent(MarkDownUtils.markdownToHtmlAdvice(content));
         return blog;
     }
 
@@ -154,4 +171,9 @@ public class BlogServiceImpl implements BlogService {
         return s;
     }
 
+    @Override
+    public Admin getAuthorByBlogId(Long id) {
+        Admin author = blogMapper.getAuthorByBlogId(id);
+        return author;
+    }
 }
