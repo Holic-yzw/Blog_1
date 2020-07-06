@@ -61,20 +61,22 @@
                             <div class="ui eleven wide column">
                                 <!--link list 组件默认是竖起来的，horizontal表示水平的，其子组件包含一个item的属性-->
                                 <div class="ui horizontal mini link list">
-                                    <div class="item">
+                                    <div class="item middle aligned">
                                         <img src="https://picsum.photos/id/1001/100/150" th:src="@{${blog.getAdminAvatar()}}" class="ui avatar image">
-                                        <div class="ui content"><div class="ui header m-text-size" th:text="${blog.getAdminNickName()}">Holic</div> </div>
+                                        <div class="ui content">
+                                            <span class="middle aligned m-black" th:text="${blog.getAdminNickName()}">Holic</span>
+                                        </div>
                                     </div>
-                                    <div class="item">
-                                        <i class="icon calendar"></i><span th:text="${blog.getUpdateDate()}">2020-02-15</span>
+                                    <div class="item middle aligned">
+                                        <i class="icon calendar"></i><span class="middle aligned m-black" th:text="${blog.getUpdateDate()}">2020-02-15</span>
                                     </div>
-                                    <div class="item">
-                                        <i class="eye icon"></i><span th:text="${blog.getViewTimes()}">200</span>
+                                    <div class="item middle aligned">
+                                        <i class="eye icon"></i><span class="middle aligned m-black" th:text="${blog.getViewTimes()}">200</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="ui right aligned five wide column">
-                                <a href="#" target="_blank" class="ui label teal basic m-padded-mini m-text-thin" th:text="${blog.getTypeName()}">认知提升</a>
+                            <div class="ui right aligned five wide column middle aligned">
+                                    <a href="#" target="_blank" class="ui label teal basic m-padded-mini m-text-thin" th:text="${blog.getTypeName()}">认知提升</a>
                             </div>
                         </div>
                     </div>
@@ -104,7 +106,7 @@
 <br>
 <!--底部-->
 <footer  th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-td-max">
-    <div class="ui center aligned container">
+    <div class="ui center aligned container m-padding-footer">
         <!--semantic UI 将一个块划分为16份,divided属性是每列间的分割线 grid布局组件-->
         <div class="ui  inverted divided stackable grid">
             <!--一个column是一列，共分为4列-->
@@ -136,9 +138,8 @@
                 <p>中新网客户端北京5月13日电(记者 李金磊)2020年养老金上涨进入落地期</p>
             </div>
         </div>
-        <div class="ui inverted section divider">
-            <p class="m-text-thin m-text-spaced m-opacity-tiny">Designed, developed, and maintained by:</p>
-        </div>
+        <h4 class="ui divider header"></h4>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Designed, developed, and maintained by:</p>
     </div>
 </footer>
 

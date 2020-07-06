@@ -12,13 +12,17 @@ body{
     padding: 0.2em !important;
 }
 
+.m-padding-footer{
+    padding-top: 1em !important;
+}
+
 .m-padded-middle{
     padding: 1em !important;
 }
 
 .m-padded-td-mini{
 /*一个em是14个像素*/
-padding-top: 0.2em !important;
+    padding-top: 0.2em !important;
     padding-bottom: 0.2em !important;
 }
 
@@ -42,10 +46,6 @@ padding-top: 0.2em !important;
     padding-bottom: 4em !important;
 }
 
-.m-padded-td-max{
-    padding-top: 5em !important;
-    padding-bottom: 5em !important;
-}
 /*详情页字符间距*/
 .m-padded-landr-responsive{
     padding-left: 3em !important;
@@ -96,6 +96,13 @@ padding-top: 0.2em !important;
 .m-margin-bottom-mini{
     margin-bottom: 0.5em !important;
 }
+.m-padded-td-max{
+    margin-top: 2rem !important;
+}
+
+.m-padded-bottom{
+    margin-bottom: 2rem !important;
+}
 /*主页*/
 .m-container{
     max-width: 72em !important;
@@ -114,6 +121,7 @@ padding-top: 0.2em !important;
 
 .m-black{
     color: #333 !important;
+    font-weight: 300;
 }
 
 .m-top-right{

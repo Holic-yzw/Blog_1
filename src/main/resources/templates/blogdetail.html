@@ -45,18 +45,23 @@
 <!--动画使用：After installing Animate.css, add the class animate__animated to an element,
                            along with any of the animation names (don't forget the animate__ prefix!)     -->
 <div id="waypoint" class=" m-container-blog m-padded-td-large animate__animated animate__fadeIn">
-    <div class="ui container ">
+    <div class="ui container">
         <div class="ui segment top attached">
-            <div class="ui horizontal  link list">
-                <div class="item">
+            <div class="ui horizontal link list">
+                <div class="item middle aligned">
                     <img src="https://picsum.photos/id/1001/100/150" th:src="@{${author.getAvatar()}}" class="ui avatar image">
-                    <div class="ui content"><div class="ui header m-text-size" th:text="${author.getNickName()}">Holic</div> </div>
+                    <div class="ui content">
+                        <span class="middle aligned m-black" th:text="${author.getNickName()}">Holic</span>
+                    </div>
                 </div>
-                <div class="item">
+                <div class="item middle aligned">
                     <i class="icon calendar"></i>
-                    <span th:text="${blog.getUpdateDate()}">2020-02-15</span>
+                    <span class="middle aligned m-black" th:text="${blog.getUpdateDate()}">2020-02-15</span>
                 </div>
-                <div class="item"><i class="eye icon"></i><span th:text="${blog.getViewTimes()}">200</span></div>
+                <div class="item middle aligned">
+                    <i class="eye icon"></i>
+                    <span class="middle aligned m-black" th:text="${blog.getViewTimes()}">200</span>
+                </div>
             </div>
         </div>
         <div class="ui segment attached">
@@ -475,7 +480,7 @@ h5,h6{font-size:1em;}
                     <ui class="list">
                         <li>作者：<span th:text="${author.getNickName()}">Holic</span><a href="#" th:href="@{/holic/about}" target="_blank">（联系我）</a></li>
                         <li>发表时间：<span th:text="${blog.getUpdateDate()}">20200502</span></li>
-                        <li>版权说明：自由转载-非衍生-非商用保持署名</li>
+                        <li>版权说明：自由转载-非衍生-非商用-保持署名</li>
                         <li>微信转载：此功能有待开发</li>
                     </ui>
                 </div>
@@ -491,7 +496,7 @@ h5,h6{font-size:1em;}
                 <div class="ui comments">
                     <h3 class="ui dividing header">Comments</h3>
                     <div class="comment">
-                        <a class="avatar">
+                        <a class="ui avatar image">
                             <img src="https://picsum.photos/id/1001/800/450">
                         </a>
                         <div class="content">
