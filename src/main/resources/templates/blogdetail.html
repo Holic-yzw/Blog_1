@@ -45,7 +45,7 @@
 <!--动画使用：After installing Animate.css, add the class animate__animated to an element,
                            along with any of the animation names (don't forget the animate__ prefix!)     -->
 <div id="waypoint" class=" m-container-blog m-padded-td-large animate__animated animate__fadeIn">
-    <div class="ui container" style="opacity: 0.8">
+    <div class="ui container" style="opacity: 0.9">
         <div class="ui segment top attached">
             <div class="ui horizontal link list">
                 <div class="item middle aligned">
@@ -493,126 +493,124 @@ h5,h6{font-size:1em;}
         <div class="ui segment bottom attached" th:if="${blog.getComment()} eq 'on'">
             <!--留言区域-->
             <div id="comment" class="ui blue segment">
-                <div class="ui comments">
-                    <h3 class="ui dividing header">Comments</h3>
-                    <div class="comment">
-                        <a class="ui avatar image">
-                            <img src="https://picsum.photos/id/1001/800/450">
-                        </a>
-                        <div class="content">
-                            <a class="author">Matt</a>
-                            <div class="metadata">
-                                <span class="date">Today at 5:42PM</span>
-                            </div>
-                            <div class="text">
-                                How artistic!
-                            </div>
-                            <div class="actions">
-                                <a class="reply">Reply</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <a class="avatar">
-                            <img src="https://picsum.photos/id/1001/800/450">
-                        </a>
-                        <div class="content">
-                            <a class="author">Elliot Fu</a>
-                            <div class="metadata">
-                                <span class="date">Yesterday at 12:30AM</span>
-                            </div>
-                            <div class="text">
-                                <p>This has been very useful for my research. Thanks as well!</p>
-                            </div>
-                            <div class="actions">
-                                <a class="reply">Reply</a>
+                <div th:fragment="commentList">
+                    <div class="ui threaded comments" style="max-width: 100%">
+                        <h3 class="ui dividing header">Comments</h3>
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="../static/images/avatar/matt.jpg">
+                            </a>
+                            <div class="content">
+                                <a class="author">Matt</a>
+                                <div class="metadata">
+                                    <span class="date">Today at 5:42PM</span>
+                                </div>
+                                <div class="text">
+                                    How artistic!
+                                </div>
+                                <div class="actions">
+                                    <a class="reply" data-commentid="1" data-nickname="Matt"  onclick="startReply(this)">Reply</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="comments">
-                            <div class="comment">
-                                <a class="avatar">
-                                    <img src="https://picsum.photos/id/1001/800/450">
-                                </a>
-                                <div class="content">
-                                    <a class="author">Jenny Hess</a>
-                                    <div class="metadata">
-                                        <span class="date">Just now</span>
-                                    </div>
-                                    <div class="text">
-                                        Elliot you are always so right :)
-                                    </div>
-                                    <div class="actions">
-                                        <a class="reply">Reply</a>
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="../static/images/avatar/elliot.jpg">
+                            </a>
+                            <div class="content">
+                                <a class="author">Elliot Fu</a>
+                                <div class="metadata">
+                                    <span class="date">Yesterday at 12:30AM</span>
+                                </div>
+                                <div class="text">
+                                    <p>This has been very useful for my research. Thanks as well!</p>
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">Reply</a>
+                                </div>
+                            </div>
+                            <div class="comments">
+                                <div class="comment">
+                                    <a class="avatar">
+                                        <img src="../static/images/avatar/jenny.jpg">
+                                    </a>
+                                    <div class="content">
+                                        <a class="author">Jenny Hess</a>
+                                        <div class="metadata">
+                                            <span class="date">Just now</span>
+                                        </div>
+                                        <div class="text">
+                                            Elliot you are always so right :)
+                                        </div>
+                                        <div class="actions">
+                                            <a class="reply">Reply</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="comment">
-                        <a class="avatar">
-                            <img src="https://picsum.photos/id/1001/800/450">
-                        </a>
-                        <div class="content">
-                            <a class="author">Joe Henderson</a>
-                            <div class="metadata">
-                                <span class="date">5 days ago</span>
-                            </div>
-                            <div class="text">
-                                Dude, this is awesome. Thanks so much
-                            </div>
-                            <div class="actions">
-                                <a class="reply">Reply</a>
+                        <div class="comment">
+                            <a class="avatar">
+                                <img src="../static/images/avatar/joe.jpg">
+                            </a>
+                            <div class="content">
+                                <a class="author">Joe Henderson</a>
+                                <div class="metadata">
+                                    <span class="date">5 days ago</span>
+                                </div>
+                                <div class="text">
+                                    Dude, this is awesome. Thanks so much
+                                </div>
+                                <div class="actions">
+                                    <a class="reply">Reply</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="ui form">
-                <input type="hidden" name="blogId" th:value="${blog.getId()}">
-                <input type="hidden" name="parentCommentId" value="-1">
-                <div class="field">
-                    <textarea name="content" placeholder="请留下您的评论"></textarea>
-                </div>
-                <div class="fields">
-                    <div class="field m-mobile-wide m-margin-bottom-mini">
-                        <div class="ui  left icon input">
-                            <i class="user icon"></i>
-                            <input type="text" name="nickname" placeholder="姓名">
-                        </div>
+                <div class="ui reply form" id="comment_form">
+                    <input type="hidden" name="blogId" th:value="${blog.getId()}">
+                    <input type="hidden" name="parentCommentId" value="-1">
+                    <div class="field">
+                        <textarea name="content" placeholder="请留下您的评论"></textarea>
                     </div>
-
-                    <div class="field m-mobile-wide m-margin-bottom-mini">
-                        <div class="ui input left icon">
-                            <i class="mail icon"></i>
-                            <input type="text" name="emil" placeholder="邮箱">
+                    <div class="fields">
+                        <div class="field m-mobile-wide m-margin-bottom-mini">
+                            <div class="ui  left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="nickname" placeholder="姓名">
+                            </div>
                         </div>
-                    </div>
-                    <div class="field m-mobile-wide m-margin-bottom-mini">
-                        <button class="ui blue basic button m-mobile-wide" ><i class="edit icon"></i>发布</button>
+                        <div class="field m-mobile-wide m-margin-bottom-mini">
+                            <div class="ui input left icon">
+                                <i class="mail icon"></i>
+                                <input type="text" name="emil" placeholder="邮箱">
+                            </div>
+                        </div>
+                        <div class="field m-mobile-wide m-margin-bottom-mini">
+                            <button class="ui blue basic button m-mobile-wide" type="button" id="comment-but"><i class="edit icon"></i>发布</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="m-fixed m-right-bottom m-padded-middle" style="display: none" id="toolbar">
-    <div class="ui vertical icon buttons  ">
-        <button type="button" class="ui blue button toc-catalogue" >目录</button>
-        <a href="#comment" class="ui blue button">留言</a>
-        <button id="wechat" class="ui icon button"><i class="weixin icon"></i></button>
-        <div id="toTop" class="ui icon button"><i class="chevron up icon"></i></div>
+    <!--右侧导航小工具-->
+    <div class="m-fixed m-right-bottom m-padded-middle" style="display: none;" id="toolbar">
+        <div class="ui vertical icon buttons  ">
+            <button type="button" class="ui blue button toc-catalogue" >目录</button>
+            <a href="#comment" class="ui blue button">留言</a>
+            <button id="wechat" class="ui icon button"><i class="weixin icon"></i></button>
+            <div id="toTop" class="ui icon button"><i class="chevron up icon"></i></div>
+        </div>
     </div>
-</div>
-<!--承载生成的目录-->
-<div class="ui flowing popup transition hidden catalogue " style="width: 250px!important;">
-    <ol class="js-toc">
-    </ol>
-</div>
-<!--鼠标悬停出现二维码-->
-<div id="qrcode" class="ui flowing popup transition hidden wechat">
-
-</div>
+    <!--承载生成的目录-->
+    <div class="ui flowing popup transition hidden catalogue " style="width: 250px!important;">
+        <ol class="js-toc"></ol>
+    </div>
+    <!--鼠标悬停出现二维码-->
+    <div id="qrcode" class="ui flowing popup transition hidden wechat"></div>
 
 </div>
 <br>
@@ -732,6 +730,51 @@ h5,h6{font-size:1em;}
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
     });
+
+    // 表单验证如果不被调用，只会对form元素生效
+    $('.reply.form').form({
+        fields :{
+            content : {
+                identifier : 'content',
+                rules :[{
+                    type :'empty',
+                    prompt :'评论不能为空哦~'
+                }]
+            }
+        }
+    });
+
+    $('#comment-but').click(function () {
+        var boo = $('.reply.form').form('validate form'); // 显式调用表单验证
+        if (boo) {
+            sendComment();
+        } else {
+            alert("评论不能为空哦~");
+        }
+    });
+    function sendComment() {
+        $('.ui.comments').load(
+            /*[[@{/holic/comments}]]*/"",{
+                "parentCommentId" : $("[name='parentCommentId']").val(),
+                "blogId" : $("[name='blogId']").val(),
+                "content" : $("[name='content']").val()
+                // "userId" : [[${session.admin.getId()}]]    //后续加上登录功能，只有登录的才能发评论
+            },function (data, status, xhr) {
+                $(window).scrollTo($('#comment'), 500);
+                $("[name='content']").val('');
+                $("[name='parentCommentId']").val(-1);
+                $("[name='content']").attr("placeholder", "请留下您的评论");
+            }
+        );
+    }
+
+    function startReply(obj) {
+        var commentId = $(obj).data('commentid'); // 获取自定义的元素的值（有大写字母拿不到值）
+        var nickName = $(obj).data('nickname');
+        $("[name='content']").attr("placeholder", "@"+nickName).focus(); // attr是用后者替换前者，focus是定位鼠标位置
+        $("[name='parentCommentId']").val(commentId);
+        $(window).scrollTo($('#comment_form'), 500);
+    }
 </script>
 </body>
 </html>
