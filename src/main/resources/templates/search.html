@@ -40,7 +40,7 @@
         <div class="ui  top attached segment">
             <div class="ui  middle aligned two column grid">
                 <div class="column">
-                    <h3 class="ui teal header">搜索结果</h3>
+                    <h3 class="ui blue header">搜索结果</h3>
                 </div>
                 <div class="right aligned column ">
                     共 <p class="ui header orange m-inline-block m-text-thin" th:text="${page.getTotal()}">14</p>个
@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <div class="ui teal top attached segment">
+        <div class="ui blue top attached segment">
             <div class="ui  vertical segment m-padded-all" th:each="blog : ${page.getList()}">
                 <!--mobile reversed 当分辨率为手机时，两个div会上下换位-->
                 <div class="ui grid stackable mobile reversed" >
@@ -63,8 +63,8 @@
                                 <div class="ui horizontal mini link list">
                                     <div class="item middle aligned">
                                         <img src="https://picsum.photos/id/1001/100/150" th:src="@{${blog.getAdminAvatar()}}" class="ui avatar image">
-                                        <div class="ui content">
-                                            <span class="middle aligned m-black" th:text="${blog.getAdminNickName()}">Holic</span>
+                                        <div class="ui content m-black">
+                                            <h6 class="middle aligned" th:text="${blog.getAdminNickName()}">Holic</h6>
                                         </div>
                                     </div>
                                     <div class="item middle aligned">
@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                             <div class="ui right aligned five wide column middle aligned">
-                                    <a href="#" target="_blank" class="ui label teal basic m-padded-mini m-text-thin" th:text="${blog.getTypeName()}">认知提升</a>
+                                    <a href="#" target="_blank" class="ui label blue basic m-padded-mini m-text-thin" th:text="${blog.getTypeName()}">认知提升</a>
                             </div>
                         </div>
                     </div>
@@ -92,10 +92,10 @@
         <div class="ui attached segment" th:if="${page.getPages()>1}">
             <div class="ui  middle aligned two column grid">
                 <div class="column"><!--传递多个参数时，用逗号隔开-->
-                    <a href="#" class="ui teal basic button" th:href="@{/holic/search(pageNum=${page.getPageNum()} -1, query=${query})}" th:unless="${page.isIsFirstPage()}">上一页</a>
+                    <a href="#" class="ui blue basic button" th:href="@{/holic/search(pageNum=${page.getPageNum()} -1, query=${query})}" th:unless="${page.isIsFirstPage()}">上一页</a>
                 </div>
                 <div class="right aligned column ">
-                    <a href="#" class="ui button teal basic" th:href="@{/holic/search(pageNum=${page.getPageNum()}+1,query=${query})}" th:unless="${page.isIsLastPage()}">下一页</a>
+                    <a href="#" class="ui button blue basic" th:href="@{/holic/search(pageNum=${page.getPageNum()}+1,query=${query})}" th:unless="${page.isIsLastPage()}">下一页</a>
                 </div>
             </div>
         </div>

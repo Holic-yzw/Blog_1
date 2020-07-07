@@ -18,11 +18,11 @@
 </head>
 <body>
 <!--导航)-->
-<nav th:replace="_fragments :: nav(0) "  class="ui inverted attached segment m-padded-td-mini m-shadow" >
+<nav th:replace="_fragments :: nav(0) "  class="ui inverted attached segment m-padded-td-mini m-shadow">
     <div class="ui container">
         <!--stackable 可堆叠的，屏幕宽度不够时会自动上下叠起来-->
         <div class="ui inverted secondary menu stackable">
-            <h2 class="ui green header item">Blog</h2>
+            <h2 class="ui blue header item">Blog</h2>
             <a href="index.html" class="m-item item m-mobile-hide"><i class=" home icon"></i>首页</a>
             <a href="types.html" class="m-item item m-mobile-hide"><i class="  idea icon"></i>分类</a>
             <a href="tags.html" class="m-item item m-mobile-hide"><i class=" tags icon"></i>标签</a>
@@ -45,13 +45,13 @@
 <!--动画使用：After installing Animate.css, add the class animate__animated to an element,
                            along with any of the animation names (don't forget the animate__ prefix!)     -->
 <div id="waypoint" class=" m-container-blog m-padded-td-large animate__animated animate__fadeIn">
-    <div class="ui container">
+    <div class="ui container" style="opacity: 0.8">
         <div class="ui segment top attached">
             <div class="ui horizontal link list">
                 <div class="item middle aligned">
                     <img src="https://picsum.photos/id/1001/100/150" th:src="@{${author.getAvatar()}}" class="ui avatar image">
-                    <div class="ui content">
-                        <span class="middle aligned m-black" th:text="${author.getNickName()}">Holic</span>
+                    <div class="ui content m-black">
+                        <h6 class="middle aligned " th:text="${author.getNickName()}">Holic</h6>
                     </div>
                 </div>
                 <div class="item middle aligned">
@@ -455,7 +455,7 @@ h5,h6{font-size:1em;}
             </div>
 
             <div class="m-padded-landr-responsive m-padded-td-little">
-                <div class="ui label left pointing teal basic " th:each="tag : ${tags}" th:text="${tag.getName()}">方法论</div>
+                <div class="ui label left pointing blue basic " th:each="tag : ${tags}" th:text="${tag.getName()}">方法论</div>
             </div>
             <!--赞赏按钮-->
             <div class="ui segment center aligned basic" th:if="${blog.getAppreciation()} eq 'on'">
@@ -492,7 +492,7 @@ h5,h6{font-size:1em;}
 
         <div class="ui segment bottom attached" th:if="${blog.getComment()} eq 'on'">
             <!--留言区域-->
-            <div id="comment" class="ui teal segment">
+            <div id="comment" class="ui blue segment">
                 <div class="ui comments">
                     <h3 class="ui dividing header">Comments</h3>
                     <div class="comment">
@@ -568,6 +568,8 @@ h5,h6{font-size:1em;}
                 </div>
             </div>
             <div class="ui form">
+                <input type="hidden" name="blogId" th:value="${blog.getId()}">
+                <input type="hidden" name="parentCommentId" value="-1">
                 <div class="field">
                     <textarea name="content" placeholder="请留下您的评论"></textarea>
                 </div>
@@ -586,7 +588,7 @@ h5,h6{font-size:1em;}
                         </div>
                     </div>
                     <div class="field m-mobile-wide m-margin-bottom-mini">
-                        <button class="ui teal basic button m-mobile-wide" ><i class="edit icon"></i>发布</button>
+                        <button class="ui blue basic button m-mobile-wide" ><i class="edit icon"></i>发布</button>
                     </div>
                 </div>
             </div>
@@ -596,8 +598,8 @@ h5,h6{font-size:1em;}
 
 <div class="m-fixed m-right-bottom m-padded-middle" style="display: none" id="toolbar">
     <div class="ui vertical icon buttons  ">
-        <button type="button" class="ui teal button toc-catalogue" >目录</button>
-        <a href="#comment" class="ui teal button">留言</a>
+        <button type="button" class="ui blue button toc-catalogue" >目录</button>
+        <a href="#comment" class="ui blue button">留言</a>
         <button id="wechat" class="ui icon button"><i class="weixin icon"></i></button>
         <div id="toTop" class="ui icon button"><i class="chevron up icon"></i></div>
     </div>

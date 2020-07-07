@@ -1,6 +1,13 @@
 body{
-    background: url("../images/blue-snow.png");
+    background-image: url("../images/bg.jpeg");
+    background-attachment: fixed;
+    background-size: 100%;
+    no-repeat: center top;
+    font: 14px/1.5 Tahoma,Helvetica,Arial,'宋体',sans-serif;
+    height: 100%;
+    width: 100%;
 }
+
 .m-padded-all{
     padding-top: 3em !important;
     padding-bottom: 3em!important;
@@ -179,7 +186,7 @@ body{
 }
 
 .toc-list li a:hover{
-    color: teal;
+    color: blue;
 }
 
 .toc-link::before{

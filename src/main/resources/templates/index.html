@@ -36,7 +36,7 @@
 
 <!--中间内容-->
 <div class=" m-container m-padded-td-large">
-    <div class="ui container ">
+    <div class="ui container" style="opacity: 0.9">
         <div class="ui stackable grid mobile reversed">
             <!--左边部分-->
             <div class="eleven wide column">
@@ -44,7 +44,7 @@
                 <div class="ui  top attached segment">
                     <div class="ui  middle aligned two column grid">
                         <div class="column">
-                            <h3 class="ui teal header">博客</h3>
+                            <h3 class="ui blue header">博客</h3>
                         </div>
                         <div class="right aligned column ">
                             共 <p class="ui header orange m-inline-block m-text-thin" th:text="${page.getTotal()}">14</p> 篇
@@ -67,8 +67,8 @@
                                         <div class="ui horizontal mini link list">
                                             <div class="item middle aligned">
                                                 <img src="https://picsum.photos/id/1001/100/150" th:src="@{${blog.getAdminAvatar()}}" class="ui avatar image">
-                                                <div class="ui content">
-                                                    <span class="middle aligned m-black" th:text="${blog.getAdminNickName()}">Holic</span>
+                                                <div class="ui content m-black">
+                                                    <h6 class="middle aligned" th:text="${blog.getAdminNickName()}">Holic</h6>
                                                 </div>
                                             </div>
                                             <div class="item middle aligned">
@@ -82,7 +82,7 @@
                                         </div>
                                     </div>
                                     <div class="ui right aligned five wide column middle aligned">
-                                        <a href="#" th:href="@{/holic/type(id=${blog.getTypeId()})}" target="_blank" class="ui label teal basic m-padded-mini m-text-thin" th:text="${blog.getTypeName()}">认知提升</a>
+                                        <a href="#" th:href="@{/holic/type(id=${blog.getTypeId()})}" target="_blank" class="ui label blue basic m-padded-mini m-text-thin" th:text="${blog.getTypeName()}">认知提升</a>
                                     </div>
                                 </div>
                             </div>
@@ -98,10 +98,10 @@
                 <div class="ui attached segment" th:if="${page.getPages()>1}">
                     <div class="ui  middle aligned two column grid">
                         <div class="column">
-                            <a href="#" class="ui teal basic button" th:href="@{/holic/index(pageNum=${page.getPageNum()} -1)}" th:unless="${page.isIsFirstPage()}">上一页</a>
+                            <a href="#" class="ui blue basic button" th:href="@{/holic/index(pageNum=${page.getPageNum()} -1)}" th:unless="${page.isIsFirstPage()}">上一页</a>
                         </div>
                         <div class="right aligned column ">
-                            <a href="#" class="ui button teal basic" th:href="@{/holic/index(pageNum=${page.getPageNum()}+1)}" th:unless="${page.isIsLastPage()}">下一页</a>
+                            <a href="#" class="ui button blue basic" th:href="@{/holic/index(pageNum=${page.getPageNum()}+1)}" th:unless="${page.isIsLastPage()}">下一页</a>
                         </div>
                     </div>
                 </div>
@@ -117,12 +117,12 @@
                             <div class="column right aligned"><a href="#" target="_blank" >more<i class="angle double right icon"></i> </a> </div>
                         </div>
                     </div>
-                    <div class="ui segment teal">
+                    <div class="ui segment blue">
                         <div class="ui fluid vertical menu">
                             <!--item元素包含的元素会自动分散在两边-->
                             <a href="#"  class="item"  th:each="type : ${types}">
                                 <span th:text="${type.getTypeName()}">学习日志</span>
-                                <div class="ui teal left pointing basic label" th:text="${type.getCountBlog()}">13</div>
+                                <div class="ui blue left pointing basic label" th:text="${type.getCountBlog()}">13</div>
                             </a>
                         </div>
                     </div>
@@ -135,8 +135,8 @@
                             <div class="column right aligned"><a href="#" target="_blank" >more<i class="angle double right icon"></i> </a> </div>
                         </div>
                     </div>
-                    <div class="ui segment teal">
-                        <a href="#" target="_blank"  th:each="tag : ${tags}" class="ui teal left pointing basic label m-margin-tb-mini">
+                    <div class="ui segment blue">
+                        <a href="#" target="_blank"  th:each="tag : ${tags}" class="ui blue left pointing basic label m-margin-tb-mini">
                             <span th:text="${tag.getTagName()}">方法论</span>
                             <div class="detail" th:text="${tag.getCountBlog()}">23</div>
                         </a>
