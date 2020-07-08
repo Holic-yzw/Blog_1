@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.holic.blog.mapper.CommentMapper">
+    <insert id="saveComment" parameterType="com.holic.blog.entity.Comment">
+      insert into t_comment(
+        nickName,email,content,avatar,createDate,blogId,parentCommentId
+      ) values (
+        #{nickName},#{email},#{content},#{avatar},#{createDate},#{blogId},#{parentCommentId}
+      )
+    </insert>
+
+    <select id="findCommentByBlogId" resultType="com.holic.blog.entity.Comment">
+        select * from t_comment where blogId=#{id}
+    </select>
+</mapper>

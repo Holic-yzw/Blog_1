@@ -46,7 +46,7 @@
                            along with any of the animation names (don't forget the animate__ prefix!)     -->
 <div id="waypoint" class=" m-container-blog m-padded-td-large animate__animated animate__fadeIn">
     <div class="ui container" style="opacity: 0.9">
-        <div class="ui segment top attached">
+        <div class="ui segment top attached"><!--太宽，要调-->
             <div class="ui horizontal link list">
                 <div class="item middle aligned">
                     <img src="https://picsum.photos/id/1001/100/150" th:src="@{${author.getAvatar()}}" class="ui avatar image">
@@ -490,46 +490,31 @@ h5,h6{font-size:1em;}
             </div>
         </div>
 
-        <div class="ui segment bottom attached" th:if="${blog.getComment()} eq 'on'">
-            <!--留言区域-->
-            <div id="comment" class="ui blue segment">
-                <div th:fragment="commentList">
+
+            <div class="ui bottom attached segment" th:if="${blog.getComment()} eq 'on'">
+
+                <!--留言区域-->
+                <div id="comment" class="ui blue segment">
+                    <div th:fragment="commentList">
                     <div class="ui threaded comments" style="max-width: 100%">
                         <h3 class="ui dividing header">Comments</h3>
-                        <div class="comment">
+                        <div class="comment" th:each="comment : ${comments}">
                             <a class="avatar">
-                                <img src="../static/images/avatar/matt.jpg">
+                                <img src="../static/images/avatar/elliot.jpg" th:src="@{${comment.getAvatar()}}">
                             </a>
                             <div class="content">
-                                <a class="author">Matt</a>
+                                <a class="author" th:text="${comment.getNickName()}">Elliot Fu</a>
                                 <div class="metadata">
-                                    <span class="date">Today at 5:42PM</span>
+                                    <span class="date" th:text="${comment.getCreateDate()}">Yesterday at 12:30AM</span>
                                 </div>
-                                <div class="text">
-                                    How artistic!
-                                </div>
-                                <div class="actions">
-                                    <a class="reply" data-commentid="1" data-nickname="Matt"  onclick="startReply(this)">Reply</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment">
-                            <a class="avatar">
-                                <img src="../static/images/avatar/elliot.jpg">
-                            </a>
-                            <div class="content">
-                                <a class="author">Elliot Fu</a>
-                                <div class="metadata">
-                                    <span class="date">Yesterday at 12:30AM</span>
-                                </div>
-                                <div class="text">
+                                <div class="text" th:text="${comment.getContent()}">
                                     <p>This has been very useful for my research. Thanks as well!</p>
                                 </div>
                                 <div class="actions">
-                                    <a class="reply">Reply</a>
+                                    <a class="reply" data-commentid="1" data-nickname="Matt" th:attr="data-commentid=${comment.getId()},data-nickname=${comment.getNickName()}" onclick="startReply(this)">Reply</a>
                                 </div>
                             </div>
-                            <div class="comments">
+                            <div class="comments" th:if="${comment.getCount()} != 0">
                                 <div class="comment">
                                     <a class="avatar">
                                         <img src="../static/images/avatar/jenny.jpg">
@@ -546,23 +531,6 @@ h5,h6{font-size:1em;}
                                             <a class="reply">Reply</a>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment">
-                            <a class="avatar">
-                                <img src="../static/images/avatar/joe.jpg">
-                            </a>
-                            <div class="content">
-                                <a class="author">Joe Henderson</a>
-                                <div class="metadata">
-                                    <span class="date">5 days ago</span>
-                                </div>
-                                <div class="text">
-                                    Dude, this is awesome. Thanks so much
-                                </div>
-                                <div class="actions">
-                                    <a class="reply">Reply</a>
                                 </div>
                             </div>
                         </div>
@@ -584,7 +552,7 @@ h5,h6{font-size:1em;}
                         <div class="field m-mobile-wide m-margin-bottom-mini">
                             <div class="ui input left icon">
                                 <i class="mail icon"></i>
-                                <input type="text" name="emil" placeholder="邮箱">
+                                <input type="text" name="email" placeholder="邮箱">
                             </div>
                         </div>
                         <div class="field m-mobile-wide m-margin-bottom-mini">
@@ -740,6 +708,20 @@ h5,h6{font-size:1em;}
                     type :'empty',
                     prompt :'评论不能为空哦~'
                 }]
+            },
+            nickname : {
+                identifier : 'nickname',
+                rules :[{
+                    type :'empty',
+                    prompt :'昵称不能为空哦~'
+                }]
+            },
+            email : {
+                identifier : 'email',
+                rules :[{
+                    type :'email',
+                    prompt :'邮箱不能为空哦~'
+                }]
             }
         }
     });
@@ -757,8 +739,10 @@ h5,h6{font-size:1em;}
             /*[[@{/holic/comments}]]*/"",{
                 "parentCommentId" : $("[name='parentCommentId']").val(),
                 "blogId" : $("[name='blogId']").val(),
-                "content" : $("[name='content']").val()
-                // "userId" : [[${session.admin.getId()}]]    //后续加上登录功能，只有登录的才能发评论
+                "content" : $("[name='content']").val(),
+                "nickName" : $("[name='nickname']").val(),
+                "email" : $("[name='email']").val()
+                // "userId" :    //后续加上登录功能，只有登录的才能发评论
             },function (data, status, xhr) {
                 $(window).scrollTo($('#comment'), 500);
                 $("[name='content']").val('');
@@ -767,6 +751,10 @@ h5,h6{font-size:1em;}
             }
         );
     }
+    // 页面加载完成后去加载评论列表
+    $(function () {
+        $('.ui.comments').load(/*[[@{/holic/comment/{blogId}(blogId=${ blog.getId()})}]]*/"");
+    });
 
     function startReply(obj) {
         var commentId = $(obj).data('commentid'); // 获取自定义的元素的值（有大写字母拿不到值）

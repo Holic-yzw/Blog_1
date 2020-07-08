@@ -14,10 +14,12 @@ public class Comment {
     private String email;
     private String content;
     private String avatar;
-    private Date createDate;
+    private String createDate;
 
     private Long blogId;
     // 自关联
     private Long parentCommentId;
+    // 统计子评论个数
+    private Integer count = 0;
 
 }
