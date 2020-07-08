@@ -491,11 +491,11 @@ h5,h6{font-size:1em;}
         </div>
 
 
-            <div class="ui bottom attached segment" th:if="${blog.getComment()} eq 'on'">
+        <div class="ui bottom attached segment" th:if="${blog.getComment()} eq 'on'">
 
-                <!--留言区域-->
-                <div id="comment" class="ui blue segment">
-                    <div th:fragment="commentList">
+            <!--留言区域-->
+            <div id="comment" class="ui blue segment">
+                <div th:fragment="commentList"  id="abc">
                     <div class="ui threaded comments" style="max-width: 100%">
                         <h3 class="ui dividing header">Comments</h3>
                         <div class="comment" th:each="comment : ${comments}">

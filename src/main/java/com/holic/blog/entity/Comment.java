@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -21,5 +22,7 @@ public class Comment {
     private Long parentCommentId;
     // 统计子评论个数
     private Integer count = 0;
+    //子评论
+    private Set<Comment> childComment;
 
 }
