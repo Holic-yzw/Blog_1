@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,8 +55,14 @@ public class BlogDetailController {
     public String loadComment(@PathVariable Long blogId, Model model) {
 
         List<Comment> comments = commentService.listCommentByBlogId(blogId);
-        model.addAttribute("comments", comments);
 
+        if (comments.size() == 0) {
+            ArrayList<Comment> comments1 = new ArrayList<>();
+            model.addAttribute("comments", comments1);
+            return "blogdetail :: commentList";
+        }
+
+        model.addAttribute("comments", comments);
         return "blogdetail :: commentList";
     }
 

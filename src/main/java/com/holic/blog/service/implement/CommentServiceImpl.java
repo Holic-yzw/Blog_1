@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -19,7 +20,8 @@ import java.util.*;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    private  String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    ArrayList<Comment> rootComments = new ArrayList<>();
+    ArrayList<Comment> childComments = new ArrayList<>();
 
     @Autowired
     private CommentMapper commentMapper;
@@ -27,67 +29,72 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> listCommentByBlogId(Long id) {
         List<Comment> list = commentMapper.findCommentByBlogId(id);
-        ArrayList arrayList = new ArrayList(sortComment(list));
-        return arrayList;
+        return apartComment(list);
     }
 
+    private List<Comment> apartComment(List<Comment> comments){
 
-    private Set<Comment> sortComment(List<Comment> comments){
-
-        ArrayList<Comment> rootComment = new ArrayList<>();
-        ArrayList<Comment> childComment = new ArrayList<>();
         // 将父子评论分开
-        for (Comment comment:comments
-             ) {
+        for (Comment comment : comments) {
             if (comment.getParentCommentId() == -1) {
-                rootComment.add(comment);
+                rootComments.add(comment);
             } else {
-                childComment.add(comment);
+                childComments.add(comment);
             }
         }
 
-        TreeSet<Comment> root = new TreeSet<>(new Comparator<Comment>() {
+        TreeSet<Comment> sort = new TreeSet<>(new Comparator<Comment>() {
             @Override
             public int compare(Comment o1, Comment o2) {
-                Comment c1 = o1;
-                Comment c2 = o2;
-                return c2.getCreateDate().compareTo(c1.getCreateDate());
+                return o2.getCreateDate().compareTo(o1.getCreateDate());
             }
         });
 
-        // 双重循环，将子评论归结到父评论下
-        for (Comment comment:rootComment
-             ) {
-            // 存放子评论的集合
-            TreeSet<Comment> child = new TreeSet<>(new Comparator<Comment>() {
-                @Override
-                public int compare(Comment o1, Comment o2) {
-                    Comment c1 = o1;
-                    Comment c2 = o2;
-                    return c2.getCreateDate().compareTo(c1.getCreateDate());
-                }
-            });
-
-            Long parentId = comment.getId();
-            for (Comment comment1: childComment
-                 ) {
-                if (comment1.getParentCommentId() == parentId) {
-                    child.add(comment1);
-                }
-            }
-
-            comment.setChildComment(child);
-            comment.setCount(child.size());
-
-            root.add(comment);
+        for (Comment root: rootComments) {
+            ArrayList<Comment> param = new ArrayList<>();
+            ArrayList<Comment> childs = new ArrayList<>();
+            param.add(root);
+            recursion(param, childs);
+            //排序
+            sort.addAll(childs);
+            ArrayList<Comment> childComments = new ArrayList<>(sort);
+            root.setChildComment(childComments);
+            sort.clear();
+            root.setCount(childs.size());
         }
-        return root;
+
+        sort.addAll(rootComments);
+        ArrayList<Comment> roots = new ArrayList<>(sort);
+        return roots;
     }
 
+    private List<Comment> findChildComments (Comment comment) {
+        Long parentId = comment.getId();
+        ArrayList<Comment> list = new ArrayList<>();
+        for (Comment child : childComments ) {
+            if (child.getParentCommentId() == parentId) {
+                list.add(child);
+            }
+        }
+        return list;
+    }
+
+    private void recursion (List<Comment> roots, List<Comment> childs) {
+        for (Comment root : roots) {
+            List<Comment> f = findChildComments(root);
+            if (f.size() == 0) {
+                continue; // 不能用break
+            } else {
+                childs.addAll(f);
+                recursion(f,childs);
+            }
+        }
+    }
 
     @Transactional
     @Override
     public int saveComment(Comment comment) {
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         System.out.println(date);
         comment.setCreateDate(date);
         comment.setAvatar("/images/avatar/joe.jpg"); // 这个后期优化，从前端获取

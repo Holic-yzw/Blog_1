@@ -490,14 +490,13 @@ h5,h6{font-size:1em;}
             </div>
         </div>
 
-
         <div class="ui bottom attached segment" th:if="${blog.getComment()} eq 'on'">
 
             <!--留言区域-->
             <div id="comment" class="ui blue segment">
                 <div th:fragment="commentList"  id="abc">
                     <div class="ui threaded comments" style="max-width: 100%">
-                        <h3 class="ui dividing header">Comments</h3>
+                        <h3 class="ui dividing header">评论区</h3>
                         <div class="comment" th:each="comment : ${comments}">
                             <a class="avatar">
                                 <img src="../static/images/avatar/elliot.jpg" th:src="@{${comment.getAvatar()}}">
@@ -511,24 +510,24 @@ h5,h6{font-size:1em;}
                                     <p>This has been very useful for my research. Thanks as well!</p>
                                 </div>
                                 <div class="actions">
-                                    <a class="reply" data-commentid="1" data-nickname="Matt" th:attr="data-commentid=${comment.getId()},data-nickname=${comment.getNickName()}" onclick="startReply(this)">Reply</a>
+                                    <a class="reply" data-commentid="1" data-nickname="Matt" th:attr="data-commentid=${comment.getId()},data-nickname=${comment.getNickName()}" onclick="startReply(this)">回复</a>
                                 </div>
                             </div>
                             <div class="comments" th:if="${comment.getCount()} != 0">
-                                <div class="comment">
+                                <div class="comment" th:each="childcomment : ${comment.getChildComment()}">
                                     <a class="avatar">
-                                        <img src="../static/images/avatar/jenny.jpg">
+                                        <img src="../static/images/avatar/jenny.jpg" th:src="@{${childcomment.getAvatar()}}">
                                     </a>
                                     <div class="content">
-                                        <a class="author">Jenny Hess</a>
+                                        <a class="author" th:text="${childcomment.getNickName()}">Jenny Hess</a>
                                         <div class="metadata">
-                                            <span class="date">Just now</span>
+                                            <span class="date" th:text="${childcomment.getCreateDate()}">Just now</span>
                                         </div>
-                                        <div class="text">
+                                        <div class="text" th:text="${childcomment.getContent()}">
                                             Elliot you are always so right :)
                                         </div>
                                         <div class="actions">
-                                            <a class="reply">Reply</a>
+                                            <a class="reply" data-commentid="1" data-nickname="Matt" th:attr="data-commentid=${comment.getId()},data-nickname=${comment.getNickName()}" onclick="startReply(this)">回复</a>
                                         </div>
                                     </div>
                                 </div>

@@ -3,8 +3,7 @@ package com.holic.blog.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,6 +22,6 @@ public class Comment {
     // 统计子评论个数
     private Integer count = 0;
     //子评论
-    private Set<Comment> childComment;
+    private List<Comment> childComment;
 
 }
