@@ -1,6 +1,6 @@
 package com.holic.blog.mapper;
 
-import com.holic.blog.entity.Admin;
+import com.holic.blog.entity.CommonUser;
 import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.Link;
 import com.holic.blog.entity.example.SearchBlogForAdmin;
@@ -36,5 +36,7 @@ public interface BlogMapper {
 
     int deleteLinkByBlogId(Long id);
 
-    Admin getAuthorByBlogId(Long id);
+    CommonUser getAuthorByBlogId(Long id);
+
+    int updateViewTimes(Long id);
 }

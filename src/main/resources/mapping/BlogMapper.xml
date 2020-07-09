@@ -155,7 +155,7 @@
         select tagId from t_link where blogId=#{id}
     </select>
 
-    <select id="getAuthorByBlogId" resultType="com.holic.blog.entity.Admin">
+    <select id="getAuthorByBlogId" resultType="com.holic.blog.entity.CommonUser">
         SELECT a.id,a.nickName,a.avatar FROM t_admin a,t_blog b WHERE a.id=b.blogAdminId and b.id=#{id}
     </select>
 
@@ -166,6 +166,10 @@
               a.published=#{published},a.comment=#{comment},a.updateDate=#{updateDate},a.description=#{description},
               a.blogTypeId=#{blogTypeId},a.blogAdminId=#{blogAdminId}
         where a.id=#{id}
+    </update>
+
+    <update id="updateViewTimes">
+        update t_blog a set a.viewTimes = viewTimes +1 where a.id=#{id}
     </update>
 
     <delete id="deleteBlogById">

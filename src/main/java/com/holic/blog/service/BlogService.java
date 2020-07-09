@@ -1,7 +1,7 @@
 package com.holic.blog.service;
 
 import com.github.pagehelper.PageInfo;
-import com.holic.blog.entity.Admin;
+import com.holic.blog.entity.CommonUser;
 import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.example.SearchBlogForAdmin;
 import com.holic.blog.entity.example.ShowBlogForAdmin;
@@ -30,6 +30,8 @@ public interface BlogService {
 
     String getTagIdByBlogId(Long id);
 
-    Admin getAuthorByBlogId(Long id);
+    CommonUser getAuthorByBlogId(Long id);
+
+    int updateViewTimes(Long id);
 
 }

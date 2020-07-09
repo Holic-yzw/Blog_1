@@ -19,6 +19,8 @@ public class Comment {
     private Long blogId;
     // 自关联
     private Long parentCommentId;
+    // 被回复者昵称，冗余字段避免关联查询
+    private String parentNickName;
     // 统计子评论个数
     private Integer count = 0;
     //子评论

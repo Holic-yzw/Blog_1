@@ -1,8 +1,8 @@
 package com.holic.blog.service;
 
-import com.holic.blog.entity.Admin;
+import com.holic.blog.entity.CommonUser;
 
 public interface AdminService {
 
-    Admin checkAdmin(String userName, String passWord);
+    CommonUser checkAdmin(String userName, String passWord);
 }

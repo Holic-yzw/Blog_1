@@ -2,7 +2,7 @@ package com.holic.blog.service.implement;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.holic.blog.entity.Admin;
+import com.holic.blog.entity.CommonUser;
 import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.Link;
 import com.holic.blog.entity.example.SearchBlogForAdmin;
@@ -172,8 +172,17 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Admin getAuthorByBlogId(Long id) {
-        Admin author = blogMapper.getAuthorByBlogId(id);
+    public CommonUser getAuthorByBlogId(Long id) {
+        CommonUser author = blogMapper.getAuthorByBlogId(id);
         return author;
+    }
+
+    @Override
+    public int updateViewTimes(Long id) {
+        int i = blogMapper.updateViewTimes(id);
+        if (i == 0) {
+            throw new RuntimeException("更新浏览次数失败");
+        }
+        return 1;
     }
 }

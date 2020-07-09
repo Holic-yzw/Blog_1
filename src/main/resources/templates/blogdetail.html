@@ -495,14 +495,16 @@ h5,h6{font-size:1em;}
             <!--留言区域-->
             <div id="comment" class="ui blue segment">
                 <div th:fragment="commentList"  id="abc">
-                    <div class="ui threaded comments" style="max-width: 100%">
+                    <div class="ui comments" style="max-width: 100%">
                         <h3 class="ui dividing header">评论区</h3>
                         <div class="comment" th:each="comment : ${comments}">
                             <a class="avatar">
                                 <img src="../static/images/avatar/elliot.jpg" th:src="@{${comment.getAvatar()}}">
                             </a>
                             <div class="content">
-                                <a class="author" th:text="${comment.getNickName()}">Elliot Fu</a>
+                                <a class="author">
+                                    <span th:text="${comment.getNickName()}">小红</span ><div class="ui mini basic blue left pointing label m-padded-mini">博主</div>
+                                </a>
                                 <div class="metadata">
                                     <span class="date" th:text="${comment.getCreateDate()}">Yesterday at 12:30AM</span>
                                 </div>
@@ -519,7 +521,10 @@ h5,h6{font-size:1em;}
                                         <img src="../static/images/avatar/jenny.jpg" th:src="@{${childcomment.getAvatar()}}">
                                     </a>
                                     <div class="content">
-                                        <a class="author" th:text="${childcomment.getNickName()}">Jenny Hess</a>
+                                        <a class="author">
+                                            <span th:text="${childcomment.getNickName()}">小红</span ><div class="ui mini basic blue left pointing label m-padded-mini">博主</div>
+                                            <span th:text="|@ ${childcomment.getParentNickName()}|" style="color: #5286ff">@ 小白</span><div class="ui mini basic blue left pointing label m-padded-mini">博主</div>
+                                        </a>
                                         <div class="metadata">
                                             <span class="date" th:text="${childcomment.getCreateDate()}">Just now</span>
                                         </div>
@@ -527,7 +532,7 @@ h5,h6{font-size:1em;}
                                             Elliot you are always so right :)
                                         </div>
                                         <div class="actions">
-                                            <a class="reply" data-commentid="1" data-nickname="Matt" th:attr="data-commentid=${comment.getId()},data-nickname=${comment.getNickName()}" onclick="startReply(this)">回复</a>
+                                            <a class="reply" data-commentid="1" data-nickname="Matt" th:attr="data-commentid=${childcomment.getId()},data-nickname=${childcomment.getNickName()}" onclick="startReply(this)">回复</a>
                                         </div>
                                     </div>
                                 </div>
@@ -535,9 +540,11 @@ h5,h6{font-size:1em;}
                         </div>
                     </div>
                 </div>
+                <br>
                 <div class="ui reply form" id="comment_form">
                     <input type="hidden" name="blogId" th:value="${blog.getId()}">
                     <input type="hidden" name="parentCommentId" value="-1">
+                    <input type="hidden" name="parentNickName" value="">
                     <div class="field">
                         <textarea name="content" placeholder="请留下您的评论"></textarea>
                     </div>
@@ -688,7 +695,7 @@ h5,h6{font-size:1em;}
 
     // 生成文章对应的二维码
     var serverUrl = "127.0.0.1:8080"; // 项目完成后买个域名换上去，再组个云服务器，美汁汁
-    var uri=/*[[@{/holic/blog/{id}(id=${blog.getId()})}]]*/""; // 如果静态是空字符串，一定要放在后边，不然会报错图片大小为800*491 https://www.toptal.com/designers/subtlepatterns/   https://picsum.photos/images 图片网站
+    var uri=/*[[@{/holic/blog/{id}(id=${blog.getId()})}]]*/""; // 如果静态是空字符串，一定要放在后边，不然会报错图片大小为800*491   https://picsum.photos/images 图片网站
     var qrcode = new QRCode("qrcode", { // 第一个参数是承载生成的二维码的元素的ID
         text: serverUrl+uri,
         width: 128,
@@ -737,6 +744,7 @@ h5,h6{font-size:1em;}
         $('.ui.comments').load(
             /*[[@{/holic/comments}]]*/"",{
                 "parentCommentId" : $("[name='parentCommentId']").val(),
+                "parentNickName" : $("[name='parentNickName']").val(),
                 "blogId" : $("[name='blogId']").val(),
                 "content" : $("[name='content']").val(),
                 "nickName" : $("[name='nickname']").val(),
@@ -746,6 +754,7 @@ h5,h6{font-size:1em;}
                 $(window).scrollTo($('#comment'), 500);
                 $("[name='content']").val('');
                 $("[name='parentCommentId']").val(-1);
+                $("[name='parentNickName']").val("");
                 $("[name='content']").attr("placeholder", "请留下您的评论");
             }
         );
@@ -760,6 +769,7 @@ h5,h6{font-size:1em;}
         var nickName = $(obj).data('nickname');
         $("[name='content']").attr("placeholder", "@"+nickName).focus(); // attr是用后者替换前者，focus是定位鼠标位置
         $("[name='parentCommentId']").val(commentId);
+        $("[name='parentNickName']").val(nickName);
         $(window).scrollTo($('#comment_form'), 500);
     }
 </script>

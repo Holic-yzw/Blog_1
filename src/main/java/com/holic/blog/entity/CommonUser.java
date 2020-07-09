@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
-public class Admin {
+public class CommonUser {
 
     private Long id;
     private String nickName;

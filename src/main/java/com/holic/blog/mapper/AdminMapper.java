@@ -1,6 +1,6 @@
 package com.holic.blog.mapper;
 
-import com.holic.blog.entity.Admin;
+import com.holic.blog.entity.CommonUser;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +24,6 @@ public interface AdminMapper {
 
     在参数指定的名字出替换成接口中参数的序号(从0开始)*/
 
-    Admin checkAdminByUserNameAndPassWord(@Param("userName") String userName, @Param("passWord") String passWord);
+    CommonUser checkAdminByUserNameAndPassWord(@Param("userName") String userName, @Param("passWord") String passWord);
     String getSaltByUserName(String userName);
 }

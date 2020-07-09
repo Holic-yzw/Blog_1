@@ -1,6 +1,6 @@
 package com.holic.blog.web.admin;
 
-import com.holic.blog.entity.Admin;
+import com.holic.blog.entity.CommonUser;
 import com.holic.blog.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class LoginController {
                           @RequestParam String password,
                           HttpSession session,
                           RedirectAttributes attributes){
-        Admin admin = service.checkAdmin(username, password);
+        CommonUser admin = service.checkAdmin(username, password);
 
         if (admin != null) {
             admin.setPassWord(null);
