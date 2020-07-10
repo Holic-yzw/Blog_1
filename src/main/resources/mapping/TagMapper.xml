@@ -21,7 +21,7 @@
     <update id="updateTagById" parameterType="com.holic.blog.entity.Tag">
       update t_tag
       <set>
-          name =#{name,jdbcType=VARCHAR}
+          name=#{name,jdbcType=VARCHAR}
       </set>
         where id=#{id,jdbcType=BIGINT}
     </update>
@@ -40,7 +40,7 @@
 
     <select id="findAllTagForViewer" resultType="com.holic.blog.entity.example.ShowTagForViewer">
       SELECT b.name tagName,b.id tagId,COUNT(c.blogId) countBlog FROM t_blog a,t_tag b,t_link c
-      WHERE a.id=c.blogId and b.id=c.tagId
+      WHERE a.id=c.blogId and b.id=c.tagId and a.published='on'
         GROUP BY b.id,b.name ORDER BY COUNT(c.blogId) DESC
     </select>
 

@@ -43,4 +43,17 @@ public class TypesController {
         model.addAttribute("types", types);
         return "types";
     }
+
+    @RequestMapping("/types")
+    public String turnPages(Long id, Integer pageNum, Model model) {
+
+        List<ShowTypeForViewer> types = typeService.listAllTypeForViewer();
+
+        PageInfo<ShowBlogForViewer> blogs = typeService.liatBlogsByTypeId(pageNum, pageSize, id);
+
+        model.addAttribute("page", blogs);
+        model.addAttribute("activeId", id);
+        model.addAttribute("types", types);
+        return "types";
+    }
 }

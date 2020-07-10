@@ -43,4 +43,18 @@ public class TagsController {
         model.addAttribute("tags", tags);
         return "tags";
     }
+
+    //翻页
+    @RequestMapping("/tags")
+    public String turnPages(Long id, Integer pageNum, Model model) {
+
+        List<ShowTagForViewer> tags = tagService.listAllTagForViewer();
+
+        PageInfo<ShowBlogForViewer> blogs = tagService.listBlogsByTypeId(pageNum, pageSize, id);
+
+        model.addAttribute("page", blogs);
+        model.addAttribute("activeId", id);
+        model.addAttribute("tags", tags);
+        return "tags";
+    }
 }

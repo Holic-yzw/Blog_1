@@ -103,10 +103,10 @@
         <div class="ui attached segment" th:if="${page.getPages()>1}">
             <div class="ui  middle aligned two column grid">
                 <div class="column"><!--传递多个参数时，用逗号隔开-->
-                    <a href="#" class="ui blue basic button" th:href="@{/holic/search(pageNum=${page.getPageNum()} -1, id=${blog.getTagId()})}" th:unless="${page.isIsFirstPage()}">上一页</a>
+                    <a href="#" class="ui blue basic button" th:href="@{/holic/tags(pageNum=${page.getPageNum()} -1, id=${activeId})}" th:unless="${page.isIsFirstPage()}">上一页</a>
                 </div>
                 <div class="right aligned column ">
-                    <a href="#" class="ui button blue basic" th:href="@{/holic/search(pageNum=${page.getPageNum()}+1,id=${blog.getTagId()})}" th:unless="${page.isIsLastPage()}">下一页</a>
+                    <a href="#" class="ui button blue basic" th:href="@{/holic/tags(pageNum=${page.getPageNum()}+1,id=${activeId})}" th:unless="${page.isIsLastPage()}">下一页</a>
                 </div>
             </div>
         </div>

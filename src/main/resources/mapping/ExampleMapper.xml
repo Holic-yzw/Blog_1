@@ -3,17 +3,20 @@
 <mapper namespace="com.holic.blog.mapper.ExampleMapper">
 
     <select id="findAllBlog" resultType="com.holic.blog.entity.example.ShowBlogForViewer">
-        SELECT a.id,a.title,a.description,b.nickName adminNickName,b.avatar adminAvatar,a.updateDate,a.viewTimes,a.picUrl,c.name typeName,c.id typeId
+        SELECT a.id,a.title,a.description,b.nickName adminNickName,b.avatar adminAvatar,a.updateDate,
+               a.viewTimes,a.picUrl,c.name typeName,c.id typeId
         FROM t_blog a,t_admin b,t_type c WHERE a.blogAdminId=b.id and a.blogTypeId=c.id and a.published='on'
     </select>
 
     <select id="fianTypeOfMostBlog" resultType="com.holic.blog.entity.example.ShowTypeForViewer">
-        SELECT b.name typeName,a.blogTypeId typeId,COUNT(a.id) countBlog FROM t_blog a,t_type b WHERE a.blogTypeId=b.id
+        SELECT b.name typeName,a.blogTypeId typeId,COUNT(a.id) countBlog FROM t_blog a,t_type b
+        WHERE a.blogTypeId=b.id and a.published='on'
         GROUP BY a.blogTypeId,b.name ORDER BY COUNT(a.id) DESC LIMIT 6
     </select>
 
     <select id="fianTagOfMostBlog" resultType="com.holic.blog.entity.example.ShowTagForViewer">
-        SELECT b.name tagName,b.id tagId,COUNT(c.blogId) countBlog FROM t_blog a,t_tag b,t_link c WHERE a.id=c.blogId and b.id=c.tagId
+        SELECT b.name tagName,b.id tagId,COUNT(c.blogId) countBlog FROM t_blog a,t_tag b,t_link c
+        WHERE a.id=c.blogId and b.id=c.tagId and a.published='on'
         GROUP BY b.id,b.name ORDER BY COUNT(c.blogId) DESC LIMIT 6
     </select>
 
