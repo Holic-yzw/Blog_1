@@ -25,5 +25,10 @@ public interface AdminMapper {
     在参数指定的名字出替换成接口中参数的序号(从0开始)*/
 
     CommonUser checkAdminByUserNameAndPassWord(@Param("userName") String userName, @Param("passWord") String passWord);
+
     String getSaltByUserName(String userName);
+
+    int saveCommonUserInfo(CommonUser user);
+
+    String findAvatarUriByAvatarNo(Integer avatarNo);
 }

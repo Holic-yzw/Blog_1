@@ -7,6 +7,10 @@ import com.holic.blog.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
+
 @Service
 public class AdminServiceImpl implements AdminService {
 
@@ -21,4 +25,37 @@ public class AdminServiceImpl implements AdminService {
 
         return admin;
     }
+
+    @Override
+    public int registerNewViewer(CommonUser user) {
+        String userName = user.getUserName();
+        String passWord = user.getPassWord();
+
+        // 处理密码
+        String[] code = MD5Utils.code(userName, passWord);
+        String newPasWord = code[1];
+        String salt = code[0];
+
+        // 分配头像
+        Random random = new Random();
+        int avatarNo = random.nextInt(8);
+        String uri = mapper.findAvatarUriByAvatarNo(avatarNo);
+
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        user.setPassWord(newPasWord);
+        user.setSalt(salt);
+        user.setType(0);
+        user.setAvatar(uri);
+        user.setCreateDate(date);
+        user.setUpdateDate(date);
+        int i = mapper.saveCommonUserInfo(user);
+
+        if (i == 0) {
+            throw new RuntimeException("保存用户注册信息失败！");
+        }
+        return 1;
+    }
+
+
 }

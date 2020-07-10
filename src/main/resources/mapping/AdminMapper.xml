@@ -7,6 +7,13 @@
         <result column="passWord" jdbcType="VARCHAR" property="passWord"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
     </resultMap>
+    <insert id="saveCommonUserInfo" parameterType="com.holic.blog.entity.CommonUser">
+        insert into t_admin(
+        nickName,userName,passWord,salt,email,type,avatar,createDate,updateDate
+        ) values (
+        #{nickName},#{userName},#{passWord},#{salt},#{email},#{type},#{avatar},#{createDate},#{updateDate}
+        )
+    </insert>
 
     <select id="checkAdminByUserNameAndPassWord" resultMap="admin">
         select * from t_admin where userName=#{userName} and passWord=#{passWord}
@@ -14,5 +21,9 @@
 
     <select id="getSaltByUserName" resultType="string">
         select salt from t_admin where userName=#{userName}
+    </select>
+
+    <select id="findAvatarUriByAvatarNo" resultType="java.lang.String">
+        select * from t_avatar where id=#{id}
     </select>
 </mapper>
