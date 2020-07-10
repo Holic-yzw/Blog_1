@@ -2,6 +2,8 @@ package com.holic.blog.service;
 
 import com.github.pagehelper.PageInfo;
 import com.holic.blog.entity.Tag;
+import com.holic.blog.entity.example.ShowBlogForViewer;
+import com.holic.blog.entity.example.ShowTagForViewer;
 
 import java.util.List;
 
@@ -26,4 +28,8 @@ public interface TagService {
     int deleteTag(Long id);
 
     List<Tag> findAllTag();
+
+    List<ShowTagForViewer> listAllTagForViewer();
+
+    PageInfo<ShowBlogForViewer> listBlogsByTypeId(Integer pageNum, Integer pageSize, Long id);
 }

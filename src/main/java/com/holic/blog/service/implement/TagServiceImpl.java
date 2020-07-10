@@ -3,6 +3,8 @@ package com.holic.blog.service.implement;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.holic.blog.entity.Tag;
+import com.holic.blog.entity.example.ShowBlogForViewer;
+import com.holic.blog.entity.example.ShowTagForViewer;
 import com.holic.blog.mapper.TagMapper;
 import com.holic.blog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +68,27 @@ public class TagServiceImpl implements TagService {
     public List<Tag> findAllTag() {
         List<Tag> allTag = tagMapper.findAllTag();
         return allTag;
+    }
+
+    @Override
+    public List<ShowTagForViewer> listAllTagForViewer() {
+        List<ShowTagForViewer> allTagForViewer = tagMapper.findAllTagForViewer();
+        return allTagForViewer;
+    }
+
+    @Override
+    public PageInfo<ShowBlogForViewer> listBlogsByTypeId(Integer pageNum, Integer pageSize, Long id) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<ShowBlogForViewer> blogs = tagMapper.findBlogsByTagId(id);
+
+        for (ShowBlogForViewer blog: blogs) {
+            Long blogId = blog.getId();
+            List<Tag> tags = tagMapper.findTagsByBlogId(blogId);
+            blog.setTags(tags);
+        }
+
+        PageInfo page = new PageInfo(blogs);
+        return page;
     }
 
     @Override

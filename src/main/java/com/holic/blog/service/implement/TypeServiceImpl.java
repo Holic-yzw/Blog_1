@@ -3,6 +3,8 @@ package com.holic.blog.service.implement;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.holic.blog.entity.Type;
+import com.holic.blog.entity.example.ShowBlogForViewer;
+import com.holic.blog.entity.example.ShowTypeForViewer;
 import com.holic.blog.mapper.TypeMapper;
 import com.holic.blog.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,20 @@ public class TypeServiceImpl  implements TypeService {
     public List<Type> findAllType() {
         List<Type> allType = typeMapper.findAllType();
         return allType;
+    }
+
+    @Override
+    public List<ShowTypeForViewer> listAllTypeForViewer() {
+        List<ShowTypeForViewer> allTypeForViewer = typeMapper.findAllTypeForViewer();
+        return allTypeForViewer;
+    }
+
+    @Override
+    public PageInfo<ShowBlogForViewer> liatBlogsByTypeId(Integer pageNum, Integer pageSize, Long id) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<ShowBlogForViewer> blogs = typeMapper.findBlogsByTypeId(id);
+        PageInfo page = new PageInfo(blogs);
+        return page;
     }
 
     @Override

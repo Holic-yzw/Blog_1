@@ -4,7 +4,7 @@
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>首页</title>
+    <title>Index | HOLiC</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <!--引用自定义的css,th是thymeleaf模板引擎的标签-->
     <link rel="stylesheet" href="../static/css/me.css">
@@ -82,7 +82,7 @@
                                         </div>
                                     </div>
                                     <div class="ui right aligned five wide column middle aligned">
-                                        <a href="#" th:href="@{/holic/type(id=${blog.getTypeId()})}" target="_blank" class="ui label blue basic m-padded-mini m-text-thin" th:text="${blog.getTypeName()}">认知提升</a>
+                                        <a href="#" th:href="@{/holic/types/{id}(id=${blog.getTypeId()})}" target="_blank" class="ui label blue basic m-padded-mini m-text-thin" th:text="${blog.getTypeName()}">认知提升</a>
                                     </div>
                                 </div>
                             </div>
@@ -114,13 +114,13 @@
                     <div class="ui segment secondary">
                         <div class="ui two column grid">
                             <div class="column"><i class="idea icon"></i>分类 </div>
-                            <div class="column right aligned"><a href="#" target="_blank" >more<i class="angle double right icon"></i> </a> </div>
+                            <div class="column right aligned"><a href="#" th:href="@{/holic/types/-1}" target="_blank">more<i class="angle double right icon"></i> </a> </div>
                         </div>
                     </div>
                     <div class="ui segment blue">
                         <div class="ui fluid vertical menu">
                             <!--item元素包含的元素会自动分散在两边-->
-                            <a href="#"  class="item"  th:each="type : ${types}">
+                            <a href="#" th:href="@{/holic/types/{id}(id=${type.getTypeId()})}" target="_blank" class="item"  th:each="type : ${types}">
                                 <span th:text="${type.getTypeName()}">学习日志</span>
                                 <div class="ui blue left pointing basic label" th:text="${type.getCountBlog()}">13</div>
                             </a>
@@ -132,11 +132,11 @@
                     <div class="ui segment secondary">
                         <div class="ui two column grid">
                             <div class="column"><i class="tags icon"></i>标签</div>
-                            <div class="column right aligned"><a href="#" target="_blank" >more<i class="angle double right icon"></i> </a> </div>
+                            <div class="column right aligned"><a href="#" th:href="@{/holic/tags/-1}" target="_blank">more<i class="angle double right icon"></i> </a> </div>
                         </div>
                     </div>
                     <div class="ui segment blue">
-                        <a href="#" target="_blank"  th:each="tag : ${tags}" class="ui blue left pointing basic label m-margin-tb-mini">
+                        <a href="#" th:href="@{/holic/tags/{id}(id=${tag.getTagId()})}" target="_blank" th:each="tag : ${tags}" class="ui blue left pointing basic label m-margin-tb-mini">
                             <span th:text="${tag.getTagName()}">方法论</span>
                             <div class="detail" th:text="${tag.getCountBlog()}">23</div>
                         </a>

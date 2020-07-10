@@ -1,6 +1,9 @@
 package com.holic.blog.mapper;
 
 import com.holic.blog.entity.Type;
+import com.holic.blog.entity.example.ShowBlogForViewer;
+import com.holic.blog.entity.example.ShowLatestBlogForViewer;
+import com.holic.blog.entity.example.ShowTypeForViewer;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -26,4 +29,8 @@ public interface TypeMapper {
     int updateTypeById(Type type);
 
     int deleteTypeById(Long id);
+
+    List<ShowTypeForViewer> findAllTypeForViewer();
+
+    List<ShowBlogForViewer> findBlogsByTypeId(Long id);
 }

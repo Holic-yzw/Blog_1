@@ -50,7 +50,7 @@ public class BlogDetailController {
 
         blogService.updateViewTimes(id);
 
-        return "blogdetail";
+        return "blogDetail";
     }
 
     @GetMapping("/comment/{blogId}")

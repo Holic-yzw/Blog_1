@@ -22,9 +22,10 @@
     </select>
 
     <select id="findBlogByQuery" resultType="com.holic.blog.entity.example.ShowBlogForViewer">
-        SELECT a.id,a.title,a.description,b.nickName adminNickName,b.avatar adminAvatar, a.updateDate,a.viewTimes,a.picUrl,c.name typeName
+        SELECT a.id,a.title,a.description,b.nickName adminNickName,b.avatar adminAvatar, a.updateDate,a.viewTimes,a.picUrl,c.name typeName,c.id typeId
         FROM t_blog a,t_admin b,t_type c
-        WHERE a.blogAdminId=b.id and a.blogTypeId=c.id and a.published='on' and (a.title like concat('%',#{query},'%') or a.description LIKE concat('%',#{query},'%'))
+        WHERE a.blogAdminId=b.id and a.blogTypeId=c.id and a.published='on'
+        and (a.title like concat('%',#{query},'%') or a.description LIKE concat('%',#{query},'%'))
     </select>
 
 </mapper>

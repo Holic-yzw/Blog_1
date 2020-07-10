@@ -1,7 +1,10 @@
 package com.holic.blog.entity.example;
 
+import com.holic.blog.entity.Tag;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * @Description：前端首页博客展示对象
@@ -21,4 +24,5 @@ public class ShowBlogForViewer {
     private String picUrl;
     private String typeName;
     private Long typeId;
+    private List<Tag> tags;
 }

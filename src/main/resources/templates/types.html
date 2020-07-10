@@ -3,7 +3,7 @@
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>分类</title>
+    <title>Types | HOLiC</title>
     <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" rel="stylesheet">
     <!--引用自定义的css-->
     <link rel="stylesheet" href="../static/css/me.css">
@@ -43,247 +43,63 @@
                     <h3 class="ui blue header">分类</h3>
                 </div>
                 <div class="right aligned column ">
-                    共 <p class="ui header orange m-inline-block m-text-thin">14</p>个
+                    共 <p class="ui header orange m-inline-block m-text-thin" th:text="${types.size()}">14</p>个
                 </div>
             </div>
         </div>
         <div class="ui  segment attached">
-            <div class="ui labeled button m-margin-tb-mini" >
-                <a href="#" class="ui basic blue button">思考与感悟</a>
-                <div class="ui blue basic left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-mini">
-                <a href="#" class="ui basic  button ">思考与感悟</a>
-                <div class="ui  basic  left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-mini">
-                <a href="#" class="ui basic  button ">思考与感悟</a>
-                <div class="ui  basic  left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-mini">
-                <a href="#" class="ui basic  button ">思考与感悟</a>
-                <div class="ui  basic  left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-mini">
-                <a href="#" class="ui basic  button ">思考与感悟</a>
-                <div class="ui  basic  left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-mini">
-                <a href="#" class="ui basic  button ">思考与感悟</a>
-                <div class="ui  basic  left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-mini">
-                <a href="#" class="ui basic  button ">思考与感悟</a>
-                <div class="ui  basic  left pointing label">24</div>
-            </div>
-            <div class="ui labeled button m-margin-tb-mini">
-                <a href="#" class="ui basic  button ">思考与感悟</a>
-                <div class="ui  basic  left pointing label">24</div>
+            <div class="ui labeled button m-margin-tb-mini" th:each="type : ${types}">
+                <a href="#" th:href="@{/holic/types/{id}(id=${type.getTypeId()})}"   class="ui basic button" th:classappend="${type.getTypeId() == activeId} ? 'blue' " th:text="${type.getTypeName()}">思考与感悟</a>
+                <div class="ui basic left pointing label" th:classappend="${type.getTypeId() == activeId} ? 'blue' " th:text="${type.getCountBlog()}">24</div>
             </div>
         </div>
         <div class="ui blue top attached segment">
-            <div class="ui   vertical segment m-padded-all m-mobile-clear">
-                <div class="ui grid stackable mobile reversed">
+            <div class="ui  vertical segment m-padded-all m-mobile-clear" th:each="blog : ${page.getList()}">
+                <!--mobile reversed 当分辨率为手机时，两个div会上下换位-->
+                <div class="ui grid stackable mobile reversed" >
                     <div class="eleven wide column">
                         <!--博客标题-->
-                        <h3 class="ui header">你能感受到痛苦吗</h3>
+                        <h3 class="ui header"><a href="#" th:href="@{/holic/blog/{id}(id=${blog.getId()})}" target="_blank" class="m-black" th:text="${blog.getTitle()}">你能感受到痛苦吗</a></h3>
                         <!--博客内容摘要-->
-                        <p class="m-text">很多球迷都说库里的职业生涯是完美的，在自己的巅峰期遇到了科尔这样优秀的教练，还拥有汤普森、格林和杜兰特这么多优秀的队友，在这些人的共同努力下他们一起赢得了三个总冠军，那几年的NBA就是勇士这支球队的天下。但也有一些人表示库里的职业生涯</p>
-                        <div class="ui stackable grid">
+                        <p class="m-text" th:text="|${blog.getDescription()}......|">很多球迷都说库里的职业生涯是完美的，在自己的巅峰期遇到了科尔这样优秀的教练，还拥有汤普森、格林和杜兰特这么多优秀的队友，在这些人的共同努力下他们一起赢得了三个总冠军，那几年的NBA就是勇士这支球队的天下。但也有一些人表示库里的职业生涯</p>
+                        <div class="ui grid">
                             <div class="ui eleven wide column">
                                 <!--link list 组件默认是竖起来的，horizontal表示水平的，其子组件包含一个item的属性-->
                                 <div class="ui horizontal mini link list">
                                     <div class="item middle aligned">
-                                        <img src="https://picsum.photos/id/1001/100/150"  class="ui avatar image">
-                                        <div class="ui content">
-                                            <span class="middle aligned m-black" >Holic</span>
+                                        <img src="https://picsum.photos/id/1001/100/150" th:src="@{${blog.getAdminAvatar()}}" class="ui avatar image">
+                                        <div class="ui content m-black">
+                                            <h6 class="middle aligned" th:text="${blog.getAdminNickName()}">Holic</h6>
                                         </div>
                                     </div>
                                     <div class="item middle aligned">
-                                        <i class="icon calendar"></i>
-                                        <span class="middle aligned m-black" >2020-02-15</span>
+                                        <i class="icon calendar"></i><span class="middle aligned m-black" th:text="${blog.getUpdateDate()}">2020-02-15</span>
                                     </div>
                                     <div class="item middle aligned">
-                                        <i class="eye icon"></i>
-                                        <span class="middle aligned m-black" >200</span>
+                                        <i class="eye icon"></i><span class="middle aligned m-black" th:text="${blog.getViewTimes()}">200</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="ui right aligned five wide column middle aligned">
-                                <a href="#"  target="_blank" class="ui label blue basic m-padded-mini m-text-thin">认知提升</a>
+                                <a href="#" th:href="@{/holic/types/{id}(id=${blog.getTypeId()})}" class="ui label blue basic m-padded-mini m-text-thin" th:text="${blog.getTypeName()}">认知提升</a>
                             </div>
                         </div>
                     </div>
                     <div class="five wide middle aligned column">
-                        <a href="#" target="_blank">
-                            <img src="https://picsum.photos/id/1001/800/450" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui   vertical segment m-padded-all m-mobile-clear">
-                <div class="ui grid stackable mobile reversed">
-                    <div class="eleven wide column">
-                        <!--博客标题-->
-                        <h3 class="ui header">你能感受到痛苦吗</h3>
-                        <!--博客内容摘要-->
-                        <p class="m-text">很多球迷都说库里的职业生涯是完美的，在自己的巅峰期遇到了科尔这样优秀的教练，还拥有汤普森、格林和杜兰特这么多优秀的队友，在这些人的共同努力下他们一起赢得了三个总冠军，那几年的NBA就是勇士这支球队的天下。但也有一些人表示库里的职业生涯</p>
-                        <div class="ui stackable grid">
-                            <div class="ui eleven wide column">
-                                <!--link list 组件默认是竖起来的，horizontal表示水平的，其子组件包含一个item的属性-->
-                                <div class="ui horizontal mini link list">
-                                    <div class="item">
-                                        <img src="https://picsum.photos/id/1001/100/150" class="ui avatar image">
-                                        <div class="ui content"><div class="ui header m-text-size">Holic</div> </div>
-                                    </div>
-                                    <div class="item"><i class="icon calendar"></i>2020-02-15 </div>
-                                    <div class="item"><i class="eye icon"></i>200 </div>
-                                </div>
-                            </div>
-                            <div class="ui right aligned five wide column">
-                                <a href="#" target="_blank" class="ui label blue basic m-padded-mini m-text-thin">认知提升</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="five wide middle aligned column">
-                        <a href="#" target="_blank">
-                            <img src="https://picsum.photos/id/1001/800/450" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui   vertical segment m-padded-all m-mobile-clear">
-                <div class="ui grid stackable mobile reversed">
-                    <div class="eleven wide column">
-                        <!--博客标题-->
-                        <h3 class="ui header">你能感受到痛苦吗</h3>
-                        <!--博客内容摘要-->
-                        <p class="m-text">很多球迷都说库里的职业生涯是完美的，在自己的巅峰期遇到了科尔这样优秀的教练，还拥有汤普森、格林和杜兰特这么多优秀的队友，在这些人的共同努力下他们一起赢得了三个总冠军，那几年的NBA就是勇士这支球队的天下。但也有一些人表示库里的职业生涯</p>
-                        <div class="ui stackable grid">
-                            <div class="ui eleven wide column">
-                                <!--link list 组件默认是竖起来的，horizontal表示水平的，其子组件包含一个item的属性-->
-                                <div class="ui horizontal mini link list">
-                                    <div class="item">
-                                        <img src="https://picsum.photos/id/1001/100/150" class="ui avatar image">
-                                        <div class="ui content"><div class="ui header m-text-size">Holic</div> </div>
-                                    </div>
-                                    <div class="item"><i class="icon calendar"></i>2020-02-15 </div>
-                                    <div class="item"><i class="eye icon"></i>200 </div>
-                                </div>
-                            </div>
-                            <div class="ui right aligned five wide column">
-                                <a href="#" target="_blank" class="ui label blue basic m-padded-mini m-text-thin">认知提升</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="five wide middle aligned column">
-                        <a href="#" target="_blank">
-                            <img src="https://picsum.photos/id/1001/800/450" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui   vertical segment m-padded-all m-mobile-clear">
-                <div class="ui grid stackable mobile reversed">
-                    <div class="eleven wide column">
-                        <!--博客标题-->
-                        <h3 class="ui header">你能感受到痛苦吗</h3>
-                        <!--博客内容摘要-->
-                        <p class="m-text">很多球迷都说库里的职业生涯是完美的，在自己的巅峰期遇到了科尔这样优秀的教练，还拥有汤普森、格林和杜兰特这么多优秀的队友，在这些人的共同努力下他们一起赢得了三个总冠军，那几年的NBA就是勇士这支球队的天下。但也有一些人表示库里的职业生涯</p>
-                        <div class="ui stackable grid">
-                            <div class="ui eleven wide column">
-                                <!--link list 组件默认是竖起来的，horizontal表示水平的，其子组件包含一个item的属性-->
-                                <div class="ui horizontal mini link list">
-                                    <div class="item">
-                                        <img src="https://picsum.photos/id/1001/100/150" class="ui avatar image">
-                                        <div class="ui content"><div class="ui header m-text-size">Holic</div> </div>
-                                    </div>
-                                    <div class="item"><i class="icon calendar"></i>2020-02-15 </div>
-                                    <div class="item"><i class="eye icon"></i>200 </div>
-                                </div>
-                            </div>
-                            <div class="ui right aligned five wide column">
-                                <a href="#" target="_blank" class="ui label blue basic m-padded-mini m-text-thin">认知提升</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="five wide middle aligned column">
-                        <a href="#" target="_blank">
-                            <img src="https://picsum.photos/id/1001/800/450" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui   vertical segment m-padded-all m-mobile-clear">
-                <div class="ui grid stackable mobile reversed">
-                    <div class="eleven wide column">
-                        <!--博客标题-->
-                        <h3 class="ui header">你能感受到痛苦吗</h3>
-                        <!--博客内容摘要-->
-                        <p class="m-text">很多球迷都说库里的职业生涯是完美的，在自己的巅峰期遇到了科尔这样优秀的教练，还拥有汤普森、格林和杜兰特这么多优秀的队友，在这些人的共同努力下他们一起赢得了三个总冠军，那几年的NBA就是勇士这支球队的天下。但也有一些人表示库里的职业生涯</p>
-                        <div class="ui stackable grid">
-                            <div class="ui eleven wide column">
-                                <!--link list 组件默认是竖起来的，horizontal表示水平的，其子组件包含一个item的属性-->
-                                <div class="ui horizontal mini link list">
-                                    <div class="item">
-                                        <img src="https://picsum.photos/id/1001/100/150" class="ui avatar image">
-                                        <div class="ui content"><div class="ui header m-text-size">Holic</div> </div>
-                                    </div>
-                                    <div class="item"><i class="icon calendar"></i>2020-02-15 </div>
-                                    <div class="item"><i class="eye icon"></i>200 </div>
-                                </div>
-                            </div>
-                            <div class="ui right aligned five wide column">
-                                <a href="#" target="_blank" class="ui label blue basic m-padded-mini m-text-thin">认知提升</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="five wide middle aligned column">
-                        <a href="#" target="_blank">
-                            <img src="https://picsum.photos/id/1001/800/450" class="ui rounded image">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="ui   vertical segment m-padded-all m-mobile-clear">
-                <div class="ui grid stackable mobile reversed">
-                    <div class="eleven wide column">
-                        <!--博客标题-->
-                        <h3 class="ui header">你能感受到痛苦吗</h3>
-                        <!--博客内容摘要-->
-                        <p class="m-text">很多球迷都说库里的职业生涯是完美的，在自己的巅峰期遇到了科尔这样优秀的教练，还拥有汤普森、格林和杜兰特这么多优秀的队友，在这些人的共同努力下他们一起赢得了三个总冠军，那几年的NBA就是勇士这支球队的天下。但也有一些人表示库里的职业生涯</p>
-                        <div class="ui stackable grid">
-                            <div class="ui eleven wide column">
-                                <!--link list 组件默认是竖起来的，horizontal表示水平的，其子组件包含一个item的属性-->
-                                <div class="ui horizontal mini link list">
-                                    <div class="item">
-                                        <img src="https://picsum.photos/id/1001/100/150" class="ui avatar image">
-                                        <div class="ui content"><div class="ui header m-text-size">Holic</div> </div>
-                                    </div>
-                                    <div class="item"><i class="icon calendar"></i>2020-02-15 </div>
-                                    <div class="item"><i class="eye icon"></i>200 </div>
-                                </div>
-                            </div>
-                            <div class="ui right aligned five wide column">
-                                <a href="#" target="_blank" class="ui label blue basic m-padded-mini m-text-thin">认知提升</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="five wide middle aligned column">
-                        <a href="#" target="_blank">
-                            <img src="https://picsum.photos/id/1001/800/450" class="ui rounded image">
+                        <a href="#" th:href="@{/holic/blog/{id}(id=${blog.getId()})}" target="_blank">
+                            <img src="https://picsum.photos/id/1001/800/600" th:src="@{${blog.getPicUrl()}}" class="ui rounded image">
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="ui attached segment">
+        <div class="ui attached segment" th:if="${page.getPages()>1}">
             <div class="ui  middle aligned two column grid">
-                <div class="column">
-                    <a href="#" class="ui blue basic button">上一页</a>
+                <div class="column"><!--传递多个参数时，用逗号隔开-->
+                    <a href="#" class="ui blue basic button" th:href="@{/holic/search(pageNum=${page.getPageNum()} -1, id=${blog.getTypeId()})}" th:unless="${page.isIsFirstPage()}">上一页</a>
                 </div>
                 <div class="right aligned column ">
-                    <a href="#" class="ui button blue basic">下一页</a>
+                    <a href="#" class="ui button blue basic" th:href="@{/holic/search(pageNum=${page.getPageNum()}+1,id=${blog.getTypeId()})}" th:unless="${page.isIsLastPage()}">下一页</a>
                 </div>
             </div>
         </div>

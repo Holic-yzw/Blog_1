@@ -5,6 +5,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/* *
+ * @Description: 等增加前端登录功能后，去掉email字段，增加评论者类型（博主还是访客）字段
+ * @author: HOLiC
+ * @date: 2020/7/10
+ **/
 @Data
 @NoArgsConstructor
 public class Comment {

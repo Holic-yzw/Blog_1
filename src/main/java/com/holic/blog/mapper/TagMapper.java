@@ -1,6 +1,8 @@
 package com.holic.blog.mapper;
 
 import com.holic.blog.entity.Tag;
+import com.holic.blog.entity.example.ShowBlogForViewer;
+import com.holic.blog.entity.example.ShowTagForViewer;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,5 +26,11 @@ public interface TagMapper {
     int updateTagById(Tag tag);
 
     int deleteTagById(Long id);
+
+    List<ShowTagForViewer> findAllTagForViewer();
+
+    List<ShowBlogForViewer> findBlogsByTagId(Long id);
+
+    List<Tag> findTagsByBlogId(Long id);
 
 }

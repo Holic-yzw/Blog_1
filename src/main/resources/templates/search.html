@@ -3,7 +3,7 @@
 <head  th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>搜索结果</title>
+    <title>Search | HOLiC</title>
     <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" rel="stylesheet">
     <!--引用自定义的css-->
     <link rel="stylesheet" href="../static/css/me.css">
@@ -49,7 +49,7 @@
         </div>
 
         <div class="ui blue top attached segment">
-            <div class="ui  vertical segment m-padded-all" th:each="blog : ${page.getList()}">
+            <div class="ui  vertical segment m-padded-all m-mobile-clear" th:each="blog : ${page.getList()}">
                 <!--mobile reversed 当分辨率为手机时，两个div会上下换位-->
                 <div class="ui grid stackable mobile reversed" >
                     <div class="eleven wide column">
@@ -76,7 +76,7 @@
                                 </div>
                             </div>
                             <div class="ui right aligned five wide column middle aligned">
-                                    <a href="#" target="_blank" class="ui label blue basic m-padded-mini m-text-thin" th:text="${blog.getTypeName()}">认知提升</a>
+                                    <a href="#" target="_blank" th:href="@{/holic/types/{id}(id=${blog.getTypeId()})}" class="ui label blue basic m-padded-mini m-text-thin" th:text="${blog.getTypeName()}">认知提升</a>
                             </div>
                         </div>
                     </div>
