@@ -24,9 +24,9 @@ public interface ExampleMapper {
     List<ShowBlogForViewer> findBlogByQuery(String query);
 
     // 按分类下博客数量降序，取前6个
-    List<ShowTypeForViewer> fianTypeOfMostBlog();
+    List<ShowTypeForViewer> findTypeOfMostBlog();
     // 按标签下博客数量降序，取前6个
-    List<ShowTagForViewer> fianTagOfMostBlog();
+    List<ShowTagForViewer> findTagOfMostBlog();
 
     List<ShowLatestBlogForViewer> findLatestBlog();
 

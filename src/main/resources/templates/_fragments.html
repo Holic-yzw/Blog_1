@@ -38,7 +38,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="ui dropdown item" th:if="${session.viewer} != null">
+                    <div class="ui dropdown item" th:if="${session.viewer.getId()} > 0">
                         <div >
                             <img class="ui avatar image " src="https://picsum.photos/id/1001/50/50" th:src="@{${session.viewer.getAvatar()}}">
                             <span th:text="${session.viewer.getNickName()}">Tom</span>

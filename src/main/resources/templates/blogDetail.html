@@ -503,7 +503,7 @@ h5,h6{font-size:1em;}
                             </a>
                             <div class="content">
                                 <a class="author">
-                                    <span th:text="${comment.getNickName()}">小红</span ><div class="ui mini basic blue left pointing label m-padded-mini">博主</div>
+                                    <span th:text="${comment.getNickName()}">小红</span ><div th:if="${comment.getViewerType()} == 1" class="ui mini basic blue left pointing label m-padded-mini">博主</div>
                                 </a>
                                 <div class="metadata">
                                     <span class="date" th:text="${comment.getCreateDate()}">Yesterday at 12:30AM</span>
@@ -512,27 +512,27 @@ h5,h6{font-size:1em;}
                                     <p>This has been very useful for my research. Thanks as well!</p>
                                 </div>
                                 <div class="actions">
-                                    <a class="reply" data-commentid="1" data-nickname="Matt" th:attr="data-commentid=${comment.getId()},data-nickname=${comment.getNickName()}" onclick="startReply(this)">回复</a>
+                                    <a class="reply" data-commentid="1" data-nickname="Matt" data-viewertype="0" th:attr="data-commentid=${comment.getId()},data-viewertype=${comment.getViewerType()},data-nickname=${comment.getNickName()}" onclick="startReply(this)">回复</a>
                                 </div>
                             </div>
                             <div class="comments" th:if="${comment.getCount()} != 0">
-                                <div class="comment" th:each="childcomment : ${comment.getChildComment()}">
+                                <div class="comment" th:each="childComment : ${comment.getChildComment()}">
                                     <a class="avatar">
-                                        <img src="../static/images/avatar/jenny.jpg" th:src="@{${childcomment.getAvatar()}}">
+                                        <img src="../static/images/avatar/jenny.jpg" th:src="@{${childComment.getAvatar()}}">
                                     </a>
                                     <div class="content">
                                         <a class="author">
-                                            <span th:text="${childcomment.getNickName()}">小红</span ><div class="ui mini basic blue left pointing label m-padded-mini">博主</div>
-                                            <span th:text="|@ ${childcomment.getParentNickName()}|" style="color: #5286ff">@ 小白</span><div class="ui mini basic blue left pointing label m-padded-mini">博主</div>
+                                            <span th:text="${childComment.getNickName()}">小红</span ><div th:if="${childComment.getViewerType()} == 1" class="ui mini basic blue left pointing label m-padded-mini">博主</div>
+                                            <span th:text="|@ ${childComment.getParentNickName()}|" style="color: #5286ff">@ 小白</span><div th:if="${childComment.getParentViewerType()} == 1" class="ui mini basic blue left pointing label m-padded-mini">博主</div>
                                         </a>
                                         <div class="metadata">
-                                            <span class="date" th:text="${childcomment.getCreateDate()}">Just now</span>
+                                            <span class="date" th:text="${childComment.getCreateDate()}">Just now</span>
                                         </div>
-                                        <div class="text" th:text="${childcomment.getContent()}">
+                                        <div class="text" th:text="${childComment.getContent()}">
                                             Elliot you are always so right :)
                                         </div>
                                         <div class="actions">
-                                            <a class="reply" data-commentid="1" data-nickname="Matt" th:attr="data-commentid=${childcomment.getId()},data-nickname=${childcomment.getNickName()}" onclick="startReply(this)">回复</a>
+                                            <a class="reply" data-commentid="1" data-nickname="Matt" data-viewertype="0" th:attr="data-commentid=${childComment.getId()},data-viewertype=${childComment.getViewerType()},data-nickname=${childComment.getNickName()}" onclick="startReply(this)">回复</a>
                                         </div>
                                     </div>
                                 </div>
@@ -541,26 +541,20 @@ h5,h6{font-size:1em;}
                     </div>
                 </div>
                 <br>
+                <div id="loginInfo">
+                    <p>您还未登录，登陆后可以发表评论，去<a href="#" th:href="@{/holic/login}">登录</a>或<a href="#" th:href="@{/holic/register}">注册</a>，<a href="#" th:href="@{/holic/index}">都不想，我只是随便看看（点击返回首页）</a></p>
+                </div>
                 <div class="ui reply form" id="comment_form">
                     <input type="hidden" name="blogId" th:value="${blog.getId()}">
                     <input type="hidden" name="parentCommentId" value="-1">
                     <input type="hidden" name="parentNickName" value="">
+                    <input type="hidden" name="parentViewerType" value="0">
+                    <input type="hidden" name="nickName" value="">
+                    <input type="hidden" name="avatar" value="">
                     <div class="field">
                         <textarea name="content" placeholder="请留下您的评论"></textarea>
                     </div>
                     <div class="fields">
-                        <div class="field m-mobile-wide m-margin-bottom-mini">
-                            <div class="ui  left icon input">
-                                <i class="user icon"></i>
-                                <input type="text" name="nickname" placeholder="姓名">
-                            </div>
-                        </div>
-                        <div class="field m-mobile-wide m-margin-bottom-mini">
-                            <div class="ui input left icon">
-                                <i class="mail icon"></i>
-                                <input type="text" name="email" placeholder="邮箱">
-                            </div>
-                        </div>
                         <div class="field m-mobile-wide m-margin-bottom-mini">
                             <button class="ui blue basic button m-mobile-wide" type="button" id="comment-but"><i class="edit icon"></i>发布</button>
                         </div>
@@ -638,6 +632,7 @@ h5,h6{font-size:1em;}
 <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script><!--平滑滚动插件-->
 <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script><!--滚动侦测，当滑动到某个位置时显示小工具条-->
 <script th:inline="javascript">
+
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
     });
@@ -714,20 +709,6 @@ h5,h6{font-size:1em;}
                     type :'empty',
                     prompt :'评论不能为空哦~'
                 }]
-            },
-            nickname : {
-                identifier : 'nickname',
-                rules :[{
-                    type :'empty',
-                    prompt :'昵称不能为空哦~'
-                }]
-            },
-            email : {
-                identifier : 'email',
-                rules :[{
-                    type :'email',
-                    prompt :'邮箱不能为空哦~'
-                }]
             }
         }
     });
@@ -741,35 +722,52 @@ h5,h6{font-size:1em;}
         }
     });
     function sendComment() {
+
+        var viewerType = [[${session.viewer.getType()}]];
+        var nickName = [[${session.viewer.getNickName()}]];
+        var avatar = [[${session.viewer.getAvatar()}]];
         $('.ui.comments').load(
-            /*[[@{/holic/comments}]]*/"",{
+            /*[[@{/holic/comments}]]*/"/holic/comments",{
                 "parentCommentId" : $("[name='parentCommentId']").val(),
                 "parentNickName" : $("[name='parentNickName']").val(),
                 "blogId" : $("[name='blogId']").val(),
                 "content" : $("[name='content']").val(),
-                "nickName" : $("[name='nickname']").val(),
-                "email" : $("[name='email']").val()
-                // "userId" :    //后续加上登录功能，只有登录的才能发评论
+                "nickName" : nickName,
+                "avatar" : avatar,
+                "viewerType" : viewerType,
+                "parentViewerType" : $("[name='parentViewerType']").val()
             },function (data, status, xhr) {
                 $(window).scrollTo($('#comment'), 500);
                 $("[name='content']").val('');
-                $("[name='parentCommentId']").val(-1);
+                $("[name='parentCommentId']").val("-1");
                 $("[name='parentNickName']").val("");
+                $("[name='parentViewerType']").val("0");
                 $("[name='content']").attr("placeholder", "请留下您的评论");
             }
         );
     }
     // 页面加载完成后去加载评论列表
     $(function () {
-        $('.ui.comments').load(/*[[@{/holic/comment/{blogId}(blogId=${ blog.getId()})}]]*/"");
+        var session = [[${session.viewer.getId()}]];
+        if (session < 0) {
+            $('#comment_form').hide();
+            $('#loginInfo').show();
+        } else {
+            $('#comment_form').show();
+            $('#loginInfo').hide();
+            // $('.ui.comments').load(/*[[@{/holic/comment/{blogId}(blogId=${ blog.getId()})}]]*/"/holic/comment/{blogId}");
+        }
     });
+
 
     function startReply(obj) {
         var commentId = $(obj).data('commentid'); // 获取自定义的元素的值（有大写字母拿不到值）
         var nickName = $(obj).data('nickname');
+        var viewerType = $(obj).data('viewertype');
         $("[name='content']").attr("placeholder", "@"+nickName).focus(); // attr是用后者替换前者，focus是定位鼠标位置
         $("[name='parentCommentId']").val(commentId);
         $("[name='parentNickName']").val(nickName);
+        $("[name='parentViewerType']").val(viewerType);
         $(window).scrollTo($('#comment_form'), 500);
     };
     $('.ui.dropdown').dropdown();

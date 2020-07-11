@@ -16,8 +16,8 @@ public class Comment {
 
     private Long id;
     private String nickName;
-    private String email;
     private String content;
+    private Integer viewerType; //评论者类型：1管理员，0访客
     private String avatar;
     private String createDate;
 
@@ -26,6 +26,8 @@ public class Comment {
     private Long parentCommentId;
     // 被回复者昵称，冗余字段避免关联查询
     private String parentNickName;
+    // 被回复者类型
+    private Integer parentViewerType;
     // 统计子评论个数
     private Integer count = 0;
     //子评论

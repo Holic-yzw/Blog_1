@@ -43,10 +43,12 @@ public class BlogDetailController {
         Blog blog = blogService.getBlogForView(id);
         CommonUser author = blogService.getAuthorByBlogId(id);
         List<Tag> tags = tagService.getTagByBlogId(id);
+        List<Comment> comments = commentService.listCommentByBlogId(id);
 
         model.addAttribute("blog", blog);
         model.addAttribute("author", author);
         model.addAttribute("tags", tags);
+        model.addAttribute("comments", comments);
 
         blogService.updateViewTimes(id);
 
@@ -57,12 +59,6 @@ public class BlogDetailController {
     public String loadComment(@PathVariable Long blogId, Model model) {
 
         List<Comment> comments = commentService.listCommentByBlogId(blogId);
-
-        if (comments.size() == 0) {
-            ArrayList<Comment> comments1 = new ArrayList<>();
-            model.addAttribute("comments", comments1);
-            return "blogdetail :: commentList";
-        }
 
         model.addAttribute("comments", comments);
         return "blogdetail :: commentList";

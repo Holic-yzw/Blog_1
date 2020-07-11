@@ -44,13 +44,13 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public List<ShowTypeForViewer> listTypes() {
-        List<ShowTypeForViewer> type = exampleMapper.fianTypeOfMostBlog();
+        List<ShowTypeForViewer> type = exampleMapper.findTypeOfMostBlog();
         return type;
     }
 
     @Override
     public List<ShowTagForViewer> listTags() {
-        List<ShowTagForViewer> tag = exampleMapper.fianTagOfMostBlog();
+        List<ShowTagForViewer> tag = exampleMapper.findTagOfMostBlog();
         return tag;
     }
 

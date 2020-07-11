@@ -3,9 +3,9 @@
 <mapper namespace="com.holic.blog.mapper.CommentMapper">
     <insert id="saveComment" parameterType="com.holic.blog.entity.Comment">
       insert into t_comment(
-        nickName,email,content,avatar,createDate,blogId,parentCommentId,parentNickName
+        nickName,content,avatar,createDate,blogId,parentCommentId,parentNickName,viewerType,parentViewerType
       ) values (
-        #{nickName},#{email},#{content},#{avatar},#{createDate},#{blogId},#{parentCommentId},#{parentNickName}
+        #{nickName},#{content},#{avatar},#{createDate},#{blogId},#{parentCommentId},#{parentNickName},#{viewerType},#{parentViewerType}
       )
     </insert>
 

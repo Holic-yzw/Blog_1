@@ -1,6 +1,7 @@
 package com.holic.blog.web;
 
 import com.github.pagehelper.PageInfo;
+import com.holic.blog.entity.CommonUser;
 import com.holic.blog.entity.example.ShowBlogForViewer;
 import com.holic.blog.service.IndexService;
 import org.slf4j.Logger;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/holic")
@@ -23,7 +26,7 @@ public class IndexController {
     private IndexService indexService;
 
     @GetMapping("/index")
-    public String index(Model model, Integer pageNum){
+    public String index(Model model, Integer pageNum, HttpSession session){
 
         pageNum = pageNum == null ? 1 : pageNum;
 
@@ -33,6 +36,12 @@ public class IndexController {
         model.addAttribute("types", indexService.listTypes());
         model.addAttribute("reBlog", indexService.listLatestBlog());
 
+        CommonUser viewer = (CommonUser) session.getAttribute("viewer");
+        if (viewer == null){
+            CommonUser user = new CommonUser();
+            user.setId(-1L); //真实用户id都大于0的，这个是方便评论时登录用的
+            session.setAttribute("viewer", user);
+        }
         return "index";
     }
 

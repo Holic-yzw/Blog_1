@@ -96,7 +96,6 @@ public class CommentServiceImpl implements CommentService {
     public int saveComment(Comment comment) {
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         comment.setCreateDate(date);
-        comment.setAvatar("/images/avatar/joe.jpg"); // 这个后期优化，从前端获取
         int i = commentMapper.saveComment(comment);
 
         if (i ==0) {
