@@ -6,6 +6,7 @@ import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.example.SearchBlogForAdmin;
 import com.holic.blog.entity.example.ShowBlogForAdmin;
 import com.holic.blog.entity.example.ShowBlogForViewer;
+import com.holic.blog.entity.example.ShowLatestBlogForViewer;
 
 import java.util.List;
 import java.util.Map;
@@ -39,5 +40,7 @@ public interface BlogService {
     int updateViewTimes(Long id);
 
     Map<String, List<ShowBlogForViewer>> archiveBlog();
+
+    List<ShowLatestBlogForViewer> listLatestBlog();
 
 }

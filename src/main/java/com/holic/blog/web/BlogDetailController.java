@@ -4,6 +4,7 @@ import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.Comment;
 import com.holic.blog.entity.CommonUser;
 import com.holic.blog.entity.Tag;
+import com.holic.blog.entity.example.ShowLatestBlogForViewer;
 import com.holic.blog.service.BlogService;
 import com.holic.blog.service.CommentService;
 import com.holic.blog.service.TagService;
@@ -72,5 +73,13 @@ public class BlogDetailController {
 
         commentService.saveComment(comment);
         return "redirect:/holic/comment/"+blogId;
+    }
+
+    // 处理footer模板里的最新推荐
+    @GetMapping("/footer/latest")
+    public String footerInfo (Model model) {
+        List<ShowLatestBlogForViewer> blog = blogService.listLatestBlog();
+        model.addAttribute("blogs", blog);
+        return "_fragments :: latestBlog";
     }
 }

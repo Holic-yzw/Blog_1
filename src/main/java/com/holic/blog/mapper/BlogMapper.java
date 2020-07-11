@@ -6,6 +6,7 @@ import com.holic.blog.entity.Link;
 import com.holic.blog.entity.example.SearchBlogForAdmin;
 import com.holic.blog.entity.example.ShowBlogForAdmin;
 import com.holic.blog.entity.example.ShowBlogForViewer;
+import com.holic.blog.entity.example.ShowLatestBlogForViewer;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -44,4 +45,6 @@ public interface BlogMapper {
     List<String> getYearOfAllBlog();
 
     List<ShowBlogForViewer> getAllBlogOfOneYear(String year);
+
+    List<ShowLatestBlogForViewer> findThreeLatestBlogs();
 }

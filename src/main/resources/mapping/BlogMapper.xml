@@ -168,6 +168,10 @@
         WHERE DATE_FORMAT(a.updateDate,'%Y')=#{year} and a.published='on' ORDER BY a.updateDate DESC
     </select>
 
+    <select id="findThreeLatestBlogs" resultType="com.holic.blog.entity.example.ShowLatestBlogForViewer">
+        SELECT a.title,a.id FROM t_blog a where a.recommend='on' and a.published='on'   ORDER BY a.updateDate DESC LIMIT 3
+    </select>
+
     <update id="updateBlogById" parameterType="com.holic.blog.entity.Blog">
         update t_blog a
         set a.title=#{title},a.content=#{content},a.picUrl=#{picUrl},a.source=#{source},

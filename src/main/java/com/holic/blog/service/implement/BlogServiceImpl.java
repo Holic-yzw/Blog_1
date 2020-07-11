@@ -8,6 +8,7 @@ import com.holic.blog.entity.Link;
 import com.holic.blog.entity.example.SearchBlogForAdmin;
 import com.holic.blog.entity.example.ShowBlogForAdmin;
 import com.holic.blog.entity.example.ShowBlogForViewer;
+import com.holic.blog.entity.example.ShowLatestBlogForViewer;
 import com.holic.blog.mapper.BlogMapper;
 import com.holic.blog.service.BlogService;
 import com.holic.blog.util.MarkDownUtils;
@@ -183,6 +184,12 @@ public class BlogServiceImpl implements BlogService {
             throw new RuntimeException("更新浏览次数失败");
         }
         return 1;
+    }
+
+    @Override
+    public List<ShowLatestBlogForViewer> listLatestBlog() {
+        List<ShowLatestBlogForViewer> blogs = blogMapper.findThreeLatestBlogs();
+        return blogs;
     }
 
     @Override

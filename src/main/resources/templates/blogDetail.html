@@ -474,7 +474,7 @@ h5,h6{font-size:1em;}
                 </div>
             </div>
         </div>
-        <div class="ui message positive attached">
+        <div class="ui message positive attached" th:if="${blog.getCopyright()} eq 'on'">
             <div class="ui middle aligned grid">
                 <div class="eleven wide column">
                     <ui class="list">
@@ -489,7 +489,6 @@ h5,h6{font-size:1em;}
                 </div>
             </div>
         </div>
-
         <div class="ui bottom attached segment" th:if="${blog.getComment()} eq 'on'">
 
             <!--留言区域-->
@@ -632,7 +631,7 @@ h5,h6{font-size:1em;}
 <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script><!--平滑滚动插件-->
 <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script><!--滚动侦测，当滑动到某个位置时显示小工具条-->
 <script th:inline="javascript">
-
+    $('#newBlog').load(/*[[@{/holic/footer/latest}]]*/"/holic/footer/latest");
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
     });

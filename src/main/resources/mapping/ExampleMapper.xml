@@ -21,7 +21,7 @@
     </select>
 
     <select id="findLatestBlog" resultType="com.holic.blog.entity.example.ShowLatestBlogForViewer">
-        SELECT a.title,a.id FROM t_blog a where a.recommend='on' and a.published='on'   ORDER BY a.updateDate DESC LIMIT 6;
+        SELECT a.title,a.id FROM t_blog a where a.recommend='on' and a.published='on'   ORDER BY a.updateDate DESC LIMIT 6
     </select>
 
     <select id="findBlogByQuery" resultType="com.holic.blog.entity.example.ShowBlogForViewer">
