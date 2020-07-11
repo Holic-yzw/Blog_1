@@ -15,7 +15,7 @@ public enum AvatarEnum {
     Joe(4, "/images/avatar/joe.jpg"),
     Matt(5, "/images/avatar/matt.jpg"),
     Steve(6, "/images/avatar/steve.jpg"),
-    Stevie(7, "/images/avatar/steie.jpg");
+    Stevie(7, "/images/avatar/stevie.jpg");
 
     private Integer code;
     private String uri;
@@ -24,4 +24,14 @@ public enum AvatarEnum {
         this.code = code;
         this.uri = uri;
     }
+
+    public static String getUriByNo(Integer no){
+        for (AvatarEnum enums : AvatarEnum.values()) {
+            if (no ==enums.getCode()) {
+                return enums.getUri();
+            }
+        }
+        return null;
+    }
+
 }

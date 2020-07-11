@@ -30,5 +30,4 @@ public interface AdminMapper {
 
     int saveCommonUserInfo(CommonUser user);
 
-    String findAvatarUriByAvatarNo(Integer avatarNo);
 }

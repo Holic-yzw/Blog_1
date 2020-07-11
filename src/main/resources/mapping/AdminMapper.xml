@@ -23,7 +23,4 @@
         select salt from t_admin where userName=#{userName}
     </select>
 
-    <select id="findAvatarUriByAvatarNo" resultType="java.lang.String">
-        select * from t_avatar where id=#{id}
-    </select>
 </mapper>

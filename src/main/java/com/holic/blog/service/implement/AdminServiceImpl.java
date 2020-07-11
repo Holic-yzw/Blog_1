@@ -1,5 +1,6 @@
 package com.holic.blog.service.implement;
 
+import com.holic.blog.constant.AvatarEnum;
 import com.holic.blog.entity.CommonUser;
 import com.holic.blog.mapper.AdminMapper;
 import com.holic.blog.service.AdminService;
@@ -39,7 +40,7 @@ public class AdminServiceImpl implements AdminService {
         // 分配头像
         Random random = new Random();
         int avatarNo = random.nextInt(8);
-        String uri = mapper.findAvatarUriByAvatarNo(avatarNo);
+        String uri = AvatarEnum.getUriByNo(avatarNo);
 
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 

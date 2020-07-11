@@ -14,53 +14,64 @@
 <br>
 <br>
 <br>
-    <div class="m-container-blog m-padded-td-max" style="max-width: 25em!important;">
-        <div ui container>
-            <div class="ui middle aligned center aligned grid">
-                <div class="column">
-                    <h2 class="ui teal image header">
-                        <div class="content">
-                           账户注册
+<div class="m-container-blog m-padded-td-max" style="max-width: 25em!important;">
+    <div ui container>
+        <div class="ui middle aligned center aligned grid">
+            <div class="column">
+                <h2 class="ui teal image header">
+                    <div class="content">
+                        账户注册
+                    </div>
+                </h2>
+                <div class="ui stacked segment" id="appear">
+                    <div class="field">
+                        <div class="ui link list">
+                            <h4>注册成功，您想要？</h4>
+                            <a href="#" th:href="@{/holic/login}" class="item m-black">马上去登录</a>
+                            <a href="#" th:href="@{/holic/index}" class="item m-black">先不登陆，随便看看</a>
                         </div>
-                    </h2>
-                    <form class="ui large form" method="post" action="#" th:action="@{/admin/register}">
-                        <div class="ui stacked segment">
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="user icon"></i>
-                                    <input type="text" name="username" placeholder="用户名">
-                                </div>
+                    </div>
+                </div>
+                <div class="ui large form" id="register_form">
+                    <div class="ui stacked segment">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="username" placeholder="用户名最少两个汉字或者5个英文字母">
                             </div>
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="user circle icon"></i>
-                                    <input type="text" name="nickname" placeholder="昵称">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="envelope icon"></i>
-                                    <input type="text" name="email" placeholder="邮箱">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="lock icon"></i>
-                                    <input type="password" name="password" placeholder="密码">
-                                </div>
-                            </div>
-                            <div class="ui fluid large teal submit button">注    册</div>
                         </div>
-                        <div class="ui error message"></div>
-                        <div class="ui negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></div>
-                    </form>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user circle icon"></i>
+                                <input type="text" name="nickname" placeholder="昵称">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="envelope icon"></i>
+                                <input type="text" name="email" placeholder="请确保邮箱格式正确">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password" placeholder="密码长度不能小于8个字符">
+                            </div>
+                        </div>
+                        <div class="ui fluid large teal button" id="register_but">注    册</div>
+                    </div>
+                    <div class="ui error message"></div>
+                    <div class="ui negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <script>
+    $('#appear').hide();
+
     $('.ui.form').form({
         fields :{
             username : {
@@ -69,8 +80,8 @@
                     type :'empty',
                     prompt :'请输入用户名'
                 }, {
-                    type   : 'minLength[10]',
-                    prompt : '用户名长度不能小于8~'
+                    type   : 'minLength[2]',
+                    prompt : '用户名长度不能小于2个汉字或者5个字符~'
                 }]
             },
             nickname : {
@@ -95,13 +106,39 @@
                         prompt : '请输入您的密码'
                     },
                     {
-                        type   : 'minLength[10]',
-                        prompt : '密码长度不能小于10~'
+                        type   : 'minLength[8]',
+                        prompt : '密码长度不能小于8~'
                     }
                 ]
             }
         }
     });
+
+    $('#register_but').click(function () {
+        var boo = $('.ui.form').form('validate form'); // 显式调用表单验证
+        if (boo) {
+            sendRegisterInfo();
+        }
+    });
+
+    function sendRegisterInfo() {
+        $.post(/*[[@{/holic/register}]]*/"",{
+            nickName : $("[name='nickname']").val(),
+            userName : $("[name='username']").val(),
+            passWord : $("[name='password']").val(),
+            email : $("[name='email']").val(),
+        },function (data) {
+            if (data == "succ") {
+                $('#appear').show();
+                $('#register_form').hide();
+            } else {
+                alert("注册失败！请重试吧");
+                location.reload();
+            }
+        });
+    }
+
+
 </script>
 </body>
 </html>
