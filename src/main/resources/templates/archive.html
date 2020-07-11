@@ -43,72 +43,23 @@
                     <h3 class="ui blue header">归档</h3>
                 </div>
                 <div class="right aligned column ">
-                    共 <p class="ui header orange m-inline-block m-text-thin">14</p>篇
+                    共 <p class="ui header orange m-inline-block m-text-thin" th:text="${sum}">14</p>篇
                 </div>
             </div>
         </div>
-        <h3 class="ui header center aligned">2017</h3>
-         <div class="ui vertical fluid menu">
-             <a href="#" target="_blank" class="item">
+        <th:block th:each="item : ${map}">
+            <h3 class="ui header center aligned" th:text="${item.getKey()}">2017</h3>
+            <div class="ui vertical fluid menu">
+                <a href="#" th:href="@{/holic/blog/{id}(id=${blog.getId()})}" target="_blank" class="item" th:each="blog : ${item.getValue()}">
                  <span>
-                     <i class="mini blue circle icon"></i> 关于可以联系的清单
-                     <div class="ui blue basic left pointing label m-padded-mini">9.3</div>
+                     <i class="mini blue circle icon"></i>
+                     <span th:text="${blog.getTitle()}">关于可以联系的清单</span>
+                     <div class="ui blue basic left pointing label m-padded-mini" th:text="${blog.getUpdateDate()}">9.3</div>
                  </span>
-                 <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-             </a>
-             <a href="#" target="_blank" class="item">
-                 <span>
-                     <i class="mini blue circle icon"></i> 关于可以联系的清单
-                     <div class="ui blue basic left pointing label m-padded-mini">9.3</div>
-                 </span>
-                 <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-             </a>
-             <a href="#" target="_blank" class="item">
-                 <span>
-                     <i class="mini blue circle icon"></i> 关于可以联系的清单
-                     <div class="ui blue basic left pointing label m-padded-mini">9.3</div>
-                 </span>
-                 <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-             </a>
-             <a href="#" target="_blank" class="item">
-                 <span>
-                     <i class="mini blue circle icon"></i> 关于可以联系的清单
-                     <div class="ui blue basic left pointing label m-padded-mini">9.3</div>
-                 </span>
-                 <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-             </a>
-         </div>
-        <h3 class="ui header center aligned">2016</h3>
-        <div class="ui vertical fluid menu">
-            <a href="#" target="_blank" class="item">
-                 <span>
-                     <i class="mini blue circle icon"></i> 关于可以联系的清单
-                     <div class="ui blue basic left pointing label m-padded-mini">9.3</div>
-                 </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                 <span>
-                     <i class="mini blue circle icon"></i> 关于可以联系的清单
-                     <div class="ui blue basic left pointing label m-padded-mini">9.3</div>
-                 </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                 <span>
-                     <i class="mini blue circle icon"></i> 关于可以联系的清单
-                     <div class="ui blue basic left pointing label m-padded-mini">9.3</div>
-                 </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-            <a href="#" target="_blank" class="item">
-                 <span>
-                     <i class="mini blue circle icon"></i> 关于可以联系的清单
-                     <div class="ui blue basic left pointing label m-padded-mini">9.3</div>
-                 </span>
-                <div class="ui orange basic left pointing label m-padded-mini">原创</div>
-            </a>
-        </div>
+                    <div class="ui orange basic left pointing label m-padded-mini" th:text="${blog.getSource()}">原创</div>
+                </a>
+            </div>
+        </th:block>
     </div>
 </div>
 <br>

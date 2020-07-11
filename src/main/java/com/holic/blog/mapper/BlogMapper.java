@@ -5,6 +5,7 @@ import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.Link;
 import com.holic.blog.entity.example.SearchBlogForAdmin;
 import com.holic.blog.entity.example.ShowBlogForAdmin;
+import com.holic.blog.entity.example.ShowBlogForViewer;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -39,4 +40,8 @@ public interface BlogMapper {
     CommonUser getAuthorByBlogId(Long id);
 
     int updateViewTimes(Long id);
+
+    List<String> getYearOfAllBlog();
+
+    List<ShowBlogForViewer> getAllBlogOfOneYear(String year);
 }

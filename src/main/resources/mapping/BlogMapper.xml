@@ -159,6 +159,15 @@
         SELECT a.id,a.nickName,a.avatar FROM t_admin a,t_blog b WHERE a.id=b.blogAdminId and b.id=#{id}
     </select>
 
+    <select id="getYearOfAllBlog" resultType="java.lang.String">
+        SELECT DATE_FORMAT(a.updateDate,'%Y') myear FROM t_blog a GROUP BY myear ORDER BY myear DESC
+    </select>
+
+    <select id="getAllBlogOfOneYear" resultType="com.holic.blog.entity.example.ShowBlogForViewer">
+        SELECT a.id,a.title,a.source,DATE_FORMAT(a.updateDate,'%m-%d') updateDate FROM t_blog a
+        WHERE DATE_FORMAT(a.updateDate,'%Y')=#{year} and a.published='on' ORDER BY a.updateDate DESC
+    </select>
+
     <update id="updateBlogById" parameterType="com.holic.blog.entity.Blog">
         update t_blog a
         set a.title=#{title},a.content=#{content},a.picUrl=#{picUrl},a.source=#{source},

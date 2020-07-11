@@ -5,6 +5,10 @@ import com.holic.blog.entity.CommonUser;
 import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.example.SearchBlogForAdmin;
 import com.holic.blog.entity.example.ShowBlogForAdmin;
+import com.holic.blog.entity.example.ShowBlogForViewer;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author：HOLiC_y
@@ -33,5 +37,7 @@ public interface BlogService {
     CommonUser getAuthorByBlogId(Long id);
 
     int updateViewTimes(Long id);
+
+    Map<String, List<ShowBlogForViewer>> archiveBlog();
 
 }

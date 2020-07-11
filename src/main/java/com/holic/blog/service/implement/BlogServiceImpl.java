@@ -7,6 +7,7 @@ import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.Link;
 import com.holic.blog.entity.example.SearchBlogForAdmin;
 import com.holic.blog.entity.example.ShowBlogForAdmin;
+import com.holic.blog.entity.example.ShowBlogForViewer;
 import com.holic.blog.mapper.BlogMapper;
 import com.holic.blog.service.BlogService;
 import com.holic.blog.util.MarkDownUtils;
@@ -18,9 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author：HOLiC_y
@@ -184,5 +183,22 @@ public class BlogServiceImpl implements BlogService {
             throw new RuntimeException("更新浏览次数失败");
         }
         return 1;
+    }
+
+    @Override
+    public Map<String, List<ShowBlogForViewer>> archiveBlog() {
+        List<String> years = blogMapper.getYearOfAllBlog();
+        // HashMap无序，不能用
+        Map<String, List<ShowBlogForViewer>> map = new TreeMap<>(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o2.compareTo(o1);
+            }
+        });
+        for (String year : years) {
+            List<ShowBlogForViewer> blogs = blogMapper.getAllBlogOfOneYear(year);
+            map.put(year, blogs);
+        }
+        return map;
     }
 }

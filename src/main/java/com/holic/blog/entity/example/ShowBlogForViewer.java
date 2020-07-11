@@ -17,6 +17,7 @@ public class ShowBlogForViewer {
     private Long id;
     private String title;
     private String description;
+    private String source;
     private String adminNickName;
     private String adminAvatar;
     private String updateDate;
