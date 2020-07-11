@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/holic")
 public class TypesController {
 
-    private Integer pageSize =1;
+    private Integer pageSize =9;
 
     @Autowired
     private TypeService typeService;

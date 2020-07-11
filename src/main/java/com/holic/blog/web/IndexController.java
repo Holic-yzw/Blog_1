@@ -20,7 +20,7 @@ public class IndexController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final Integer pageSize = 2;
+    private final Integer pageSize = 9;
 
     @Autowired
     private IndexService indexService;

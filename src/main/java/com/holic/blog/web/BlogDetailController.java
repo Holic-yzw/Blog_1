@@ -1,8 +1,8 @@
 package com.holic.blog.web;
 
-import com.holic.blog.entity.CommonUser;
 import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.Comment;
+import com.holic.blog.entity.CommonUser;
 import com.holic.blog.entity.Tag;
 import com.holic.blog.service.BlogService;
 import com.holic.blog.service.CommentService;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
