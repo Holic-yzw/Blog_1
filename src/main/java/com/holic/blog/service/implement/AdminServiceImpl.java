@@ -7,6 +7,7 @@ import com.holic.blog.service.AdminService;
 import com.holic.blog.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -56,6 +57,19 @@ public class AdminServiceImpl implements AdminService {
             throw new RuntimeException("保存用户注册信息失败！");
         }
         return 1;
+    }
+
+    @Override
+    public int checkRegisterData(String username, String nickname, String email) {
+        int data = 1;
+        boolean allNull = StringUtils.isEmptyOrWhitespace(username) && StringUtils.isEmptyOrWhitespace(nickname) &&
+                StringUtils.isEmptyOrWhitespace(email);
+        if (allNull) {
+            data = 0;
+        } else {
+            data = mapper.checkRegisterData(username, nickname, email);
+        }
+        return data;
     }
 
 

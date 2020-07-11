@@ -23,4 +23,19 @@
         select salt from t_admin where userName=#{userName}
     </select>
 
+    <select id="checkRegisterData" resultType="java.lang.Integer">
+        select count(*) from t_admin
+        <where>
+            <if test="username != null and username != ''">
+                userName=#{username}
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and nickName = #{nickname}
+            </if>
+            <if test="email != null and email != ''">
+                and email=#{email}
+            </if>
+        </where>
+    </select>
+
 </mapper>

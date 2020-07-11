@@ -4,10 +4,7 @@ import com.holic.blog.entity.CommonUser;
 import com.holic.blog.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Title: RegisterController
@@ -39,8 +36,12 @@ public class RegisterController {
         return result;
     }
 
-    @GetMapping("/")
-    public String checkItem(String param) {
-        return "";
+    @ResponseBody
+    @PostMapping("/registerCheck")
+    public Integer checkItem(@RequestParam String username, @RequestParam String nickname, @RequestParam String email) {
+
+        int data = adminService.checkRegisterData(username, nickname, email);
+
+        return data;
     }
 }

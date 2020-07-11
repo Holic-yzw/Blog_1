@@ -30,4 +30,6 @@ public interface AdminMapper {
 
     int saveCommonUserInfo(CommonUser user);
 
+    int checkRegisterData(@Param("username") String username, @Param("nickname") String nickname, @Param("email") String email);
+
 }
