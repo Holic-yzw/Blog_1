@@ -2,6 +2,8 @@ package com.holic.blog.web;
 
 import com.holic.blog.entity.CommonUser;
 import com.holic.blog.service.AdminService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/holic")
 public class RegisterController {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private AdminService adminService;
 
@@ -26,6 +30,9 @@ public class RegisterController {
     @ResponseBody
     @PostMapping("/register")
     public String registerViewer(CommonUser user) {
+
+        logger.info("\n 用户注册信息：{} \n", user);
+
         int i = adminService.registerNewViewer(user);
         String result = "";
         if (i == 1) {

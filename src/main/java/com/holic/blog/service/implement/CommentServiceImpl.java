@@ -3,6 +3,8 @@ package com.holic.blog.service.implement;
 import com.holic.blog.entity.Comment;
 import com.holic.blog.mapper.CommentMapper;
 import com.holic.blog.service.CommentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +22,8 @@ import java.util.*;
 @Service
 public class CommentServiceImpl implements CommentService {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     ArrayList<Comment> rootComments = new ArrayList<>();
     ArrayList<Comment> childComments = new ArrayList<>();
 
@@ -29,7 +33,11 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> listCommentByBlogId(Long id) {
         List<Comment> list = commentMapper.findCommentByBlogId(id);
-        return apartComment(list);
+        List<Comment> commentList = apartComment(list);
+
+        logger.info("\n 博客条件查询结果 {} \n ", commentList);
+
+        return commentList;
     }
 
     private List<Comment> apartComment(List<Comment> comments){
@@ -43,6 +51,7 @@ public class CommentServiceImpl implements CommentService {
             }
         }
 
+        // 降序set
         TreeSet<Comment> sort = new TreeSet<>(new Comparator<Comment>() {
             @Override
             public int compare(Comment o1, Comment o2) {
@@ -96,6 +105,9 @@ public class CommentServiceImpl implements CommentService {
     public int saveComment(Comment comment) {
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         comment.setCreateDate(date);
+
+        logger.info("\n 评论信息入库 {} \n ", comment);
+
         int i = commentMapper.saveComment(comment);
 
         if (i ==0) {

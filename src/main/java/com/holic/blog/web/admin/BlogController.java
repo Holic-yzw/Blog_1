@@ -28,7 +28,7 @@ public class BlogController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final Integer pageSize = 5;
+    private final Integer pageSize = 10;
 
     @Autowired
     private BlogService blogService;
@@ -54,7 +54,7 @@ public class BlogController {
         Integer pageNum = blog.getPage();
         pageNum = pageNum == null ? 1 : pageNum;
 
-        logger.info("\n 日志条件查询入参：{} \n ", blog);
+        logger.info("\n 博客条件查询入参：{} \n ", blog);
         PageInfo<ShowBlogForAdmin> newPage = blogService.listBlog(pageNum, pageSize, blog);
         model.addAttribute("page", newPage);
         // 返回一个thymeleaf的片段
@@ -90,7 +90,7 @@ public class BlogController {
     @PostMapping("/blogs/add")
     public String add(Blog blog, RedirectAttributes attributes) {
 
-        logger.info("\n 日志入参：{} \n", blog);
+        logger.info("\n 新增博客入参：{} \n", blog);
 
         if (blog.getId() == null) {
             int i = blogService.saveBlog(blog);

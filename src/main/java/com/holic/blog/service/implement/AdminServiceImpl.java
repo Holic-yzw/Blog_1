@@ -5,6 +5,8 @@ import com.holic.blog.entity.CommonUser;
 import com.holic.blog.mapper.AdminMapper;
 import com.holic.blog.service.AdminService;
 import com.holic.blog.util.MD5Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
@@ -15,6 +17,8 @@ import java.util.Random;
 
 @Service
 public class AdminServiceImpl implements AdminService {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private AdminMapper mapper;
@@ -51,6 +55,9 @@ public class AdminServiceImpl implements AdminService {
         user.setAvatar(uri);
         user.setCreateDate(date);
         user.setUpdateDate(date);
+
+        logger.info("\n 用户注册信息入库信息：{} \n", user);
+
         int i = mapper.saveCommonUserInfo(user);
 
         if (i == 0) {

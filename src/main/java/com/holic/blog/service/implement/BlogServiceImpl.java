@@ -31,8 +31,6 @@ public class BlogServiceImpl implements BlogService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
     @Autowired
     private BlogMapper blogMapper;
 
@@ -46,7 +44,7 @@ public class BlogServiceImpl implements BlogService {
         PageHelper.startPage(pageNum, pageSize);
         List<ShowBlogForAdmin> list = blogMapper.findAllBlogBySearch(blog);
 
-        logger.info("\n 日志条件查询结果 {} \n ", list.toString());
+        logger.info("\n 博客条件查询结果 {} \n ", list.toString());
 
         PageInfo page = new PageInfo(list);
         return page;
@@ -94,10 +92,18 @@ public class BlogServiceImpl implements BlogService {
     @Transactional
     @Override
     public int saveBlog(Blog blog) {
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         blog.setCreateDate(date);
         blog.setUpdateDate(date);
+
+        logger.info("\n 博客入库信息 {} \n ", blog);
+
         int i = blogMapper.saveBlog(blog);
+
+        if (i == 0) {
+            throw new RuntimeException("博客保存失败");
+        }
 
         Long blogId = blog.getId();
         String tagIds = blog.getBlogTagId();
@@ -108,9 +114,17 @@ public class BlogServiceImpl implements BlogService {
     @Transactional
     @Override
     public int updateBlog(Blog blog) {
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         blog.setUpdateDate(date);
+
+        logger.info("\n 博客入库信息 {} \n ", blog);
+
         int i = blogMapper.updateBlogById(blog);
+
+        if (i == 0) {
+            throw new RuntimeException("博客保存失败");
+        }
 
         Long blogId = blog.getId();
         String tagIds = blog.getBlogTagId();
