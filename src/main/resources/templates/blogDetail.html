@@ -46,7 +46,7 @@
                            along with any of the animation names (don't forget the animate__ prefix!)     -->
 <div id="waypoint" class=" m-container-blog m-padded-td-large animate__animated animate__fadeIn">
     <div class="ui container" style="opacity: 0.9">
-        <div class="ui segment top attached"><!--太宽，要调-->
+        <div class="ui segment top attached m-padded-author">
             <div class="ui horizontal link list">
                 <div class="item middle aligned">
                     <img src="https://picsum.photos/id/1001/100/150" th:src="@{${author.getAvatar()}}" class="ui avatar image">
@@ -563,15 +563,7 @@ h5,h6{font-size:1em;}
         </div>
     </div>
 
-    <!--右侧导航小工具-->
-    <div class="m-fixed m-right-bottom m-padded-middle" style="display: none;" id="toolbar">
-        <div class="ui vertical icon buttons  ">
-            <button type="button" class="ui blue button toc-catalogue" >目录</button>
-            <a href="#comment" class="ui blue button">留言</a>
-            <button id="wechat" class="ui icon button"><i class="weixin icon"></i></button>
-            <div id="toTop" class="ui icon button"><i class="chevron up icon"></i></div>
-        </div>
-    </div>
+
     <!--承载生成的目录-->
     <div class="ui flowing popup transition hidden catalogue " style="width: 250px!important;">
         <ol class="js-toc"></ol>
@@ -622,7 +614,17 @@ h5,h6{font-size:1em;}
         </div>
     </div>
 </footer>
-
+<!--右侧导航小工具  >>之所以把小工具的代码放到最后，是因为footer指定了opacity属性且小于一，他的层级比一般的层要高；-->
+<!--同时小工具设置了position属性和z-index属性（大于1），按网上的教程此时小工具应该在footer上边，但并不是，后来把footer-->
+<!--的opacity属性取消了，但还是不行，最后只有把小工具的代码放最后，解决了-->
+<div class="m-fixed m-right-bottom m-padded-toolbar" style="display: none;" id="toolbar">
+    <div class="ui vertical icon buttons  ">
+        <button type="button" class="ui blue button toc-catalogue" >目录</button>
+        <a href="#comment" class="ui blue button">留言</a>
+        <button id="wechat" class="ui icon button"><i class="weixin icon"></i></button>
+        <div id="toTop" class="ui icon button"><i class="chevron up icon"></i></div>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
