@@ -2,6 +2,7 @@ package com.holic.blog.service.implement;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.holic.blog.ResourceNotFoundException;
 import com.holic.blog.entity.CommonUser;
 import com.holic.blog.entity.Blog;
 import com.holic.blog.entity.Link;
@@ -44,6 +45,10 @@ public class BlogServiceImpl implements BlogService {
         PageHelper.startPage(pageNum, pageSize);
         List<ShowBlogForAdmin> list = blogMapper.findAllBlogBySearch(blog);
 
+        if (list.size() == 0) {
+            throw new ResourceNotFoundException("所访问的博客不存在！");
+        }
+
         logger.info("\n 博客条件查询结果 {} \n ", list.toString());
 
         PageInfo page = new PageInfo(list);
@@ -61,6 +66,10 @@ public class BlogServiceImpl implements BlogService {
     public PageInfo<ShowBlogForAdmin> listBlog(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<ShowBlogForAdmin> list = blogMapper.findAllBlog();
+
+        if (list.size() == 0) {
+            throw new ResourceNotFoundException("所访问的博客不存在！");
+        }
         PageInfo page = new PageInfo(list);
         return page;
     }
@@ -69,7 +78,7 @@ public class BlogServiceImpl implements BlogService {
     public Blog getBlog(Long id) {
         Blog blog = blogMapper.getBlogById(id);
         if (blog == null) {
-            throw new RuntimeException("查找博客失败");
+            throw new ResourceNotFoundException("所访问的博客不存在！");
         }
         return blog;
     }
@@ -84,6 +93,9 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog getBlogForView(Long id) {
         Blog blog = blogMapper.getBlogById(id);
+        if (blog == null) {
+            throw new ResourceNotFoundException("所访问的博客不存在！");
+        }
         String content = blog.getContent();
         blog.setContent(MarkDownUtils.markdownToHtmlAdvice(content));
         return blog;
@@ -99,16 +111,12 @@ public class BlogServiceImpl implements BlogService {
 
         logger.info("\n 博客入库信息 {} \n ", blog);
 
-        int i = blogMapper.saveBlog(blog);
-
-        if (i == 0) {
-            throw new RuntimeException("博客保存失败");
-        }
+        blogMapper.saveBlog(blog);
 
         Long blogId = blog.getId();
         String tagIds = blog.getBlogTagId();
         saveLink(blogId, tagIds);
-        return i;
+        return 1;
     }
 
     @Transactional
@@ -120,11 +128,7 @@ public class BlogServiceImpl implements BlogService {
 
         logger.info("\n 博客入库信息 {} \n ", blog);
 
-        int i = blogMapper.updateBlogById(blog);
-
-        if (i == 0) {
-            throw new RuntimeException("博客保存失败");
-        }
+        blogMapper.updateBlogById(blog);
 
         Long blogId = blog.getId();
         String tagIds = blog.getBlogTagId();
@@ -136,7 +140,7 @@ public class BlogServiceImpl implements BlogService {
             saveLink(blogId, tagIds);
         }
 
-        return i;
+        return 1;
     }
 
     private void saveLink(Long blogId, String tagIds) {

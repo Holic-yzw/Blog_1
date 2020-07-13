@@ -32,6 +32,10 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> listCommentByBlogId(Long id) {
+        // 每次进来先把容器清理了，不然会有以前的数据
+        rootComments.clear();
+        childComments.clear();
+
         List<Comment> list = commentMapper.findCommentByBlogId(id);
 
         if (list.size() == 0) {
@@ -113,11 +117,8 @@ public class CommentServiceImpl implements CommentService {
 
         logger.info("\n 评论信息入库 {} \n ", comment);
 
-        int i = commentMapper.saveComment(comment);
+        commentMapper.saveComment(comment);
 
-        if (i ==0) {
-            throw new RuntimeException("保存评论失败");
-        }
         return 1;
     }
 }

@@ -58,11 +58,8 @@ public class AdminServiceImpl implements AdminService {
 
         logger.info("\n 用户注册信息入库信息：{} \n", user);
 
-        int i = mapper.saveCommonUserInfo(user);
+        mapper.saveCommonUserInfo(user);
 
-        if (i == 0) {
-            throw new RuntimeException("保存用户注册信息失败！");
-        }
         return 1;
     }
 
