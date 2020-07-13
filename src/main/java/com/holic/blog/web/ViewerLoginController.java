@@ -46,7 +46,7 @@ public class ViewerLoginController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.removeAttribute("viewer");
-        return "redirect:/holic/login";
+        return "redirect:/holic/index";
     }
 
 }

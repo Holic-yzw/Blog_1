@@ -6,19 +6,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @Title：LoginInterceptor
- * @Description：登录过滤器
- * @author：Administrator
- * @date：2020/6/4
+ * @Title: ViewerLoginInterceptor
+ * @author: HOLiC
+ * @date: 2020/7/13
  */
-public class LoginInterceptor extends HandlerInterceptorAdapter {
+public class ViewerLoginInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (request.getSession().getAttribute("admin") == null) {
-            response.sendRedirect("/admin");
+        if (request.getSession().getAttribute("viewer") == null) {
+            response.sendRedirect("/holic/index");
             return false;
         }
         return true;
     }
+
 }

@@ -39,7 +39,7 @@ public class IndexController {
         CommonUser viewer = (CommonUser) session.getAttribute("viewer");
         if (viewer == null){
             CommonUser user = new CommonUser();
-            user.setId(-1L); //真实用户id都大于0的，这个是方便评论时登录用的
+            user.setId(-1L); //真实用户id都大于0，添加此虚拟用户防止后续浏览时报错
             session.setAttribute("viewer", user);
         }
         return "index";
