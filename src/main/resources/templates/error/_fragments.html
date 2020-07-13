@@ -19,18 +19,18 @@
 </head>
 <body>
     <!--导航部分-->
-    <nav th:fragment="errornav(n)" class="ui inverted attached segment m-padded-td-mini m-shadow" >
+    <nav th:fragment="errornav(n)" class="ui inverted attached segment m-padded-td-mini m-shadow" style="background-color: #0087d0; opacity: 0.8">
         <div class="ui container">
             <!--stackable 可堆叠的，屏幕宽度不够时会自动上下叠起来-->
-            <div class="ui inverted secondary menu stackable">
-                <h2 class="ui green header item">Blog</h2>
-                <a href="index.html" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class=" home icon"></i>首页</a>
-                <a href="types.html" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="  idea icon"></i>分类</a>
-                <a href="tags.html" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class=" tags icon"></i>标签</a>
-                <a href="archive.html" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class=" clone icon"></i>归档</a>
-                <a href="about.html" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class=" info icon"></i>关于我</a>
+            <div class="ui secondary menu stackable">
+                <h2 class="ui header item">HOLiC</h2>
+                <a class="m-item item m-mobile-hide"><i class=" home icon"></i>首页</a>
+                <a class="m-item item m-mobile-hide"><i class=" idea icon"></i>分类</a>
+                <a class="m-item item m-mobile-hide"><i class=" tags icon"></i>标签</a>
+                <a class="m-item item m-mobile-hide"><i class=" clone icon"></i>时间轴</a>
+                <a class="m-item item m-mobile-hide"><i class=" info icon"></i>关于我</a>
                 <div class="right m-item  item m-mobile-hide">
-                    <div class="ui icon inverted transparent input">
+                    <div class="ui icon blue input">
                         <input type="text" placeholder="Search....">
                         <i class="search link icon"></i>
                     </div>
@@ -43,10 +43,10 @@
     </nav>
 
     <!--底部-->
-    <footer  th:fragment="footer" class="ui inverted vertical segment m-padded-td-max">
-        <div class="ui center aligned container">
+    <footer  th:fragment="footer" class="ui vertical segment m-padded-td-max" style="background-color: #0087d0; opacity: 0.8">
+        <div class="ui container m-padding-footer">
             <!--semantic UI 将一个块划分为16份,divided属性是每列间的分割线-->
-            <div class="ui  inverted divided stackable grid">
+            <div class="ui divided stackable grid">
                 <!--一个column是一列，共分为4列-->
                 <div class="three wide column ">
                     <div class="ui inverted   link item">
@@ -56,27 +56,32 @@
                     </div>
                 </div>
                 <div class="three wide column ">
-                    <h4 class="ui inverted header m-opacity-mini ">最新博客</h4>
+                    <h3 class="ui inverted header">最新博客</h3>
                     <div class="ui inverted link list">
-                        <a href ="#" class="item">小米10 Pro</a>
-                        <a href ="#" class="item">MIUI 12</a>
-                        <a href ="#" class="item">超级壁纸</a>
+                        <a  class="item">暂无推荐</a>
+                        <a  class="item">暂无推荐</a>
+                        <a  class="item">暂无推荐</a>
                     </div>
                 </div>
                 <div class="three wide column ">
-                    <h4 class="ui inverted header m-opacity-mini">联系我</h4>
+                    <h3 class="ui inverted header">联系我</h3>
                     <div class="ui inverted link list">
-                        <a href ="#" class="item">Email：yinzhiwen1206@163.com</a>
-                        <a href ="#" class="item">QQ：314649708</a>
+                        <a  class="item">Email：</a>
+                        <a  class="item">yinzhiwen1206@163.com</a>
+                        <a  class="item">QQ：314649708</a>
                     </div>
                 </div>
                 <div class="seven wide column ">
-                    <h4 class="ui inverted header m-opacity-mini">Holic</h4>
-                    <p>这是我的个人博客，第一次做，有点捞，各位轻喷</p>
+                    <h3 class="ui inverted header">《永遇乐·京口北固亭怀古》--辛弃疾</h3>
+                    <div class="ui inverted link list">
+                        <a class="item">千古江山，英雄无觅孙仲谋处。舞榭歌台，风流总被雨打风吹去。斜阳草树，寻常巷陌，人道寄奴曾住。想当年，金戈铁马，气吞万里如虎。</a>
+                        <a class="item">元嘉草草，封狼居胥，赢得仓皇北顾。四十三年，望中犹记，烽火扬州路。可堪回首，佛狸祠下，一片神鸦社鼓。凭谁问、廉颇老矣，尚能饭否？ </a>
+                    </div>
                 </div>
             </div>
-            <div class="ui inverted section divider">
-                <p class="m-text-thin m-text-spaced m-opacity-tiny">Designed, developed, and maintained by:Holic</p>
+            <div class="ui inverted section divider"></div>
+            <div class="ui center aligned grid">
+                <h3 class="m-text-thin m-text-spaced">Designed, developed, and maintained by：HOLiC</h3>
             </div>
         </div>
     </footer>

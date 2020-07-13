@@ -33,11 +33,16 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> listCommentByBlogId(Long id) {
         List<Comment> list = commentMapper.findCommentByBlogId(id);
-        List<Comment> commentList = apartComment(list);
 
-        logger.info("\n 博客条件查询结果 {} \n ", commentList);
+        if (list.size() == 0) {
+            return list;
+        } else {
+            List<Comment> commentList = apartComment(list);
 
-        return commentList;
+            logger.info("\n 评论查询结果 {} \n ", commentList);
+
+            return commentList;
+        }
     }
 
     private List<Comment> apartComment(List<Comment> comments){
