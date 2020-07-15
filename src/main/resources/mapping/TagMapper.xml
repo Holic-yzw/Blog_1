@@ -49,6 +49,7 @@
           a.picUrl,c.name typeName,c.id typeId
         FROM t_blog a,t_admin b,t_type c,t_link d
         WHERE a.blogAdminId=b.id and a.blogTypeId=c.id and a.published='on' and a.id = d.blogId and d.tagId=#{id}
+        ORDER BY a.viewTimes DESC
     </select>
 
     <select id="findTagsByBlogId" resultType="com.holic.blog.entity.Tag">

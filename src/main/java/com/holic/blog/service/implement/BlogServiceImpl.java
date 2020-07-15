@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -103,7 +104,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Transactional
     @Override
-    public int saveBlog(Blog blog) {
+    public int  saveBlog(Blog blog) {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         blog.setCreateDate(date);
@@ -115,7 +116,10 @@ public class BlogServiceImpl implements BlogService {
 
         Long blogId = blog.getId();
         String tagIds = blog.getBlogTagId();
-        saveLink(blogId, tagIds);
+        if (!StringUtils.isEmptyOrWhitespace(tagIds)) {
+            saveLink(blogId, tagIds);
+        }
+
         return 1;
     }
 
