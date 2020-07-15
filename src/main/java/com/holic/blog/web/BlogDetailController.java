@@ -61,7 +61,7 @@ public class BlogDetailController {
         List<Comment> comments = commentService.listCommentByBlogId(blogId);
 
         model.addAttribute("comments", comments);
-        return "blogdetail :: commentList";
+        return "blogDetail :: commentList";
     }
 
     @PostMapping("/comments")
