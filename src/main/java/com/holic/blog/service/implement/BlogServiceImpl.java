@@ -46,10 +46,6 @@ public class BlogServiceImpl implements BlogService {
         PageHelper.startPage(pageNum, pageSize);
         List<ShowBlogForAdmin> list = blogMapper.findAllBlogBySearch(blog);
 
-        if (list.size() == 0) {
-            throw new ResourceNotFoundException("所访问的博客不存在！");
-        }
-
         logger.info("\n 博客条件查询结果 {} \n ", list.toString());
 
         PageInfo page = new PageInfo(list);
