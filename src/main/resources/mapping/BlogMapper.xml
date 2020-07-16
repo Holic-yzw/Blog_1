@@ -174,10 +174,47 @@
 
     <update id="updateBlogById" parameterType="com.holic.blog.entity.Blog">
         update t_blog a
-        set a.title=#{title},a.content=#{content},a.picUrl=#{picUrl},a.source=#{source},
-              a.appreciation=#{appreciation},a.copyright=#{copyright},a.recommend=#{recommend},
-              a.published=#{published},a.comment=#{comment},a.updateDate=#{updateDate},a.description=#{description},
-              a.blogTypeId=#{blogTypeId},a.blogAdminId=#{blogAdminId}
+        <set>
+            <if test="title != null and title != ''">
+                a.title=#{title},
+            </if>
+            <if test="content != null and content != ''">
+                a.content=#{content},
+            </if>
+            <if test="picUrl != null and picUrl != ''">
+                a.picUrl=#{picUrl},
+            </if>
+            <if test="source != null and source != ''">
+                a.source=#{source},
+            </if>
+            <if test="appreciation != null and appreciation != ''">
+                a.appreciation=#{appreciation},
+            </if>
+            <if test="copyright != null and copyright != ''">
+                a.copyright=#{copyright},
+            </if>
+            <if test="recommend != null and recommend != ''">
+                a.recommend=#{recommend},
+            </if>
+            <if test="published != null and published != ''">
+                a.published=#{published},
+            </if>
+            <if test="comment != null and comment != ''">
+                a.comment=#{comment},
+            </if>
+            <if test="updateDate != null and updateDate != ''">
+                a.updateDate=#{updateDate},
+            </if>
+            <if test="description != null and description != ''">
+                a.description=#{description},
+            </if>
+            <if test="blogTypeId != null and blogTypeId != ''">
+                a.blogTypeId=#{blogTypeId},
+            </if>
+            <if test="blogAdminId != null and blogAdminId != ''">
+                a.blogAdminId=#{blogAdminId}
+            </if>
+        </set>
         where a.id=#{id}
     </update>
 
