@@ -690,7 +690,7 @@ h5,h6{font-size:1em;}
     });
 
     // 生成文章对应的二维码
-    var serverUrl = "www.doncoi.top"; // 项目完成后买个域名换上去，再组个云服务器，美汁汁
+    var serverUrl = "http://www.doncoi.top"; // 添加http://协议头，微信扫码直接打开页面
     var uri=/*[[@{/holic/blog/{id}(id=${blog.getId()})}]]*/""; // 如果静态是空字符串，一定要放在后边，不然会报错图片大小为800*491   https://picsum.photos/images 图片网站
     var qrcode = new QRCode("qrcode", { // 第一个参数是承载生成的二维码的元素的ID
         text: serverUrl+uri,
