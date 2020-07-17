@@ -24,12 +24,12 @@
         <!--stackable 可堆叠的，屏幕宽度不够时会自动上下叠起来-->
         <div class="ui secondary menu stackable">
             <h2 class="ui header item">HOLiC</h2>
-            <a href="#" th:href="@{/holic/index}" class="item  m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class=" home icon"></i>首页</a>
-            <a href="#" th:href="@{/holic/types/-1}" class="item  m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class=" idea icon"></i>分类</a>
-            <a href="#" th:href="@{/holic/tags/-1}" class="item  m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class=" tags icon"></i>标签</a>
-            <a href="#" th:href="@{/holic/archive}" class="item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class=" clone icon"></i>时间轴</a>
-            <a href="#" th:href="@{/holic/about}" class="item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class=" info icon"></i>关于我</a>
-            <div class="right  menu m-mobile-hide">
+            <a href="#" th:href="@{/holic/index}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class=" home icon"></i>首页</a>
+            <a href="#" th:href="@{/holic/types/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class=" idea icon"></i>分类</a>
+            <a href="#" th:href="@{/holic/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class=" tags icon"></i>标签</a>
+            <a href="#" th:href="@{/holic/archive}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class=" clone icon"></i>时间轴</a>
+            <a href="#" th:href="@{/holic/about}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class=" info icon"></i>关于我</a>
+            <div class="right m-item menu m-mobile-hide">
                 <div class="ui item">
                     <form name="search" action="#" th:action="@{/holic/search}" target="_blank" method="post">
                         <div class="ui icon blue  input">
