@@ -19,7 +19,7 @@ public class LoginController {
     @Autowired
     private AdminService service;
 
-    @GetMapping
+    @GetMapping("/h")
     public String toAdminLoginPage(){
         return "admin/login";
     }
