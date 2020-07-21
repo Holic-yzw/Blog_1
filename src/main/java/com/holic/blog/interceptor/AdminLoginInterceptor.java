@@ -16,7 +16,7 @@ public class AdminLoginInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (request.getSession().getAttribute("admin") == null) {
-            response.sendRedirect("/admin");
+            response.sendRedirect("/admin/h");
             return false;
         }
         return true;

@@ -18,7 +18,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
     protected void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AdminLoginInterceptor()) // 将自定义的拦截器加入
                 .addPathPatterns("/admin/**") // 要拦截的路径
-                .excludePathPatterns("/admin") // 放行的路径:1登录页面，否正无法显示该页面
+                .excludePathPatterns("/admin/h") // 放行的路径:1登录页面，否正无法显示该页面
                 .excludePathPatterns("/admin/login");// 放行的路径:1登录路径，否正登录表单无法提交
 
         registry.addInterceptor(new ViewerLoginInterceptor())
