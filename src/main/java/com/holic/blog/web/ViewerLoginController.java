@@ -31,7 +31,7 @@ public class ViewerLoginController {
     @PostMapping("/login")
     public String login(@RequestParam String username,@RequestParam String password,
                                         HttpSession session,RedirectAttributes attributes) {
-        CommonUser viewer = service.checkAdmin(username, password);
+        CommonUser viewer = service.checkView(username, password);
 
         if (viewer != null) {
             viewer.setPassWord(null);

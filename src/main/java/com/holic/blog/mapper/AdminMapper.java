@@ -26,7 +26,9 @@ public interface AdminMapper {
 
     CommonUser checkAdminByUserNameAndPassWord(@Param("userName") String userName, @Param("passWord") String passWord);
 
-    String getSaltByUserName(String userName);
+    String getSaltByViewerName(String userName);
+
+    String getSaltByAdminName(String userName);
 
     int saveCommonUserInfo(CommonUser user);
 

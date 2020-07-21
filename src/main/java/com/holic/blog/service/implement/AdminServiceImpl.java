@@ -25,11 +25,19 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public CommonUser checkAdmin(String userName, String passWord) {
-        String salt = mapper.getSaltByUserName(userName);
+        String salt = mapper.getSaltByAdminName(userName);
         String word = MD5Utils.findPassWord(salt, passWord);
         CommonUser admin = mapper.checkAdminByUserNameAndPassWord(userName, word);
 
         return admin;
+    }
+
+    @Override
+    public CommonUser checkView(String userName, String passWord) {
+        String salt = mapper.getSaltByViewerName(userName);
+        String word = MD5Utils.findPassWord(salt, passWord);
+        CommonUser viewer = mapper.checkAdminByUserNameAndPassWord(userName, word);
+        return viewer;
     }
 
     @Override

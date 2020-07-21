@@ -19,8 +19,8 @@
         select * from t_admin where userName=#{userName} and passWord=#{passWord}
     </select>
 
-    <select id="getSaltByUserName" resultType="string">
-        select salt from t_admin where userName=#{userName}
+    <select id="getSaltByAdminName" resultType="string">
+        select salt from t_admin where userName=#{userName} and type=1
     </select>
 
     <select id="checkRegisterData" resultType="java.lang.Integer">
@@ -36,6 +36,10 @@
                 and email=#{email}
             </if>
         </where>
+    </select>
+
+    <select id="getSaltByViewerName" resultType="java.lang.String">
+      select salt from t_admin where userName=#{userName}
     </select>
 
 </mapper>
