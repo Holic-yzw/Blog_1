@@ -1,11 +1,9 @@
 body{
     background-image: url("../images/bg.jpeg");
     background-attachment: fixed;
-    background-size: 100%;
-    no-repeat: center top;
+    background-size: 100% 100%;
+    background-repeat:no-repeat;
     font: 14px/1.5 Tahoma,Helvetica,Arial,'宋体',sans-serif;
-    height: 100%;
-    width: 100%;
 }
 
 .m-padded-all{
@@ -161,7 +159,7 @@ body{
 }
 
 /*手机端配置*/
-@media screen and (max-width: 768px){
+@media screen and (max-width: 1081px){
     .m-mobile-hide{
         display: none !important;
     }
